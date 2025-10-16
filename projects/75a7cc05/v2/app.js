@@ -555,16 +555,17 @@ async function cleanupOldMessages() {
 // AI初期化
 async function initializeAI() {
   try {
-    // Google AI API を直接使用
-    genAI = {
-      apiKey: firebaseConfig.apiKey,
-      endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
-    };
+    // Genkit AIを初期化（Firebase AI Logic SDK使用）
+    const { genkit, googleAI, gemini15Flash } = window.genkitAI;
 
-    // aiModelフラグを設定
-    aiModel = true;
+    genAI = genkit({
+      plugins: [googleAI({ apiKey: firebaseConfig.apiKey })],
+    });
 
-    console.log('AI初期化完了 (Google AI API - Gemini 1.5 Flash)');
+    // Gemini 1.5 Flash モデルを使用
+    aiModel = gemini15Flash;
+
+    console.log('AI初期化完了 (Firebase AI Logic SDK - Gemini 1.5 Flash)');
     return true;
   } catch (error) {
     console.error('AI初期化エラー:', error);
@@ -763,32 +764,28 @@ async function generateAIResponse(message) {
 上記のメッセージに対して、自然な会話として返答してください。
 返答は簡潔に、1-3文程度で。`;
 
-    // Google AI APIを直接呼び出し
-    const response = await fetch(`${genAI.endpoint}?key=${genAI.apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    // Genkit AIフローで生成
+    const flow = genAI.defineFlow(
+      {
+        name: 'chatResponse',
+        inputSchema: 'string',
+        outputSchema: 'string',
       },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: prompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 200,
-        }
-      })
-    });
+      async (input) => {
+        const result = await genAI.generate({
+          model: aiModel,
+          prompt: input,
+          config: {
+            temperature: 0.7,
+            maxOutputTokens: 200,
+          },
+        });
+        return result.text();
+      }
+    );
 
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const aiText = data.candidates[0].content.parts[0].text;
-    return aiText.trim();
+    const response = await flow(prompt);
+    return response;
   } catch (error) {
     console.error('AI応答生成エラー:', error);
     return 'すみません、今は応答できません。';

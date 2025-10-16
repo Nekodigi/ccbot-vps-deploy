@@ -561,9 +561,6 @@ async function initializeAI() {
       endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
     };
 
-    // aiModelフラグを設定
-    aiModel = true;
-
     console.log('AI初期化完了 (Google AI API - Gemini 1.5 Flash)');
     return true;
   } catch (error) {
