@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>ARアプリのPWA対応開発</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Noto Sans JP', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Geometric background elements */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: #00d4ff;
+            top: -100px;
+            left: -100px;
+            filter: blur(80px);
+        }
+
+        .shape-2 {
+            width: 350px;
+            height: 350px;
+            background: #ff006e;
+            bottom: -80px;
+            right: -80px;
+            filter: blur(80px);
+        }
+
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: #8338ec;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            filter: blur(90px);
+        }
+
+        /* AR-style grid lines */
+        .grid-line {
+            position: absolute;
+            background: rgba(0, 212, 255, 0.15);
+        }
+
+        .grid-h-1 {
+            width: 100%;
+            height: 1px;
+            top: 20%;
+        }
+
+        .grid-h-2 {
+            width: 100%;
+            height: 1px;
+            top: 80%;
+        }
+
+        .grid-v-1 {
+            width: 1px;
+            height: 100%;
+            left: 15%;
+        }
+
+        .grid-v-2 {
+            width: 1px;
+            height: 100%;
+            right: 15%;
+        }
+
+        /* Corner brackets (AR frame style) */
+        .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 212, 255, 0.6);
+        }
+
+        .corner-tl {
+            top: 40px;
+            left: 40px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 40px;
+            right: 40px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 40px;
+            left: 40px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 40px;
+            right: 40px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Main content container */
+        .container {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            position: relative;
+            padding: 60px;
+            max-width: 900px;
+        }
+
+        /* Icon/Badge */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #ffffff;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        /* Main title */
+        h1 {
+            font-size: 82px;
+            font-weight: 900;
+            margin: 0 0 30px 0;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 34px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Feature tags */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Accent dots */
+        .accent-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+
+        .dot-1 {
+            top: 100px;
+            left: 150px;
+            animation: pulse 2s infinite;
+        }
+
+        .dot-2 {
+            top: 150px;
+            right: 200px;
+            animation: pulse 2s infinite 0.5s;
+        }
+
+        .dot-3 {
+            bottom: 120px;
+            left: 200px;
+            animation: pulse 2s infinite 1s;
+        }
+
+        .dot-4 {
+            bottom: 100px;
+            right: 180px;
+            animation: pulse 2s infinite 1.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.5);
+            }
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="「ARアプリのPWA対応開発」">
+    <meta property="og:description" content="「ARアプリのPWA対応開発」">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/6b7855ed">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/6b7855ed/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="「ARアプリのPWA対応開発」">
+    <meta name="twitter:description" content="「ARアプリのPWA対応開発」">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/6b7855ed/thumbnail.png">
+  </head>
+<body>
+    <!-- Background shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <!-- AR-style grid lines -->
+    <div class="grid-line grid-h-1"></div>
+    <div class="grid-line grid-h-2"></div>
+    <div class="grid-line grid-v-1"></div>
+    <div class="grid-line grid-v-2"></div>
+
+    <!-- Corner brackets -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Accent dots -->
+    <div class="accent-dot dot-1"></div>
+    <div class="accent-dot dot-2"></div>
+    <div class="accent-dot dot-3"></div>
+    <div class="accent-dot dot-4"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="badge">AR × PWA</div>
+        <h1>ARアプリ<br>PWA対応開発</h1>
+        <p class="subtitle">次世代の拡張現実体験を、ウェブで</p>
+        <div class="features">
+            <span class="feature-tag">Progressive Web App</span>
+            <span class="feature-tag">Augmented Reality</span>
+            <span class="feature-tag">Cross Platform</span>
+        </div>
+    </div>
+</body>
+</html>
