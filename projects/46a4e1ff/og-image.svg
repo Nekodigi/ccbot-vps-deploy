@@ -1,0 +1,54 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d5a8f;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="150" fill="#ffffff" opacity="0.08"/>
+  <circle cx="1100" cy="530" r="200" fill="#ffffff" opacity="0.08"/>
+
+  <!-- Main title -->
+  <text x="600" y="180" font-family="sans-serif" font-size="80" font-weight="bold" fill="#ffffff" text-anchor="middle">7つの習慣</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="240" font-family="sans-serif" font-size="30" fill="rgba(255,255,255,0.9)" text-anchor="middle">スティーブン・R・コヴィー博士</text>
+
+  <!-- Badge -->
+  <rect x="400" y="280" width="400" height="80" rx="8" fill="#d4a574" filter="url(#shadow)"/>
+  <text x="600" y="335" font-family="sans-serif" font-size="36" font-weight="bold" fill="#1a365d" text-anchor="middle">視覚的要約</text>
+
+  <!-- Stage 1: 依存 -->
+  <circle cx="250" cy="480" r="50" fill="#fc8181" filter="url(#shadow)"/>
+  <text x="250" y="492" font-family="sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">依存</text>
+
+  <!-- Arrow 1 -->
+  <line x1="310" y1="480" x2="535" y2="480" stroke="#ffffff" stroke-width="4"/>
+  <polygon points="535,480 520,473 520,487" fill="#ffffff"/>
+
+  <!-- Stage 2: 自立 -->
+  <circle cx="600" cy="480" r="50" fill="#f6ad55" filter="url(#shadow)"/>
+  <text x="600" y="492" font-family="sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">自立</text>
+
+  <!-- Arrow 2 -->
+  <line x1="660" y1="480" x2="885" y2="480" stroke="#ffffff" stroke-width="4"/>
+  <polygon points="885,480 870,473 870,487" fill="#ffffff"/>
+
+  <!-- Stage 3: 相互依存 -->
+  <circle cx="950" cy="480" r="50" fill="#4fd1c5" filter="url(#shadow)"/>
+  <text x="950" y="482" font-family="sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">相互</text>
+  <text x="950" y="508" font-family="sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">依存</text>
+
+  <!-- Bottom text -->
+  <text x="600" y="580" font-family="sans-serif" font-size="22" fill="rgba(255,255,255,0.8)" text-anchor="middle">図解・グラフ・ダイアグラムで分かりやすく解説</text>
+</svg>

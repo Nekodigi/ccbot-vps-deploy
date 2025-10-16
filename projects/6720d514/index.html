@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>和の心 - Japanese Spirit</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 桜の花びらアニメーション用コンテナ -->
+    <div class="sakura-container" id="sakura"></div>
+
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-kanji">和の心</span>
+                <span class="logo-romaji">Wa no Kokoro</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">
+                    <span class="nav-kanji">始</span>
+                    <span class="nav-text">ホーム</span>
+                </a></li>
+                <li><a href="#philosophy">
+                    <span class="nav-kanji">心</span>
+                    <span class="nav-text">理念</span>
+                </a></li>
+                <li><a href="#services">
+                    <span class="nav-kanji">業</span>
+                    <span class="nav-text">事業</span>
+                </a></li>
+                <li><a href="#gallery">
+                    <span class="nav-kanji">美</span>
+                    <span class="nav-text">作品</span>
+                </a></li>
+                <li><a href="#contact">
+                    <span class="nav-kanji">繋</span>
+                    <span class="nav-text">お問合せ</span>
+                </a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- メインビジュアル -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-main">日本の美</span>
+                    <span class="title-sub">Traditional Japanese Aesthetics</span>
+                </h1>
+                <p class="hero-description">
+                    伝統と革新が織りなす、新しい和の世界へようこそ<br>
+                    千年の歴史が育んだ美意識を、現代に伝えます
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">詳しく見る</button>
+                    <button class="btn btn-secondary">お問合せ</button>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>スクロール</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- 理念セクション -->
+    <section id="philosophy" class="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-kanji">理念</span>
+                    <span class="title-line"></span>
+                    <span class="title-english">Philosophy</span>
+                </h2>
+            </div>
+
+            <div class="philosophy-content">
+                <div class="philosophy-text">
+                    <p class="lead-text">
+                        侘び・寂びの心を大切に、<br>
+                        永遠に続く美の追求を。
+                    </p>
+                    <p class="body-text">
+                        日本の伝統美術は、単なる装飾ではなく、精神性を表現する手段です。
+                        私たちは、先人たちが築き上げてきた美意識を継承しながら、
+                        現代の感性と融合させた新しい価値を創造します。
+                    </p>
+                    <p class="body-text">
+                        四季の移ろい、自然との調和、そして「間」の美学。
+                        これらの要素を大切にしながら、心に響く作品づくりを心がけています。
+                    </p>
+                </div>
+                <div class="philosophy-image">
+                    <div class="image-frame">
+                        <div class="placeholder-image zen-circle">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="3" opacity="0.8"/>
+                                <path d="M 100 20 Q 150 100 100 180 Q 50 100 100 20" fill="currentColor" opacity="0.1"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">侘</div>
+                    <h3>侘び寂び</h3>
+                    <p>不完全の中に見出す美しさ</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">雅</div>
+                    <h3>雅</h3>
+                    <p>洗練された優美な趣</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">粋</div>
+                    <h3>粋</h3>
+                    <p>洗練された美意識</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">和</div>
+                    <h3>調和</h3>
+                    <p>自然との一体感</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 事業内容セクション -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-kanji">事業内容</span>
+                    <span class="title-line"></span>
+                    <span class="title-english">Services</span>
+                </h2>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-number">壱</div>
+                    <div class="service-icon">🎋</div>
+                    <h3>伝統工芸</h3>
+                    <p class="service-subtitle">Traditional Crafts</p>
+                    <p>職人の技が光る、本物の日本の工芸品。
+                    漆器、陶磁器、織物など、伝統の技法を用いた作品を提供いたします。</p>
+                    <div class="service-tags">
+                        <span class="tag">漆器</span>
+                        <span class="tag">陶芸</span>
+                        <span class="tag">織物</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-number">弐</div>
+                    <div class="service-icon">🏯</div>
+                    <h3>和空間デザイン</h3>
+                    <p class="service-subtitle">Japanese Space Design</p>
+                    <p>和の美意識を取り入れた空間設計。
+                    茶室、旅館、店舗など、心が安らぐ日本の空間をデザインします。</p>
+                    <div class="service-tags">
+                        <span class="tag">茶室</span>
+                        <span class="tag">旅館</span>
+                        <span class="tag">店舗</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-number">参</div>
+                    <div class="service-icon">🌸</div>
+                    <h3>文化体験</h3>
+                    <p class="service-subtitle">Cultural Experience</p>
+                    <p>茶道、華道、書道など、日本の伝統文化を体験できる
+                    プログラムをご用意しております。外国の方も歓迎です。</p>
+                    <div class="service-tags">
+                        <span class="tag">茶道</span>
+                        <span class="tag">華道</span>
+                        <span class="tag">書道</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-number">四</div>
+                    <div class="service-icon">🎎</div>
+                    <h3>和装コンサル</h3>
+                    <p class="service-subtitle">Kimono Consulting</p>
+                    <p>着物や和装小物の選び方から着付けまで、
+                    和装に関するあらゆるご相談に応じます。</p>
+                    <div class="service-tags">
+                        <span class="tag">着物</span>
+                        <span class="tag">帯</span>
+                        <span class="tag">小物</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-number">五</div>
+                    <div class="service-icon">🍵</div>
+                    <h3>日本料理</h3>
+                    <p class="service-subtitle">Japanese Cuisine</p>
+                    <p>季節の食材を活かした、目でも楽しめる日本料理。
+                    ケータリングサービスも承っております。</p>
+                    <div class="service-tags">
+                        <span class="tag">懐石</span>
+                        <span class="tag">精進</span>
+                        <span class="tag">茶懐石</span>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-number">六</div>
+                    <div class="service-icon">🎨</div>
+                    <h3>和デザイン</h3>
+                    <p class="service-subtitle">Japanese Design</p>
+                    <p>ロゴ、パッケージ、Webサイトなど、
+                    和のテイストを取り入れたデザイン制作を行います。</p>
+                    <div class="service-tags">
+                        <span class="tag">グラフィック</span>
+                        <span class="tag">Web</span>
+                        <span class="tag">パッケージ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ギャラリーセクション -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-kanji">作品集</span>
+                    <span class="title-line"></span>
+                    <span class="title-english">Gallery</span>
+                </h2>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-1"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>朱色の茶室</h4>
+                        <p>伝統的な茶室のリノベーション</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-2"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>四季の器</h4>
+                        <p>季節を感じる陶器コレクション</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-3"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>和モダン空間</h4>
+                        <p>現代建築との融合デザイン</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-4"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>書の世界</h4>
+                        <p>現代書道作品</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-5"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>藍染の美</h4>
+                        <p>伝統的な染色技法</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <div class="placeholder-pattern pattern-6"></div>
+                    </div>
+                    <div class="gallery-info">
+                        <h4>庭園設計</h4>
+                        <p>枯山水の現代解釈</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問合せセクション -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-kanji">お問合せ</span>
+                    <span class="title-line"></span>
+                    <span class="title-english">Contact</span>
+                </h2>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>ご相談・お問合せはこちら</h3>
+                    <p class="contact-description">
+                        和の心についてのご質問、ご相談など、<br>
+                        お気軽にお問い合わせください。
+                    </p>
+
+                    <div class="info-items">
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-text">
+                                <h4>所在地</h4>
+                                <p>〒100-0001<br>東京都千代田区千代田1-1</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📞</div>
+                            <div class="info-text">
+                                <h4>電話番号</h4>
+                                <p>03-1234-5678<br>受付時間: 10:00 - 18:00</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">✉️</div>
+                            <div class="info-text">
+                                <h4>メールアドレス</h4>
+                                <p>info@wa-no-kokoro.jp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">お名前 <span class="required">必須</span></label>
+                            <input type="text" id="name" name="name" required placeholder="山田 太郎">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">メールアドレス <span class="required">必須</span></label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">電話番号</label>
+                            <input type="tel" id="phone" name="phone" placeholder="03-1234-5678">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">件名 <span class="required">必須</span></label>
+                            <select id="subject" name="subject" required>
+                                <option value="">選択してください</option>
+                                <option value="service">事業内容について</option>
+                                <option value="collaboration">コラボレーション</option>
+                                <option value="experience">文化体験について</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">お問合せ内容 <span class="required">必須</span></label>
+                            <textarea id="message" name="message" rows="6" required placeholder="お問合せ内容をご記入ください"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">送信する</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-section">
+                    <h3 class="footer-logo">
+                        <span class="logo-kanji">和の心</span>
+                        <span class="logo-romaji">Wa no Kokoro</span>
+                    </h3>
+                    <p class="footer-description">
+                        日本の伝統美を現代に伝える。<br>
+                        私たちは、和の心を大切にします。
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>事業内容</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">伝統工芸</a></li>
+                        <li><a href="#services">和空間デザイン</a></li>
+                        <li><a href="#services">文化体験</a></li>
+                        <li><a href="#services">和装コンサル</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>会社情報</h4>
+                    <ul class="footer-links">
+                        <li><a href="#philosophy">理念</a></li>
+                        <li><a href="#gallery">作品集</a></li>
+                        <li><a href="#contact">お問合せ</a></li>
+                        <li><a href="#privacy">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>フォローする</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-pattern"></div>
+                <p class="copyright">&copy; 2025 和の心 - Wa no Kokoro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

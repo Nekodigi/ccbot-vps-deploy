@@ -1,0 +1,78 @@
+2025-10-11 20:12:45,609 - INFO - logging in using static token
+2025-10-11 20:12:46,814 - INFO - Shard ID None has connected to Gateway (Session ID: 6bdabaae62c08bffe9a4271b88e2e7f3).
+2025-10-11 20:12:48,819 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:12:48,819 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:12:48,819 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:13:02,638 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=763c9ce6 prompt=適当なWebサイト作って...
+2025-10-11 20:13:02,932 - ERROR - [CLAUDE] 失敗 - project=763c9ce6 prompt=適当なWebサイト作って... returncode=127
+2025-10-11 20:14:17,308 - INFO - logging in using static token
+2025-10-11 20:14:18,390 - INFO - Shard ID None has connected to Gateway (Session ID: 39e48b87067623d5ea67808b03f48c23).
+2025-10-11 20:14:20,397 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:14:20,398 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:14:20,398 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:14:20,913 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=5d17efd4 prompt=適当なWebサイト作って...
+2025-10-11 20:14:21,246 - ERROR - [CLAUDE] 失敗 - project=5d17efd4 prompt=適当なWebサイト作って... returncode=127
+2025-10-11 20:14:21,569 - ERROR - [CLAUDE] 例外発生 - project=5d17efd4 prompt=適当なWebサイト作って... error=cannot access local variable 'response' where it is not associated with a value
+2025-10-11 20:16:05,399 - INFO - logging in using static token
+2025-10-11 20:16:06,638 - INFO - Shard ID None has connected to Gateway (Session ID: 7fad1414c0a8c8c9aa12f1dd82935e42).
+2025-10-11 20:16:08,645 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:16:08,645 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:16:08,645 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:16:10,653 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=6720d514 prompt=適当なWebサイト作って...
+2025-10-11 20:16:57,153 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=適当なWebサイト作って... returncode=0
+2025-10-11 20:17:45,644 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=6720d514 prompt=日本風にして...
+2025-10-11 20:18:06,460 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=日本風にして... returncode=0
+2025-10-11 20:18:43,499 - INFO - [CMD] 開始 - user=nekokazu project=6720d514 command=ls
+2025-10-11 20:18:43,814 - INFO - [CMD] 成功 - project=6720d514 command=ls returncode=0
+2025-10-11 20:19:28,724 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=6720d514 prompt=タイトルをNekokazuにして...
+2025-10-11 20:19:52,714 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=タイトルをNekokazuにして... returncode=0
+2025-10-11 20:22:46,152 - INFO - [CLAUDE] ランダムID生成 - user=nekokazu project=6720d514 prompt=タイトルをNekokazuにして...
+2025-10-11 20:23:10,522 - INFO - logging in using static token
+2025-10-11 20:23:11,665 - INFO - Shard ID None has connected to Gateway (Session ID: b72db4fe7012894f1dd7f3b773b2695a).
+2025-10-11 20:23:12,674 - INFO - [CLAUDE] user=nekokazu project=6720d514 prompt=タイトルをNekokazuにして...
+2025-10-11 20:23:13,681 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:23:13,682 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:23:13,682 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:23:35,135 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=タイトルをNekokazuにして... returncode=0
+2025-10-11 20:24:17,352 - INFO - logging in using static token
+2025-10-11 20:24:18,382 - INFO - Shard ID None has connected to Gateway (Session ID: 73ecbf3982794b30959a05884f3fee16).
+2025-10-11 20:24:18,522 - INFO - [CLAUDE] user=nekokazu project=6720d514 prompt=タイトルをNekokazuにして...
+2025-10-11 20:24:20,393 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:24:20,393 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:24:20,393 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:24:35,138 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=タイトルをNekokazuにして... returncode=0
+2025-10-11 20:25:13,664 - INFO - [CLAUDE] user=nekokazu project=6720d514 prompt=背景を赤色にして...
+2025-10-11 20:25:36,645 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=背景を赤色にして... returncode=0
+2025-10-11 20:26:24,640 - INFO - [CLAUDE] user=nekokazu project=6720d514 prompt=全ての要素を根本的に書き換え、和風のサイトにしてください...
+2025-10-11 20:31:09,691 - INFO - [CLAUDE] 成功 - project=6720d514 prompt=全ての要素を根本的に書き換え、和風のサイトにしてください... returncode=0
+2025-10-11 20:35:26,767 - INFO - [CLAUDE] user=nekokazu project=82f4091d prompt=簡単なFastAPIのデモを作って...
+2025-10-11 20:36:33,562 - INFO - [CLAUDE] 成功 - project=82f4091d prompt=簡単なFastAPIのデモを作って... returncode=0
+2025-10-11 20:37:07,862 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command=main.py
+2025-10-11 20:37:08,195 - ERROR - [CMD] 失敗 - project=82f4091d command=main.py returncode=127
+2025-10-11 20:37:19,041 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command=ls
+2025-10-11 20:37:19,336 - INFO - [CMD] 成功 - project=82f4091d command=ls returncode=0
+2025-10-11 20:37:34,035 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command="python main.py"
+2025-10-11 20:37:34,444 - ERROR - [CMD] 失敗 - project=82f4091d command="python main.py" returncode=127
+2025-10-11 20:37:52,678 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command=python main.py
+2025-10-11 20:37:53,153 - ERROR - [CMD] 失敗 - project=82f4091d command=python main.py returncode=1
+2025-10-11 20:38:12,995 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command=pip install -r requirements.txt
+2025-10-11 20:38:19,880 - INFO - [CMD] 成功 - project=82f4091d command=pip install -r requirements.txt returncode=0
+2025-10-11 20:38:20,110 - ERROR - [CMD] 例外発生 - project=82f4091d command=pip install -r requirements.txt error=400 Bad Request (error code: 50035): Invalid Form Body
+In content: Must be 2000 or fewer in length.
+2025-10-11 20:38:36,446 - INFO - [CMD] 開始 - user=nekokazu project=82f4091d command=python main.py
+2025-10-11 20:40:22,623 - INFO - logging in using static token
+2025-10-11 20:40:23,734 - INFO - Shard ID None has connected to Gateway (Session ID: 053d4b5feb86943ace980837b71039cc).
+2025-10-11 20:40:25,745 - INFO - Bot is IDE#2447 がDiscordに接続しました!
+2025-10-11 20:40:25,746 - INFO - コマンド実行ベースパス: ./projects
+2025-10-11 20:40:25,746 - INFO - ログファイル: projects/.logs/ccbot.log
+2025-10-11 20:41:10,967 - INFO - [ALIAS-ADD] tag=トンマナ user=nekokazu
+2025-10-11 20:41:22,778 - ERROR - Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "prompt-alias-lis" is not found
+2025-10-11 20:41:59,619 - INFO - [CLAUDE] タグ展開 - original=HTMLでWebサイトを作って　#トンマナ... expanded=HTMLでWebサイトを作って　"- 日本のビジネス場面で使われるような、シンプルかつ洗練されたデザ...
+2025-10-11 20:41:59,620 - INFO - [CLAUDE] user=nekokazu project=a1647619 prompt=HTMLでWebサイトを作って　"- 日本のビジネス場面で使われるような、シンプルかつ洗練されたデザ...
+2025-10-11 20:45:09,277 - INFO - [CLAUDE] 成功 - project=a1647619 prompt=HTMLでWebサイトを作って　"- 日本のビジネス場面で使われるような、シンプルかつ洗練されたデザ... returncode=0
+2025-10-11 20:46:24,726 - INFO - [ALIAS-ADD] tag=読書会 user=nekokazu
+2025-10-11 20:47:33,001 - INFO - [CLAUDE] タグ展開 - original=7つの習慣について教えて, ただし和モダン風デザインで #トンマナ #読書会... expanded=7つの習慣について教えて, ただし和モダン風デザインで "- 日本のビジネス場面で使われるような、シ...
+2025-10-11 20:47:33,001 - INFO - [CLAUDE] user=nekokazu project=566c3a6b prompt=7つの習慣について教えて, ただし和モダン風デザインで "- 日本のビジネス場面で使われるような、シ...
+2025-10-11 20:54:04,893 - INFO - [CLAUDE] 成功 - project=566c3a6b prompt=7つの習慣について教えて, ただし和モダン風デザインで "- 日本のビジネス場面で使われるような、シ... returncode=0
+2025-10-12 00:04:48,211 - INFO - Shard ID None has successfully RESUMED session 053d4b5feb86943ace980837b71039cc.

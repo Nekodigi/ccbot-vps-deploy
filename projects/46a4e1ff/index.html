@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>7つの習慣 - 視覚的要約 | スティーブン・R・コヴィー博士の世界的名著を図解で理解</title>
+    <meta name="description" content="スティーブン・R・コヴィー博士の世界的ベストセラー「7つの習慣」を、図解・グラフ・ダイアグラムで視覚的に要約。個人的成功から公的成功まで、成功者の習慣を分かりやすく解説します。">
+    <meta name="keywords" content="7つの習慣,スティーブンコヴィー,自己啓発,ビジネス書,要約,図解,視覚化,インフォグラフィック,成功の習慣,人格主義">
+    <meta name="author" content="Claude Code Generator">
+
+    <!-- Open Graph / OGP Tags -->
+    <meta property="og:title" content="7つの習慣 - 視覚的要約 | 世界的名著を図解で理解">
+    <meta property="og:description" content="スティーブン・R・コヴィー博士の「7つの習慣」を図解で分かりやすく要約。依存から自立、そして相互依存へ至る成長の道筋を視覚的に解説。個人的成功・公的成功の原則を学び、人生とビジネスに活かしましょう。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.222.37/ccbot/projects/46a4e1ff">
+    <meta property="og:image" content="http://13.230.222.37/ccbot/projects/46a4e1ff/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="7つの習慣 - 視覚的要約 | 世界的名著を図解で理解">
+    <meta name="twitter:description" content="スティーブン・R・コヴィー博士の「7つの習慣」を図解で分かりやすく要約。依存から自立、そして相互依存へ至る成長の道筋を視覚的に解説。">
+    <meta name="twitter:image" content="http://13.230.222.37/ccbot/projects/46a4e1ff/og-image.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "7つの習慣 - 視覚的要約",
+        "description": "スティーブン・R・コヴィー博士の世界的ベストセラー「7つの習慣」を、図解・グラフ・ダイアグラムで視覚的に要約",
+        "author": {
+            "@type": "Organization",
+            "name": "Claude Code Generator"
+        },
+        "about": {
+            "@type": "Book",
+            "name": "7つの習慣",
+            "author": {
+                "@type": "Person",
+                "name": "スティーブン・R・コヴィー"
+            }
+        },
+        "educationalUse": "自己啓発、ビジネススキル向上",
+        "inLanguage": "ja-JP"
+    }
+    </script>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --color-primary: #1a365d;
+            --color-accent-gold: #d4a574;
+            --color-accent-teal: #38b2ac;
+            --color-highlight: #fc8181;
+            --color-bg: #fafafa;
+            --color-white: #ffffff;
+            --color-text: #2d3748;
+            --color-text-light: #718096;
+            --color-border: #e2e8f0;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+
+            --font-body: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+            --font-heading: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+        }
+
+        /* ========== Reset & Base Styles ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== Typography ========== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        h4 {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* ========== Utility Classes ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, var(--color-accent-gold) 60%);
+            font-weight: 600;
+            padding: 0 0.2em;
+        }
+
+        .highlight-coral {
+            background: linear-gradient(transparent 60%, var(--color-highlight) 60%);
+            font-weight: 600;
+            padding: 0 0.2em;
+        }
+
+        .highlight-teal {
+            background: linear-gradient(transparent 60%, var(--color-accent-teal) 60%);
+            font-weight: 600;
+            padding: 0 0.2em;
+        }
+
+        /* ========== Header ========== */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #2d5a8f 100%);
+            color: var(--color-white);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0 L1200,0 L1200,50 Q600,100 0,50 Z" fill="rgba(255,255,255,0.05)"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            color: var(--color-white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        header .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* ========== Cards ========== */
+        .card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-accent-teal), var(--color-accent-gold));
+            color: var(--color-white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ========== Visual Summary Section ========== */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .summary-box {
+            background: var(--color-white);
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--color-accent-teal);
+        }
+
+        .summary-box h4 {
+            color: var(--color-accent-teal);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* ========== Maturity Continuum Visual ========== */
+        .maturity-continuum {
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .maturity-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: var(--spacing-lg) 0;
+            position: relative;
+        }
+
+        .maturity-stages::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, #e53e3e 0%, #d69e2e 50%, #38b2ac 100%);
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        .stage {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stage-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-sm);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stage:nth-child(1) .stage-icon {
+            background: linear-gradient(135deg, #e53e3e, #fc8181);
+        }
+
+        .stage:nth-child(2) .stage-icon {
+            background: linear-gradient(135deg, #d69e2e, #f6ad55);
+        }
+
+        .stage:nth-child(3) .stage-icon {
+            background: linear-gradient(135deg, #38b2ac, #4fd1c5);
+        }
+
+        .stage h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stage p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 0;
+        }
+
+        /* ========== Habits Grid ========== */
+        .habits-category {
+            margin: var(--spacing-xl) 0;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: linear-gradient(135deg, rgba(56, 178, 172, 0.1), rgba(212, 165, 116, 0.1));
+            border-radius: 12px;
+        }
+
+        .habits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        /* ========== Visual Diagrams ========== */
+        .visual-diagram {
+            background: var(--color-white);
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .diagram-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-accent-teal);
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: var(--spacing-md) 0;
+        }
+
+        /* ========== Circle of Influence SVG ========== */
+        .circle-diagram {
+            width: 100%;
+            max-width: 400px;
+            margin: var(--spacing-md) auto;
+            display: block;
+        }
+
+        /* ========== Time Management Matrix ========== */
+        .matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .matrix-cell {
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .matrix-cell h5 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .matrix-cell ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .matrix-cell li {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .matrix-cell li::before {
+            content: "• ";
+            font-weight: 700;
+        }
+
+        .quadrant-1 {
+            background: linear-gradient(135deg, rgba(229, 62, 62, 0.15), rgba(252, 129, 129, 0.15));
+            border: 2px solid #fc8181;
+        }
+
+        .quadrant-2 {
+            background: linear-gradient(135deg, rgba(56, 178, 172, 0.15), rgba(79, 209, 197, 0.15));
+            border: 2px solid #38b2ac;
+        }
+
+        .quadrant-3 {
+            background: linear-gradient(135deg, rgba(237, 137, 54, 0.15), rgba(246, 173, 85, 0.15));
+            border: 2px solid #ed8936;
+        }
+
+        .quadrant-4 {
+            background: linear-gradient(135deg, rgba(160, 174, 192, 0.15), rgba(203, 213, 224, 0.15));
+            border: 2px solid #a0aec0;
+        }
+
+        .matrix-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: center;
+            margin-top: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--color-text-light);
+        }
+
+        /* ========== Win-Win Paradigm ========== */
+        .paradigm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .paradigm-box {
+            padding: var(--spacing-sm);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .paradigm-box:hover {
+            transform: scale(1.05);
+        }
+
+        .paradigm-winwin {
+            background: linear-gradient(135deg, #38b2ac, #4fd1c5);
+            color: var(--color-white);
+            border: 3px solid #2c7a7b;
+        }
+
+        .paradigm-other {
+            background: rgba(160, 174, 192, 0.2);
+            color: var(--color-text);
+            border: 2px solid var(--color-border);
+        }
+
+        /* ========== Sharpen the Saw Dimensions ========== */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .dimension-card {
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            text-align: center;
+            color: var(--color-white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dimension-card h5 {
+            color: var(--color-white);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.25rem;
+        }
+
+        .dimension-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .dimension-physical {
+            background: linear-gradient(135deg, #e53e3e, #fc8181);
+        }
+
+        .dimension-spiritual {
+            background: linear-gradient(135deg, #805ad5, #b794f4);
+        }
+
+        .dimension-mental {
+            background: linear-gradient(135deg, #3182ce, #63b3ed);
+        }
+
+        .dimension-social {
+            background: linear-gradient(135deg, #38b2ac, #4fd1c5);
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            margin-top: var(--spacing-xl);
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        /* ========== Responsive Design ========== */
+        @media (max-width: 768px) {
+            .maturity-stages {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .maturity-stages::before {
+                display: none;
+            }
+
+            .habits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix {
+                grid-template-columns: 1fr;
+            }
+
+            .paradigm-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: var(--spacing-md) 0;
+            }
+        }
+
+        /* ========== Animations ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* ========== Key Points List ========== */
+        .key-points {
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(56, 178, 172, 0.1));
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            margin: var(--spacing-md) 0;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+        }
+
+        .key-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent-teal);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== Header ========== -->
+    <header>
+        <div class="container">
+            <h1>7つの習慣</h1>
+            <p class="subtitle">スティーブン・R・コヴィー博士 | 人格主義の回復</p>
+            <p class="subtitle">視覚的要約 - 図解で理解する成功の原則</p>
+        </div>
+    </header>
+
+    <!-- ========== Main Content ========== -->
+    <main>
+        <!-- ========== Book Overview Section ========== -->
+        <section class="section" id="overview">
+            <div class="container">
+                <h2 class="text-center">📖 書籍の全体像</h2>
+                <div class="card">
+                    <h3>本書の核心</h3>
+                    <p>「7つの習慣」は、世界3,000万部以上を売り上げた自己啓発の名著です。著者のスティーブン・R・コヴィー博士は、<span class="highlight">成功者に共通する原則</span>を200年にわたる成功に関する文献から抽出し、体系化しました。</p>
+
+                    <p>本書の最も重要なメッセージは、<span class="highlight-coral">「人格主義」</span>への回帰です。表面的なテクニックやスキル（個性主義）ではなく、<span class="highlight-teal">誠実さ、謙虚さ、勇気、正義感などの「人格」を磨くこと</span>が真の成功への道であると説いています。</p>
+                </div>
+
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <h4>🎯 対象読者</h4>
+                        <p>より効果的な人生を送りたい全ての人。ビジネスパーソン、経営者、学生、保護者など、あらゆる立場の方に価値があります。</p>
+                    </div>
+
+                    <div class="summary-box">
+                        <h4>💡 キーコンセプト</h4>
+                        <p>依存から自立へ、そして相互依存へ。7つの習慣は段階的に身につけることで、個人的成功と公的成功の両方を達成します。</p>
+                    </div>
+
+                    <div class="summary-box">
+                        <h4>🌟 期待される効果</h4>
+                        <p>主体性の向上、優先順位の明確化、人間関係の改善、継続的な自己成長など、人生のあらゆる側面でのブレークスルー。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Maturity Continuum Section ========== -->
+        <section class="section" id="maturity-continuum" style="background: var(--color-white);">
+            <div class="container">
+                <h2 class="text-center">🌱 成長の連続体（Maturity Continuum）</h2>
+                <p class="text-center">7つの習慣は、人間の成長段階を表す「成長の連続体」に沿って配置されています</p>
+
+                <div class="maturity-continuum">
+                    <div class="maturity-stages">
+                        <div class="stage">
+                            <div class="stage-icon">依存</div>
+                            <h4>依存（Dependence）</h4>
+                            <p>他者に頼り、他者のせいにする段階</p>
+                        </div>
+                        <div class="stage">
+                            <div class="stage-icon">自立</div>
+                            <h4>自立（Independence）</h4>
+                            <p>自分で選択し、自分で責任を取る段階</p>
+                        </div>
+                        <div class="stage">
+                            <div class="stage-icon">相互依存</div>
+                            <h4>相互依存（Interdependence）</h4>
+                            <p>他者と協力し、シナジーを生む段階</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-diagram">
+                        <div class="diagram-title">成長段階と7つの習慣の関係</div>
+                        <div class="chart-container">
+                            <canvas id="maturityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Private Victory (Habits 1-3) ========== -->
+        <section class="section habits-category" id="private-victory">
+            <div class="container">
+                <div class="category-header">
+                    <h2>🏆 Private Victory（個人的成功）</h2>
+                    <p>習慣1〜3は、<span class="highlight">依存から自立へ</span>向かうための基盤となる習慣です。自分自身をマネジメントし、主体的に行動する力を養います。</p>
+                </div>
+
+                <div class="habits-grid">
+                    <!-- Habit 1 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">1</span>
+                            <h3>主体的である<br><small>Be Proactive</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">自分の反応を自分で選択する</span>ことが、この習慣の核心です。外的な刺激に対して、条件反射的に反応するのではなく、自分の価値観に基づいて主体的に行動します。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">影響の輪と関心の輪</div>
+                            <svg class="circle-diagram" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="200" cy="200" r="180" fill="rgba(160, 174, 192, 0.2)" stroke="#a0aec0" stroke-width="2"/>
+                                <text x="200" y="50" text-anchor="middle" font-size="18" font-weight="600" fill="#4a5568">関心の輪</text>
+                                <text x="200" y="75" text-anchor="middle" font-size="14" fill="#718096">（Circle of Concern）</text>
+
+                                <circle cx="200" cy="210" r="110" fill="rgba(56, 178, 172, 0.3)" stroke="#38b2ac" stroke-width="3"/>
+                                <text x="200" y="200" text-anchor="middle" font-size="18" font-weight="700" fill="#2c7a7b">影響の輪</text>
+                                <text x="200" y="225" text-anchor="middle" font-size="14" fill="#2c7a7b">（Circle of Influence）</text>
+                                <text x="200" y="250" text-anchor="middle" font-size="13" fill="#2c7a7b">自分でコントロール</text>
+                                <text x="200" y="270" text-anchor="middle" font-size="13" fill="#2c7a7b">できる領域</text>
+                            </svg>
+                            <p style="text-align: center; font-size: 0.9rem; color: var(--color-text-light); margin-top: var(--spacing-sm);">
+                                主体的な人は<strong>影響の輪</strong>に集中し、その輪を広げていきます
+                            </p>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>「できない」ではなく「やらない選択をしている」と認識する</li>
+                                <li>問題が起きたとき、他人や環境のせいにせず、自分にできることを探す</li>
+                                <li>反応的な言葉（〜させられた）を主体的な言葉（〜を選んだ）に置き換える</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Habit 2 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">2</span>
+                            <h3>終わりを思い描くことから始める<br><small>Begin with the End in Mind</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">人生の最終目的地を明確にし</span>、それに基づいて日々の行動を決定します。自分の葬儀で、どんな弔辞を読んでもらいたいかを想像することで、真に大切なものが見えてきます。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">ミッション・ステートメント作成プロセス</div>
+                            <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Step 1 -->
+                                <rect x="20" y="50" width="120" height="80" rx="8" fill="#e6f7f5" stroke="#38b2ac" stroke-width="2"/>
+                                <text x="80" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 1</text>
+                                <text x="80" y="95" text-anchor="middle" font-size="12" fill="#2d3748">自分の役割</text>
+                                <text x="80" y="112" text-anchor="middle" font-size="12" fill="#2d3748">を明確化</text>
+
+                                <!-- Arrow -->
+                                <path d="M 140 90 L 180 90" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                                <!-- Step 2 -->
+                                <rect x="180" y="50" width="120" height="80" rx="8" fill="#e6f7f5" stroke="#38b2ac" stroke-width="2"/>
+                                <text x="240" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 2</text>
+                                <text x="240" y="95" text-anchor="middle" font-size="12" fill="#2d3748">価値観と</text>
+                                <text x="240" y="112" text-anchor="middle" font-size="12" fill="#2d3748">原則を特定</text>
+
+                                <!-- Arrow -->
+                                <path d="M 300 90 L 340 90" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                                <!-- Step 3 -->
+                                <rect x="340" y="50" width="120" height="80" rx="8" fill="#e6f7f5" stroke="#38b2ac" stroke-width="2"/>
+                                <text x="400" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 3</text>
+                                <text x="400" y="95" text-anchor="middle" font-size="12" fill="#2d3748">目標を</text>
+                                <text x="400" y="112" text-anchor="middle" font-size="12" fill="#2d3748">文章化</text>
+
+                                <!-- Arrow down -->
+                                <path d="M 400 130 L 400 170" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                                <!-- Mission Statement -->
+                                <rect x="200" y="170" width="200" height="100" rx="8" fill="#d4a574" stroke="#b8935e" stroke-width="3"/>
+                                <text x="300" y="195" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">ミッション・</text>
+                                <text x="300" y="215" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">ステートメント</text>
+                                <text x="300" y="240" text-anchor="middle" font-size="12" fill="#ffffff">人生の憲法</text>
+                                <text x="300" y="258" text-anchor="middle" font-size="12" fill="#ffffff">不変の指針</text>
+
+                                <!-- Arrow definitions -->
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                        <polygon points="0 0, 10 3, 0 6" fill="#38b2ac" />
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>自分の葬儀を想像し、どんな人物として記憶されたいかを考える</li>
+                                <li>人生の様々な役割（親、配偶者、社員など）ごとに目標を設定する</li>
+                                <li>個人のミッション・ステートメント（人生の憲法）を作成する</li>
+                            </ul>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">人生の主要な役割</div>
+                            <div class="chart-container" style="height: 250px;">
+                                <canvas id="rolesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Habit 3 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">3</span>
+                            <h3>最優先事項を優先する<br><small>Put First Things First</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">「緊急ではないが重要なこと」</span>に時間を使うことが、この習慣の本質です。多くの人は緊急な事に追われて生きていますが、真の成功は重要な事に時間を投資することから生まれます。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">時間管理のマトリックス（重要度 × 緊急度）</div>
+                            <div class="matrix">
+                                <div class="matrix-cell quadrant-2">
+                                    <h5>
+                                        <span style="background: #38b2ac; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem;">第II領域</span>
+                                        重要 × 緊急でない
+                                    </h5>
+                                    <ul>
+                                        <li>人間関係づくり</li>
+                                        <li>準備や計画</li>
+                                        <li>予防活動</li>
+                                        <li>勉強・自己啓発</li>
+                                        <li>リフレッシュ</li>
+                                    </ul>
+                                    <p style="margin-top: var(--spacing-sm); font-weight: 700; color: #2c7a7b; text-align: center;">
+                                        ★ ここに集中！ ★
+                                    </p>
+                                </div>
+
+                                <div class="matrix-cell quadrant-1">
+                                    <h5>
+                                        <span style="background: #fc8181; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem;">第I領域</span>
+                                        重要 × 緊急
+                                    </h5>
+                                    <ul>
+                                        <li>危機・クレーム対応</li>
+                                        <li>締切のある仕事</li>
+                                        <li>事故・災害</li>
+                                        <li>病気・けが</li>
+                                    </ul>
+                                    <p style="margin-top: var(--spacing-sm); font-weight: 600; color: #c53030;">
+                                        避けられない領域
+                                    </p>
+                                </div>
+
+                                <div class="matrix-cell quadrant-3">
+                                    <h5>
+                                        <span style="background: #ed8936; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem;">第III領域</span>
+                                        重要でない × 緊急
+                                    </h5>
+                                    <ul>
+                                        <li>突然の来客・電話</li>
+                                        <li>多くの会議や報告書</li>
+                                        <li>他人の些細な用事</li>
+                                    </ul>
+                                    <p style="margin-top: var(--spacing-sm); font-weight: 600; color: #c05621;">
+                                        錯覚しやすい領域
+                                    </p>
+                                </div>
+
+                                <div class="matrix-cell quadrant-4">
+                                    <h5>
+                                        <span style="background: #a0aec0; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.9rem;">第IV領域</span>
+                                        重要でない × 緊急でない
+                                    </h5>
+                                    <ul>
+                                        <li>暇つぶし</li>
+                                        <li>だらだら電話</li>
+                                        <li>待ち時間</li>
+                                        <li>過度なゲーム・TV</li>
+                                    </ul>
+                                    <p style="margin-top: var(--spacing-sm); font-weight: 600; color: #718096;">
+                                        時間の無駄
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="matrix-labels">
+                                <div style="grid-column: 1 / 2; text-align: center; padding: var(--spacing-sm);">← 緊急でない</div>
+                                <div style="grid-column: 2 / 3; text-align: center; padding: var(--spacing-sm);">緊急 →</div>
+                            </div>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>週単位でスケジュールを立て、第II領域の活動に時間を確保する</li>
+                                <li>第III領域（緊急だが重要でない）の活動を削減・委任する</li>
+                                <li>第IV領域の活動を排除し、第II領域に時間を再配分する</li>
+                                <li>「ノー」と言う勇気を持つ</li>
+                            </ul>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">時間配分の変化</div>
+                            <div class="chart-container">
+                                <canvas id="timeAllocationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Public Victory (Habits 4-6) ========== -->
+        <section class="section habits-category" id="public-victory" style="background: var(--color-white);">
+            <div class="container">
+                <div class="category-header">
+                    <h2>🤝 Public Victory（公的成功）</h2>
+                    <p>習慣4〜6は、<span class="highlight">自立から相互依存へ</span>向かうための習慣です。他者との協力関係を築き、1+1を3以上にする力を養います。</p>
+                </div>
+
+                <div class="habits-grid">
+                    <!-- Habit 4 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">4</span>
+                            <h3>Win-Winを考える<br><small>Think Win-Win</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">自分も勝ち、相手も勝つ</span>という考え方が、長期的な人間関係の基盤となります。人生はゼロサムゲームではありません。豊かさマインドで、全員が利益を得られる第3の案を探します。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">6つの人間関係パラダイム</div>
+                            <div class="paradigm-grid">
+                                <div class="paradigm-box paradigm-winwin">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🤝</div>
+                                    <div style="font-size: 1.2rem;">Win-Win</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">相互利益</div>
+                                </div>
+
+                                <div class="paradigm-box paradigm-other">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">😤</div>
+                                    <div style="font-size: 1.1rem;">Win-Lose</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">権威的</div>
+                                </div>
+
+                                <div class="paradigm-box paradigm-other">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">😔</div>
+                                    <div style="font-size: 1.1rem;">Lose-Win</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">迎合的</div>
+                                </div>
+
+                                <div class="paradigm-box paradigm-other">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💥</div>
+                                    <div style="font-size: 1.1rem;">Lose-Lose</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">破滅的</div>
+                                </div>
+
+                                <div class="paradigm-box paradigm-other">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">😐</div>
+                                    <div style="font-size: 1.1rem;">Win</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">自己中心的</div>
+                                </div>
+
+                                <div class="paradigm-box paradigm-other" style="border-color: #38b2ac;">
+                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🤷</div>
+                                    <div style="font-size: 1.1rem;">Win-Win or No Deal</div>
+                                    <div style="font-size: 0.85rem; margin-top: 0.5rem;">次善の策</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">Win-Winの5つの柱</div>
+                            <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Foundation -->
+                                <rect x="50" y="200" width="500" height="40" rx="4" fill="#1a365d"/>
+                                <text x="300" y="225" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">Win-Winの基盤</text>
+
+                                <!-- Pillars -->
+                                <rect x="70" y="80" width="80" height="120" rx="4" fill="#38b2ac"/>
+                                <text x="110" y="135" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">人格</text>
+                                <text x="110" y="155" text-anchor="middle" font-size="10" fill="#ffffff">誠実・成熟</text>
+                                <text x="110" y="170" text-anchor="middle" font-size="10" fill="#ffffff">豊かさ</text>
+                                <text x="110" y="185" text-anchor="middle" font-size="10" fill="#ffffff">マインド</text>
+
+                                <rect x="170" y="80" width="80" height="120" rx="4" fill="#38b2ac"/>
+                                <text x="210" y="135" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">関係</text>
+                                <text x="210" y="155" text-anchor="middle" font-size="10" fill="#ffffff">信頼残高</text>
+                                <text x="210" y="170" text-anchor="middle" font-size="10" fill="#ffffff">の構築</text>
+
+                                <rect x="270" y="80" width="80" height="120" rx="4" fill="#38b2ac"/>
+                                <text x="310" y="135" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">合意</text>
+                                <text x="310" y="155" text-anchor="middle" font-size="10" fill="#ffffff">期待する</text>
+                                <text x="310" y="170" text-anchor="middle" font-size="10" fill="#ffffff">成果の明確化</text>
+
+                                <rect x="370" y="80" width="80" height="120" rx="4" fill="#38b2ac"/>
+                                <text x="410" y="125" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">システム</text>
+                                <text x="410" y="145" text-anchor="middle" font-size="10" fill="#ffffff">評価・報酬</text>
+                                <text x="410" y="160" text-anchor="middle" font-size="10" fill="#ffffff">システムの</text>
+                                <text x="410" y="175" text-anchor="middle" font-size="10" fill="#ffffff">整備</text>
+
+                                <rect x="470" y="80" width="80" height="120" rx="4" fill="#38b2ac"/>
+                                <text x="510" y="125" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">プロセス</text>
+                                <text x="510" y="145" text-anchor="middle" font-size="10" fill="#ffffff">Win-Win</text>
+                                <text x="510" y="160" text-anchor="middle" font-size="10" fill="#ffffff">を実現する</text>
+                                <text x="510" y="175" text-anchor="middle" font-size="10" fill="#ffffff">方法</text>
+
+                                <!-- Labels -->
+                                <text x="110" y="50" text-anchor="middle" font-size="11" fill="#2d3748">1</text>
+                                <text x="210" y="50" text-anchor="middle" font-size="11" fill="#2d3748">2</text>
+                                <text x="310" y="50" text-anchor="middle" font-size="11" fill="#2d3748">3</text>
+                                <text x="410" y="50" text-anchor="middle" font-size="11" fill="#2d3748">4</text>
+                                <text x="510" y="50" text-anchor="middle" font-size="11" fill="#2d3748">5</text>
+                            </svg>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>豊かさマインドを持つ（パイは無限に大きくできる）</li>
+                                <li>相手の立場に立って考え、相手の利益も追求する</li>
+                                <li>Win-Winが実現できない場合は、No Deal（取引しない）の勇気を持つ</li>
+                                <li>信頼残高を積み上げる（約束を守る、誠実に接する）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Habit 5 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">5</span>
+                            <h3>まず理解に徹し、そして理解される<br><small>Seek First to Understand, Then to be Understood</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">相手を理解してから、自分を理解してもらう</span>ことが、効果的なコミュニケーションの鍵です。多くの人は相手の話を「聞く」のではなく、「次に何を話そうか」を考えています。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">聞き方の5つのレベル</div>
+                            <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Pyramid -->
+                                <polygon points="300,50 550,350 50,350" fill="none" stroke="#2d3748" stroke-width="2"/>
+
+                                <!-- Level 5 - Top -->
+                                <polygon points="300,50 220,140 380,140" fill="#38b2ac"/>
+                                <text x="300" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">共感による傾聴</text>
+                                <text x="300" y="125" text-anchor="middle" font-size="11" fill="#ffffff">相手の立場で理解</text>
+
+                                <!-- Level 4 -->
+                                <polygon points="220,140 380,140 430,230 170,230" fill="#4fd1c5"/>
+                                <text x="300" y="180" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">注意して聞く</text>
+                                <text x="300" y="200" text-anchor="middle" font-size="10" fill="#2d3748">言葉に集中</text>
+
+                                <!-- Level 3 -->
+                                <polygon points="170,230 430,230 480,310 120,310" fill="#f6ad55"/>
+                                <text x="300" y="265" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">選択的に聞く</text>
+                                <text x="300" y="285" text-anchor="middle" font-size="10" fill="#2d3748">興味のある部分だけ</text>
+
+                                <!-- Level 2 -->
+                                <polygon points="120,310 480,310 515,350 85,350" fill="#fc8181"/>
+                                <text x="300" y="330" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">聞くふりをする</text>
+
+                                <!-- Level 1 - Bottom -->
+                                <text x="300" y="380" text-anchor="middle" font-size="12" font-weight="600" fill="#e53e3e">1. 無視する（聞いていない）</text>
+
+                                <!-- Labels -->
+                                <text x="300" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">レベル5</text>
+                                <text x="50" y="380" text-anchor="start" font-size="11" fill="#718096">効果 低</text>
+                                <text x="550" y="380" text-anchor="end" font-size="11" fill="#718096">効果 高</text>
+                            </svg>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">共感による傾聴の4ステップ</div>
+                            <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Step 1 -->
+                                <circle cx="100" cy="80" r="60" fill="#e6f7f5" stroke="#38b2ac" stroke-width="3"/>
+                                <text x="100" y="70" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 1</text>
+                                <text x="100" y="90" text-anchor="middle" font-size="11" fill="#2d3748">相手の言葉を</text>
+                                <text x="100" y="105" text-anchor="middle" font-size="11" fill="#2d3748">繰り返す</text>
+                                <text x="100" y="160" text-anchor="middle" font-size="10" font-weight="600" fill="#2c7a7b">オウム返し</text>
+
+                                <!-- Arrow -->
+                                <path d="M 160 80 L 190 80" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+
+                                <!-- Step 2 -->
+                                <circle cx="250" cy="80" r="60" fill="#e6f7f5" stroke="#38b2ac" stroke-width="3"/>
+                                <text x="250" y="70" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 2</text>
+                                <text x="250" y="90" text-anchor="middle" font-size="11" fill="#2d3748">内容を</text>
+                                <text x="250" y="105" text-anchor="middle" font-size="11" fill="#2d3748">言い換える</text>
+                                <text x="250" y="160" text-anchor="middle" font-size="10" font-weight="600" fill="#2c7a7b">要約</text>
+
+                                <!-- Arrow -->
+                                <path d="M 310 80 L 340 80" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+
+                                <!-- Step 3 -->
+                                <circle cx="400" cy="80" r="60" fill="#e6f7f5" stroke="#38b2ac" stroke-width="3"/>
+                                <text x="400" y="70" text-anchor="middle" font-size="14" font-weight="700" fill="#2c7a7b">STEP 3</text>
+                                <text x="400" y="90" text-anchor="middle" font-size="11" fill="#2d3748">感情を</text>
+                                <text x="400" y="105" text-anchor="middle" font-size="11" fill="#2d3748">反映する</text>
+                                <text x="400" y="160" text-anchor="middle" font-size="10" font-weight="600" fill="#2c7a7b">共感</text>
+
+                                <!-- Arrow down -->
+                                <path d="M 400 140 L 400 180" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+
+                                <!-- Step 4 -->
+                                <circle cx="400" cy="220" r="60" fill="#38b2ac" stroke="#2c7a7b" stroke-width="3"/>
+                                <text x="400" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">STEP 4</text>
+                                <text x="400" y="230" text-anchor="middle" font-size="11" fill="#ffffff">要約+感情</text>
+                                <text x="400" y="245" text-anchor="middle" font-size="11" fill="#ffffff">反映</text>
+
+                                <!-- Arrow back -->
+                                <path d="M 340 220 L 160 220 L 160 80" stroke="#38b2ac" stroke-width="2" fill="none" marker-end="url(#arrow2)" stroke-dasharray="5,5"/>
+                                <text x="240" y="240" text-anchor="middle" font-size="10" fill="#718096">繰り返し実践</text>
+
+                                <defs>
+                                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                        <polygon points="0 0, 10 3, 0 6" fill="#38b2ac" />
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>自分の意見を言う前に、相手の話を最後まで聞く</li>
+                                <li>相手の感情（怒り、喜び、悲しみ）を理解しようとする</li>
+                                <li>自叙伝的な反応（自分の経験に基づく助言）を避ける</li>
+                                <li>「共感による傾聴」で心の扉を開く</li>
+                            </ul>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">自叙伝的反応 vs 共感的反応</div>
+                            <div class="chart-container" style="height: 250px;">
+                                <canvas id="responseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Habit 6 -->
+                    <div class="card">
+                        <div class="card-title">
+                            <span class="card-number">6</span>
+                            <h3>シナジーを創り出す<br><small>Synergize</small></h3>
+                        </div>
+
+                        <p><span class="highlight-coral">全体は部分の総和より大きい</span>というのが、シナジーの本質です。違いを尊重し、創造的に協力することで、1+1が3にも10にもなります。</p>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">シナジーの公式</div>
+                            <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Person A -->
+                                <circle cx="100" cy="100" r="50" fill="#4fd1c5" stroke="#38b2ac" stroke-width="3"/>
+                                <text x="100" y="85" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">1</text>
+                                <text x="100" y="110" text-anchor="middle" font-size="12" fill="#ffffff">あなたの</text>
+                                <text x="100" y="125" text-anchor="middle" font-size="12" fill="#ffffff">アイデア</text>
+
+                                <!-- Plus -->
+                                <text x="190" y="110" text-anchor="middle" font-size="40" font-weight="700" fill="#2d3748">+</text>
+
+                                <!-- Person B -->
+                                <circle cx="280" cy="100" r="50" fill="#d4a574" stroke="#b8935e" stroke-width="3"/>
+                                <text x="280" y="85" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">1</text>
+                                <text x="280" y="110" text-anchor="middle" font-size="12" fill="#ffffff">相手の</text>
+                                <text x="280" y="125" text-anchor="middle" font-size="12" fill="#ffffff">アイデア</text>
+
+                                <!-- Equals -->
+                                <text x="370" y="110" text-anchor="middle" font-size="40" font-weight="700" fill="#2d3748">=</text>
+
+                                <!-- Synergy Result -->
+                                <circle cx="480" cy="100" r="70" fill="#805ad5" stroke="#6b46c1" stroke-width="4"/>
+                                <text x="480" y="85" text-anchor="middle" font-size="40" font-weight="700" fill="#ffffff">3+</text>
+                                <text x="480" y="115" text-anchor="middle" font-size="13" fill="#ffffff">第3の案</text>
+                                <text x="480" y="133" text-anchor="middle" font-size="13" fill="#ffffff">シナジー</text>
+                            </svg>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">シナジーを生み出すプロセス</div>
+                            <svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                                <!-- Central concept -->
+                                <circle cx="300" cy="175" r="80" fill="#f7fafc" stroke="#2d3748" stroke-width="2"/>
+                                <text x="300" y="165" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3748">シナジー</text>
+                                <text x="300" y="190" text-anchor="middle" font-size="13" fill="#2d3748">創造的協力</text>
+
+                                <!-- Element 1 - Top -->
+                                <circle cx="300" cy="50" r="45" fill="#38b2ac" stroke="#2c7a7b" stroke-width="2"/>
+                                <text x="300" y="50" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">相違点を</text>
+                                <text x="300" y="65" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">尊重する</text>
+                                <path d="M 300 95 L 300 95" stroke="#2d3748" stroke-width="2" fill="none"/>
+                                <line x1="300" y1="95" x2="300" y2="95" stroke="#2d3748" stroke-width="2"/>
+
+                                <!-- Element 2 - Right -->
+                                <circle cx="470" cy="175" r="45" fill="#d4a574" stroke="#b8935e" stroke-width="2"/>
+                                <text x="470" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">第3の案を</text>
+                                <text x="470" y="185" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">探す</text>
+
+                                <!-- Element 3 - Bottom Right -->
+                                <circle cx="430" cy="300" r="45" fill="#805ad5" stroke="#6b46c1" stroke-width="2"/>
+                                <text x="430" y="295" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">Win-Win</text>
+                                <text x="430" y="310" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">の姿勢</text>
+
+                                <!-- Element 4 - Bottom Left -->
+                                <circle cx="170" cy="300" r="45" fill="#3182ce" stroke="#2c5282" stroke-width="2"/>
+                                <text x="170" y="295" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">共感による</text>
+                                <text x="170" y="310" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">傾聴</text>
+
+                                <!-- Element 5 - Left -->
+                                <circle cx="130" cy="175" r="45" fill="#e53e3e" stroke="#c53030" stroke-width="2"/>
+                                <text x="130" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">主体的な</text>
+                                <text x="130" y="185" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">姿勢</text>
+
+                                <!-- Connecting lines -->
+                                <line x1="300" y1="95" x2="300" y2="95" stroke="#cbd5e0" stroke-width="2"/>
+                                <line x1="380" y1="175" x2="425" y2="175" stroke="#cbd5e0" stroke-width="2"/>
+                                <line x1="380" y1="220" x2="395" y2="265" stroke="#cbd5e0" stroke-width="2"/>
+                                <line x1="220" y1="220" x2="205" y2="265" stroke="#cbd5e0" stroke-width="2"/>
+                                <line x1="175" y1="175" x2="220" y2="175" stroke="#cbd5e0" stroke-width="2"/>
+                                <line x1="270" y1="115" x2="300" y2="95" stroke="#cbd5e0" stroke-width="2"/>
+                            </svg>
+                        </div>
+
+                        <div class="key-points">
+                            <h4>実践のポイント</h4>
+                            <ul>
+                                <li>相違点を脅威ではなく、成長の機会と捉える</li>
+                                <li>自分の案でも相手の案でもない「第3の案」を探す</li>
+                                <li>ブレインストーミングで多様な視点を引き出す</li>
+                                <li>習慣4（Win-Win）と習慣5（傾聴）が基盤となる</li>
+                            </ul>
+                        </div>
+
+                        <div class="visual-diagram">
+                            <div class="diagram-title">シナジーのレベル</div>
+                            <div class="chart-container" style="height: 300px;">
+                                <canvas id="synergyLevelChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Renewal (Habit 7) ========== -->
+        <section class="section habits-category" id="renewal">
+            <div class="container">
+                <div class="category-header">
+                    <h2>♻️ Renewal（再新再生）</h2>
+                    <p>習慣7は、<span class="highlight">他の6つの習慣を磨き続ける</span>ための習慣です。継続的な自己投資なくして、持続的な効果性は実現できません。</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <span class="card-number">7</span>
+                        <h3>刃を研ぐ<br><small>Sharpen the Saw</small></h3>
+                    </div>
+
+                    <p><span class="highlight-coral">自分自身という最も大切な資源を維持し、向上させる</span>ことが、この習慣の本質です。忙しくて刃を研ぐ時間がないというのは、本末転倒です。</p>
+
+                    <div class="visual-diagram">
+                        <div class="diagram-title">4つの側面のバランス</div>
+                        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+                            <!-- Center circle -->
+                            <circle cx="250" cy="250" r="60" fill="#1a365d" stroke="#2c5282" stroke-width="3"/>
+                            <text x="250" y="245" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">バランスの</text>
+                            <text x="250" y="265" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">取れた成長</text>
+
+                            <!-- Physical - Top -->
+                            <circle cx="250" cy="80" r="70" fill="#e53e3e" stroke="#c53030" stroke-width="3"/>
+                            <text x="250" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">🏃 肉体的側面</text>
+                            <text x="250" y="90" text-anchor="middle" font-size="11" fill="#ffffff">Physical</text>
+                            <line x1="250" y1="150" x2="250" y2="190" stroke="#cbd5e0" stroke-width="3"/>
+
+                            <!-- Spiritual - Right -->
+                            <circle cx="420" cy="250" r="70" fill="#805ad5" stroke="#6b46c1" stroke-width="3"/>
+                            <text x="420" y="240" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">🧘 精神的側面</text>
+                            <text x="420" y="260" text-anchor="middle" font-size="11" fill="#ffffff">Spiritual</text>
+                            <line x1="350" y1="250" x2="310" y2="250" stroke="#cbd5e0" stroke-width="3"/>
+
+                            <!-- Social/Emotional - Bottom -->
+                            <circle cx="250" cy="420" r="70" fill="#38b2ac" stroke="#2c7a7b" stroke-width="3"/>
+                            <text x="250" y="410" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">🤝 社会・情緒的</text>
+                            <text x="250" y="430" text-anchor="middle" font-size="11" fill="#ffffff">Social/Emotional</text>
+                            <line x1="250" y1="350" x2="250" y2="310" stroke="#cbd5e0" stroke-width="3"/>
+
+                            <!-- Mental - Left -->
+                            <circle cx="80" cy="250" r="70" fill="#3182ce" stroke="#2c5282" stroke-width="3"/>
+                            <text x="80" y="240" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">📚 知的側面</text>
+                            <text x="80" y="260" text-anchor="middle" font-size="11" fill="#ffffff">Mental</text>
+                            <line x1="150" y1="250" x2="190" y2="250" stroke="#cbd5e0" stroke-width="3"/>
+                        </svg>
+                    </div>
+
+                    <div class="dimensions-grid">
+                        <div class="dimension-card dimension-physical">
+                            <div class="dimension-icon">🏃</div>
+                            <h5>肉体的側面</h5>
+                            <p>運動、栄養、ストレス管理</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; margin-top: var(--spacing-sm); text-align: left;">
+                                <li>• 定期的な運動</li>
+                                <li>• バランスの取れた食事</li>
+                                <li>• 十分な睡眠と休息</li>
+                            </ul>
+                        </div>
+
+                        <div class="dimension-card dimension-spiritual">
+                            <div class="dimension-icon">🧘</div>
+                            <h5>精神的側面</h5>
+                            <p>価値観の明確化、瞑想</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; margin-top: var(--spacing-sm); text-align: left;">
+                                <li>• 瞑想・祈り</li>
+                                <li>• 自然との触れ合い</li>
+                                <li>• ミッションの再確認</li>
+                            </ul>
+                        </div>
+
+                        <div class="dimension-card dimension-mental">
+                            <div class="dimension-icon">📚</div>
+                            <h5>知的側面</h5>
+                            <p>読書、学習、執筆</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; margin-top: var(--spacing-sm); text-align: left;">
+                                <li>• 読書・学習</li>
+                                <li>• 文章を書く</li>
+                                <li>• 新しいスキルの習得</li>
+                            </ul>
+                        </div>
+
+                        <div class="dimension-card dimension-social">
+                            <div class="dimension-icon">🤝</div>
+                            <h5>社会・情緒的側面</h5>
+                            <p>人間関係、貢献、共感</p>
+                            <ul style="list-style: none; padding: 0; font-size: 0.9rem; margin-top: var(--spacing-sm); text-align: left;">
+                                <li>• 信頼関係の構築</li>
+                                <li>• 他者への貢献</li>
+                                <li>• 共感とシナジー</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="visual-diagram">
+                        <div class="diagram-title">上向きスパイラル - 継続的改善のサイクル</div>
+                        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; margin: 0 auto; display: block;">
+                            <!-- Spiral path -->
+                            <path d="M 300 350 Q 200 320 200 250 Q 200 180 270 150 Q 340 120 380 180 Q 420 240 370 290 Q 320 340 260 310 Q 200 280 210 220 Q 220 160 280 140 Q 340 120 380 160"
+                                  fill="none" stroke="url(#spiralGradient)" stroke-width="30" stroke-linecap="round" opacity="0.6"/>
+
+                            <!-- Nodes -->
+                            <circle cx="300" cy="350" r="20" fill="#e53e3e"/>
+                            <text x="300" y="390" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">学ぶ</text>
+
+                            <circle cx="200" cy="250" r="20" fill="#d69e2e"/>
+                            <text x="140" y="255" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">決意する</text>
+
+                            <circle cx="380" cy="180" r="20" fill="#38b2ac"/>
+                            <text x="450" y="185" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">実行する</text>
+
+                            <circle cx="260" cy="310" r="20" fill="#805ad5"/>
+                            <text x="190" y="340" text-anchor="middle" font-size="12" font-weight="600" fill="#2d3748">振り返る</text>
+
+                            <!-- Arrow at top -->
+                            <path d="M 380 160 L 380 80" stroke="#38b2ac" stroke-width="4" fill="none" marker-end="url(#arrow3)"/>
+                            <text x="300" y="60" text-anchor="middle" font-size="18" font-weight="700" fill="#2c7a7b">継続的成長 ↑</text>
+
+                            <!-- Gradient definition -->
+                            <defs>
+                                <linearGradient id="spiralGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#e53e3e;stop-opacity:1" />
+                                    <stop offset="33%" style="stop-color:#d69e2e;stop-opacity:1" />
+                                    <stop offset="66%" style="stop-color:#38b2ac;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#805ad5;stop-opacity:1" />
+                                </linearGradient>
+                                <marker id="arrow3" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                                    <polygon points="0 0, 12 3, 0 6" fill="#38b2ac" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <div class="key-points">
+                        <h4>実践のポイント</h4>
+                        <ul>
+                            <li>毎日最低1時間を自己再生の時間として確保する（第II領域の活動）</li>
+                            <li>4つの側面すべてにバランスよく投資する</li>
+                            <li>小さな改善を継続し、上向きスパイラルを生み出す</li>
+                            <li>他者の成長も支援する（他者の刃も研ぐ）</li>
+                        </ul>
+                    </div>
+
+                    <div class="visual-diagram">
+                        <div class="diagram-title">自己投資による効果性の向上</div>
+                        <div class="chart-container">
+                            <canvas id="effectivenessChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Summary and Action Section ========== -->
+        <section class="section" id="summary" style="background: var(--color-white);">
+            <div class="container">
+                <h2 class="text-center">📋 まとめと実践ガイド</h2>
+
+                <div class="card">
+                    <h3>7つの習慣の全体像</h3>
+                    <p>7つの習慣は、<span class="highlight">人格を磨き、効果的な人生を送るための原則</span>です。これらは単なるテクニックではなく、人生の基盤となる普遍的な原則に基づいています。</p>
+
+                    <div class="visual-diagram">
+                        <div class="diagram-title">習慣の相互関係と成長の流れ</div>
+                        <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 700px; margin: 0 auto; display: block;">
+                            <!-- Private Victory Circle -->
+                            <ellipse cx="200" cy="150" rx="150" ry="120" fill="rgba(252, 129, 129, 0.1)" stroke="#fc8181" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="200" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="#c53030">Private Victory</text>
+
+                            <circle cx="200" cy="120" r="30" fill="#e53e3e"/>
+                            <text x="200" y="128" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">1</text>
+
+                            <circle cx="140" cy="170" r="30" fill="#e53e3e"/>
+                            <text x="140" y="178" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">2</text>
+
+                            <circle cx="260" cy="170" r="30" fill="#e53e3e"/>
+                            <text x="260" y="178" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">3</text>
+
+                            <!-- Public Victory Circle -->
+                            <ellipse cx="500" cy="250" rx="150" ry="140" fill="rgba(56, 178, 172, 0.1)" stroke="#38b2ac" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="500" y="130" text-anchor="middle" font-size="16" font-weight="700" fill="#2c7a7b">Public Victory</text>
+
+                            <circle cx="450" cy="200" r="30" fill="#38b2ac"/>
+                            <text x="450" y="208" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">4</text>
+
+                            <circle cx="550" cy="200" r="30" fill="#38b2ac"/>
+                            <text x="550" y="208" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">5</text>
+
+                            <circle cx="500" cy="280" r="30" fill="#38b2ac"/>
+                            <text x="500" y="288" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">6</text>
+
+                            <!-- Arrow from Private to Public -->
+                            <path d="M 330 180 L 400 210" stroke="#d69e2e" stroke-width="4" fill="none" marker-end="url(#arrow4)"/>
+                            <text x="365" y="180" text-anchor="middle" font-size="13" font-weight="600" fill="#d69e2e">自立から</text>
+                            <text x="365" y="200" text-anchor="middle" font-size="13" font-weight="600" fill="#d69e2e">相互依存へ</text>
+
+                            <!-- Habit 7 - Encompassing all -->
+                            <ellipse cx="350" cy="250" rx="280" ry="220" fill="none" stroke="#805ad5" stroke-width="4"/>
+                            <text x="350" y="470" text-anchor="middle" font-size="18" font-weight="700" fill="#6b46c1">習慣7: 刃を研ぐ（すべての習慣を支える）</text>
+
+                            <circle cx="100" cy="400" r="35" fill="#805ad5"/>
+                            <text x="100" y="410" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">7</text>
+
+                            <circle cx="600" cy="400" r="35" fill="#805ad5"/>
+                            <text x="600" y="410" text-anchor="middle" font-size="24" font-weight="700" fill="#ffffff">7</text>
+
+                            <!-- Labels -->
+                            <text x="140" y="240" text-anchor="start" font-size="11" fill="#2d3748">主体的である</text>
+                            <text x="140" y="255" text-anchor="start" font-size="11" fill="#2d3748">終わりを思い描く</text>
+                            <text x="140" y="270" text-anchor="start" font-size="11" fill="#2d3748">最優先事項を優先</text>
+
+                            <text x="410" y="340" text-anchor="start" font-size="11" fill="#2d3748">Win-Winを考える</text>
+                            <text x="410" y="355" text-anchor="start" font-size="11" fill="#2d3748">理解に徹する</text>
+                            <text x="410" y="370" text-anchor="start" font-size="11" fill="#2d3748">シナジーを創る</text>
+
+                            <defs>
+                                <marker id="arrow4" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                                    <polygon points="0 0, 12 3, 0 6" fill="#d69e2e" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="summary-grid" style="margin-top: var(--spacing-lg);">
+                    <div class="summary-box" style="border-left-color: #e53e3e;">
+                        <h4 style="color: #e53e3e;">🎯 今日から始められること</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">✓ 影響の輪を意識し、主体的な言葉を使う</li>
+                            <li style="padding: 0.5rem 0;">✓ 自分のミッション・ステートメントを書き始める</li>
+                            <li style="padding: 0.5rem 0;">✓ 週の計画で第II領域の活動を優先する</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-box" style="border-left-color: #38b2ac;">
+                        <h4 style="color: #38b2ac;">💪 習慣化のヒント</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">✓ 一度に全部ではなく、1つずつ習慣化する</li>
+                            <li style="padding: 0.5rem 0;">✓ 小さな成功体験を積み重ねる</li>
+                            <li style="padding: 0.5rem 0;">✓ 毎日の振り返りで進捗を確認する</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-box" style="border-left-color: #805ad5;">
+                        <h4 style="color: #805ad5;">📈 期待される変化</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0;">✓ 自己効力感と自信の向上</li>
+                            <li style="padding: 0.5rem 0;">✓ 人間関係の質的改善</li>
+                            <li style="padding: 0.5rem 0;">✓ 長期的な目標の達成</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: var(--spacing-lg); background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(56, 178, 172, 0.1)); border: 3px solid var(--color-accent-gold);">
+                    <h3 style="text-align: center; color: var(--color-primary);">🌟 最も重要なメッセージ</h3>
+                    <p style="font-size: 1.2rem; text-align: center; line-height: 2; margin: var(--spacing-md) 0;">
+                        7つの習慣は、<span class="highlight-coral">「インサイド・アウト」</span>のアプローチです。<br>
+                        まず<span class="highlight">自分自身を変え</span>、そこから<span class="highlight-teal">周囲の世界が変わっていく</span>のです。<br>
+                        人格を磨き、原則中心の生き方を実践することで、<br>
+                        <strong>真の成功と幸福</strong>を手に入れることができます。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== Footer ========== -->
+    <footer>
+        <div class="container">
+            <p>「7つの習慣」視覚的要約 | スティーブン・R・コヴィー博士</p>
+            <p style="font-size: 0.9rem; margin-top: var(--spacing-sm);">
+                この要約は教育目的で作成されています。詳細は原著をお読みください。
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========== JavaScript for Charts ========== -->
+    <script>
+        // Chart.js default settings
+        Chart.defaults.font.family = "'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif";
+        Chart.defaults.plugins.legend.display = true;
+
+        // ========== Maturity Continuum Chart ==========
+        const maturityCtx = document.getElementById('maturityChart').getContext('2d');
+        new Chart(maturityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['習慣1\n主体的である', '習慣2\n終わりを思い描く', '習慣3\n最優先事項', '習慣4\nWin-Win', '習慣5\n傾聴', '習慣6\nシナジー', '習慣7\n刃を研ぐ'],
+                datasets: [{
+                    label: '依存 → 自立 → 相互依存',
+                    data: [30, 50, 70, 85, 90, 95, 100],
+                    backgroundColor: [
+                        'rgba(229, 62, 62, 0.7)',
+                        'rgba(229, 62, 62, 0.7)',
+                        'rgba(229, 62, 62, 0.7)',
+                        'rgba(56, 178, 172, 0.7)',
+                        'rgba(56, 178, 172, 0.7)',
+                        'rgba(56, 178, 172, 0.7)',
+                        'rgba(128, 90, 213, 0.7)'
+                    ],
+                    borderColor: [
+                        '#e53e3e',
+                        '#e53e3e',
+                        '#e53e3e',
+                        '#38b2ac',
+                        '#38b2ac',
+                        '#38b2ac',
+                        '#805ad5'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                if (value === 0) return '依存';
+                                if (value === 50) return '自立';
+                                if (value === 100) return '相互依存';
+                                return '';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // ========== Roles Chart (Doughnut) ==========
+        const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+        new Chart(rolesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['家族', '仕事', '自己成長', 'コミュニティ', '健康'],
+                datasets: [{
+                    data: [25, 25, 20, 15, 15],
+                    backgroundColor: [
+                        'rgba(229, 62, 62, 0.7)',
+                        'rgba(56, 178, 172, 0.7)',
+                        'rgba(49, 130, 206, 0.7)',
+                        'rgba(212, 165, 116, 0.7)',
+                        'rgba(128, 90, 213, 0.7)'
+                    ],
+                    borderColor: [
+                        '#e53e3e',
+                        '#38b2ac',
+                        '#3182ce',
+                        '#d4a574',
+                        '#805ad5'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // ========== Time Allocation Chart ==========
+        const timeCtx = document.getElementById('timeAllocationChart').getContext('2d');
+        new Chart(timeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['第I領域\n緊急×重要', '第II領域\n重要×緊急でない', '第III領域\n緊急×重要でない', '第IV領域\n両方でない'],
+                datasets: [{
+                    label: '一般的な時間配分',
+                    data: [25, 15, 50, 10],
+                    backgroundColor: 'rgba(160, 174, 192, 0.5)',
+                    borderColor: '#a0aec0',
+                    borderWidth: 2
+                }, {
+                    label: '効果的な時間配分',
+                    data: [20, 65, 10, 5],
+                    backgroundColor: 'rgba(56, 178, 172, 0.7)',
+                    borderColor: '#38b2ac',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // ========== Response Types Chart ==========
+        const responseCtx = document.getElementById('responseChart').getContext('2d');
+        new Chart(responseCtx, {
+            type: 'radar',
+            data: {
+                labels: ['理解度', '信頼構築', '問題解決', '関係深化', '長期効果'],
+                datasets: [{
+                    label: '自叙伝的反応',
+                    data: [30, 25, 40, 20, 25],
+                    backgroundColor: 'rgba(252, 129, 129, 0.2)',
+                    borderColor: '#fc8181',
+                    borderWidth: 2
+                }, {
+                    label: '共感的反応',
+                    data: [95, 90, 85, 95, 90],
+                    backgroundColor: 'rgba(56, 178, 172, 0.2)',
+                    borderColor: '#38b2ac',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // ========== Synergy Level Chart ==========
+        const synergyCtx = document.getElementById('synergyLevelChart').getContext('2d');
+        new Chart(synergyCtx, {
+            type: 'line',
+            data: {
+                labels: ['妥協', '尊重', '協力', '創造的協力', 'シナジー'],
+                datasets: [{
+                    label: '生み出される価値',
+                    data: [50, 70, 100, 150, 300],
+                    backgroundColor: 'rgba(128, 90, 213, 0.2)',
+                    borderColor: '#805ad5',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // ========== Effectiveness Over Time Chart ==========
+        const effectivenessCtx = document.getElementById('effectivenessChart').getContext('2d');
+        new Chart(effectivenessCtx, {
+            type: 'line',
+            data: {
+                labels: ['開始時', '1ヶ月', '3ヶ月', '6ヶ月', '1年', '2年', '3年'],
+                datasets: [{
+                    label: '自己投資あり（刃を研ぐ）',
+                    data: [50, 60, 75, 90, 110, 140, 180],
+                    backgroundColor: 'rgba(56, 178, 172, 0.2)',
+                    borderColor: '#38b2ac',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3
+                }, {
+                    label: '自己投資なし',
+                    data: [50, 48, 45, 40, 35, 30, 25],
+                    backgroundColor: 'rgba(252, 129, 129, 0.2)',
+                    borderColor: '#fc8181',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '効果性レベル'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // ========== Smooth Scroll ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========== Fade-in Animation on Scroll ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .visual-diagram').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>Firebaseチャットアプリ - Thumbnail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative background elements */
+        .bg-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .circle1 {
+            width: 400px;
+            height: 400px;
+            background: white;
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle2 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .circle3 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+        }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            color: white;
+            padding: 60px;
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+        }
+
+        /* Firebase logo styled icon */
+        .icon-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .firebase-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FFCA28 0%, #FFA000 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .firebase-icon::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 40px solid white;
+            position: absolute;
+        }
+
+        .chat-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .chat-bubble {
+            width: 40px;
+            height: 35px;
+            background: white;
+            border-radius: 18px 18px 2px 18px;
+            position: relative;
+        }
+
+        .chat-dots {
+            display: flex;
+            gap: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #4CAF50;
+            border-radius: 50%;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 84px;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 42px;
+            margin-top: 20px;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 28px;
+            margin-top: 25px;
+            opacity: 0.85;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Technology badge */
+        .tech-badge {
+            display: inline-flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 22px;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="「Firebaseを利用したチャットアプリ」">
+    <meta property="og:description" content="「Firebaseを利用したチャットアプリ」">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/1ab84597">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/1ab84597/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="「Firebaseを利用したチャットアプリ」">
+    <meta name="twitter:description" content="「Firebaseを利用したチャットアプリ」">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/1ab84597/thumbnail.png">
+  </head>
+<body>
+    <!-- Background decoration -->
+    <div class="bg-decoration circle1"></div>
+    <div class="bg-decoration circle2"></div>
+    <div class="bg-decoration circle3"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="icon-container">
+            <div class="firebase-icon"></div>
+            <div class="chat-icon">
+                <div class="chat-bubble">
+                    <div class="chat-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1>チャットアプリ</h1>
+        <p class="subtitle">Firebase リアルタイムチャット</p>
+        <p class="description">クラウドベースのモダンなチャットアプリケーション</p>
+
+        <div class="tech-badge">
+            <span class="badge">Firebase</span>
+            <span class="badge">Realtime</span>
+            <span class="badge">WebApp</span>
+        </div>
+    </div>
+</body>
+</html>

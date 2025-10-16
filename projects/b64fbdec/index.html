@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="次世代ビジネスソリューション - デジタルトランスフォーメーションを加速させる革新的なプラットフォーム。業務効率化と成長を支援します。">
+    <meta name="keywords" content="ビジネスソリューション, DX, デジタルトランスフォーメーション, 業務効率化, プラットフォーム">
+    <meta name="author" content="Claude Code Generator">
+
+    <!-- Open Graph / OGP -->
+    <meta property="og:title" content="次世代ビジネスソリューション | プロジェクト紹介">
+    <meta property="og:description" content="デジタルトランスフォーメーションを加速させる革新的なビジネスプラットフォーム。業務効率を300%向上させ、コストを50%削減する実績のあるソリューションをご紹介します。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://43.206.228.194/ccbot/projects/b64fbdec/">
+    <meta property="og:image" content="http://43.206.228.194/ccbot/projects/b64fbdec/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="次世代ビジネスソリューション | プロジェクト紹介">
+    <meta name="twitter:description" content="デジタルトランスフォーメーションを加速させる革新的なビジネスプラットフォーム。業務効率を300%向上させ、コストを50%削減する実績のあるソリューションをご紹介します。">
+    <meta name="twitter:image" content="http://43.206.228.194/ccbot/projects/b64fbdec/thumbnail.png">
+
+    <title>次世代ビジネスソリューション | プロジェクト紹介</title>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PresentationDigitalDocument",
+      "name": "次世代ビジネスソリューション",
+      "description": "デジタルトランスフォーメーションを加速させる革新的なビジネスプラットフォームのプレゼンテーション",
+      "author": {
+        "@type": "Organization",
+        "name": "Claude Code Generator"
+      },
+      "inLanguage": "ja",
+      "url": "http://43.206.228.194/ccbot/projects/b64fbdec/"
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-white);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        /* Slide Navigation */
+        .slide-nav {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .nav-btn {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--primary-color);
+            background: var(--bg-white);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, #fef08a 60%);
+            padding: 0 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .accent-text {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Slide 1: Title */
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            color: white;
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        .slide-title .subtitle {
+            font-size: 28px;
+            opacity: 0.95;
+            margin-bottom: 60px;
+        }
+
+        .slide-title .project-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Slide 2: Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .problem-item {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 6px solid #ef4444;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        /* Slide 3: Solution */
+        .solution-box {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            padding: 60px;
+            border-radius: 30px;
+            color: white;
+            text-align: center;
+            max-width: 900px;
+            box-shadow: 0 20px 60px rgba(34, 197, 94, 0.3);
+        }
+
+        .solution-box h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .solution-box p {
+            color: white;
+            font-size: 24px;
+            line-height: 1.8;
+        }
+
+        /* Slide 4: Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+            max-width: 1400px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .feature-card:nth-child(2) {
+            border-top-color: var(--accent-color);
+        }
+
+        .feature-card:nth-child(3) {
+            border-top-color: var(--success-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+        }
+
+        .feature-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Slide 5: Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .tech-diagram {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tech-layer {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .tech-layer:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .tech-layer h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .tech-layer p {
+            font-size: 16px;
+        }
+
+        .tech-visual {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .architecture-diagram {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .arch-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .arch-box::after {
+            content: '↓';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .arch-box:last-child::after {
+            display: none;
+        }
+
+        /* Slide 6: Impact */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            width: 100%;
+            max-width: 1300px;
+            margin-top: 50px;
+        }
+
+        .impact-card {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-light);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: scale(1.05);
+            background: white;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .impact-number {
+            font-size: 72px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .impact-label {
+            font-size: 20px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .impact-description {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Slide 7: Roadmap */
+        .roadmap {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .timeline-date {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .timeline-desc {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 4px solid white;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 30px;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Slide 8: CTA */
+        .cta-container {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .cta-container h2 {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--bg-light);
+            border-radius: 15px;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            h2 {
+                font-size: 36px;
+            }
+
+            .features-grid,
+            .problem-grid,
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                flex-direction: column;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .slide-nav,
+            .progress-bar {
+                display: none;
+            }
+
+            .slide {
+                page-break-after: always;
+                position: relative;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <main class="presentation" id="presentation">
+        <!-- Slide 1: Title -->
+        <section class="slide active slide-title">
+            <h1>次世代ビジネスソリューション</h1>
+            <p class="subtitle">デジタルトランスフォーメーションを加速する</p>
+            <div class="project-tag">革新的プラットフォーム</div>
+        </section>
+
+        <!-- Slide 2: Problem -->
+        <article class="slide">
+            <h2>現状の<span class="highlight">課題</span></h2>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <div class="problem-icon">⏱️</div>
+                    <h3>業務の非効率性</h3>
+                    <p>手作業による処理で時間とコストが増大し、競争力が低下しています</p>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">📊</div>
+                    <h3>データの分散</h3>
+                    <p>情報が各部門に散在し、全体像の把握と迅速な意思決定が困難です</p>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">🔄</div>
+                    <h3>システム連携不足</h3>
+                    <p>既存システムの分断により、重複入力や転記ミスが頻発しています</p>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">📈</div>
+                    <h3>スケーラビリティの欠如</h3>
+                    <p>ビジネスの成長に伴い、現行システムでは対応が限界に達しています</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slide 3: Solution -->
+        <article class="slide">
+            <h2>提供する<span class="accent-text">価値</span></h2>
+            <div class="solution-box">
+                <h2>統合型デジタルプラットフォーム</h2>
+                <p>
+                    業務プロセスを<span style="background: rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 5px; font-weight: 700;">完全自動化</span>し、<br>
+                    リアルタイムデータ分析により<span style="background: rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 5px; font-weight: 700;">即座に意思決定</span>。<br>
+                    全システムを統合し、<span style="background: rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 5px; font-weight: 700;">シームレスな業務環境</span>を実現します。
+                </p>
+            </div>
+        </article>
+
+        <!-- Slide 4: Features -->
+        <article class="slide">
+            <h2>主要<span class="highlight">機能</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI自動化エンジン</h3>
+                    <p>機械学習により業務フローを最適化。繰り返し作業を自動化し、人的リソースを戦略業務にシフトします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>リアルタイム分析</h3>
+                    <p>ビッグデータを即座に可視化。ダッシュボードで重要指標をリアルタイムに監視し、的確な判断を支援します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>統合API基盤</h3>
+                    <p>既存システムとシームレスに連携。柔軟なAPI設計により、あらゆるツールと統合可能です。</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slide 5: Tech Stack -->
+        <article class="slide">
+            <h2>技術<span class="highlight">アーキテクチャ</span></h2>
+            <div class="tech-stack">
+                <div class="tech-diagram">
+                    <div class="tech-layer">
+                        <h4>フロントエンド層</h4>
+                        <p>React / Vue.js - レスポンシブUI・PWA対応</p>
+                    </div>
+                    <div class="tech-layer">
+                        <h4>アプリケーション層</h4>
+                        <p>Node.js / Python - マイクロサービスアーキテクチャ</p>
+                    </div>
+                    <div class="tech-layer">
+                        <h4>データ層</h4>
+                        <p>PostgreSQL / Redis - 高速データ処理・キャッシング</p>
+                    </div>
+                    <div class="tech-layer">
+                        <h4>インフラ層</h4>
+                        <p>AWS / Docker / Kubernetes - スケーラブルな環境</p>
+                    </div>
+                </div>
+                <div class="tech-visual">
+                    <div class="architecture-diagram">
+                        <div class="arch-box">ユーザーインターフェース</div>
+                        <div class="arch-box">ビジネスロジック</div>
+                        <div class="arch-box">データ管理</div>
+                        <div class="arch-box">クラウドインフラ</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slide 6: Impact -->
+        <article class="slide">
+            <h2>導入<span class="highlight">効果</span></h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-number">300%</div>
+                    <div class="impact-label">業務効率向上</div>
+                    <p class="impact-description">自動化により処理時間を大幅削減</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">50%</div>
+                    <div class="impact-label">コスト削減</div>
+                    <p class="impact-description">運用コストとエラーによる損失を半減</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number">24/7</div>
+                    <div class="impact-label">稼働時間</div>
+                    <p class="impact-description">99.9%の可用性で安定稼働</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slide 7: Roadmap -->
+        <article class="slide">
+            <h2>開発<span class="highlight">ロードマップ</span></h2>
+            <div class="roadmap">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年 Q1</div>
+                            <div class="timeline-title">フェーズ1：基盤構築</div>
+                            <p class="timeline-desc">コアシステムの開発完了・β版リリース</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年 Q2</div>
+                            <div class="timeline-title">フェーズ2：機能拡張</div>
+                            <p class="timeline-desc">AI機能・分析ダッシュボード実装</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年 Q3</div>
+                            <div class="timeline-title">フェーズ3：統合強化</div>
+                            <p class="timeline-desc">外部システム連携・API公開</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025年 Q4</div>
+                            <div class="timeline-title">フェーズ4：本格展開</div>
+                            <p class="timeline-desc">正式版リリース・グローバル展開</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slide 8: CTA -->
+        <article class="slide">
+            <div class="cta-container">
+                <h2>共に未来を創造しましょう</h2>
+                <p style="font-size: 22px; margin-bottom: 20px;">
+                    デジタルトランスフォーメーションの第一歩を<br>
+                    今すぐ踏み出しませんか？
+                </p>
+                <a href="#contact" class="cta-button">お問い合わせ</a>
+                <div class="contact-info">
+                    <p><strong>プロジェクト責任者</strong></p>
+                    <p>📧 contact@example.com</p>
+                    <p>📞 03-XXXX-XXXX</p>
+                    <p>🌐 https://example.com</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <nav class="slide-nav">
+        <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">8</span></span>
+        <button class="nav-btn" id="prevBtn" aria-label="前のスライド">◀</button>
+        <button class="nav-btn" id="nextBtn" aria-label="次のスライド">▶</button>
+    </nav>
+
+    <script>
+        // Presentation Controller
+        class Presentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.currentSlideEl = document.getElementById('currentSlide');
+                this.progressBar = document.getElementById('progressBar');
+
+                this.init();
+            }
+
+            init() {
+                // Event listeners
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        this.goToSlide(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        this.goToSlide(this.totalSlides - 1);
+                    }
+                });
+
+                // Touch/Swipe support
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                document.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                });
+
+                this.handleSwipe = () => {
+                    if (touchEndX < touchStartX - 50) this.nextSlide();
+                    if (touchEndX > touchStartX + 50) this.prevSlide();
+                };
+
+                this.updateUI();
+            }
+
+            goToSlide(index) {
+                if (index < 0 || index >= this.totalSlides) return;
+
+                // Remove active class from current slide
+                this.slides[this.currentSlide].classList.remove('active');
+                if (index > this.currentSlide) {
+                    this.slides[this.currentSlide].classList.add('prev');
+                } else {
+                    this.slides[this.currentSlide].classList.remove('prev');
+                }
+
+                // Update current slide
+                this.currentSlide = index;
+
+                // Add active class to new slide
+                this.slides[this.currentSlide].classList.add('active');
+                if (index > 0) {
+                    this.slides[this.currentSlide].classList.remove('prev');
+                }
+
+                this.updateUI();
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            updateUI() {
+                // Update counter
+                this.currentSlideEl.textContent = this.currentSlide + 1;
+
+                // Update buttons
+                this.prevBtn.disabled = this.currentSlide === 0;
+                this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
+
+                // Update progress bar
+                const progress = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                this.progressBar.style.width = progress + '%';
+            }
+        }
+
+        // Initialize presentation
+        document.addEventListener('DOMContentLoaded', () => {
+            new Presentation();
+        });
+
+        // Fullscreen toggle (F key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'f' || e.key === 'F') {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>Firestore チャットアプリ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative geometric shapes */
+        .bg-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: white;
+            top: -100px;
+            left: -100px;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            top: 50%;
+            right: 100px;
+            transform: translateY(-50%);
+        }
+
+        /* Chat bubble decorations */
+        .chat-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px 25px;
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .bubble-1 {
+            top: 80px;
+            left: 120px;
+            max-width: 250px;
+        }
+
+        .bubble-2 {
+            bottom: 100px;
+            right: 150px;
+            max-width: 280px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            padding: 60px;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 900px;
+        }
+
+        .icon-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .chat-icon {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%);
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(251, 140, 0, 0.4);
+        }
+
+        .chat-icon::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 45px;
+            background: white;
+            border-radius: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -55%);
+        }
+
+        .chat-icon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 12px solid white;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            bottom: 20px;
+            left: 25px;
+        }
+
+        h1 {
+            font-size: 68px;
+            margin: 0 0 20px 0;
+            font-weight: 900;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 36px;
+            margin: 0 0 30px 0;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .firebase-logo {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #FFCA28 0%, #FFA000 100%);
+            border-radius: 5px;
+            vertical-align: middle;
+            margin-right: 8px;
+            position: relative;
+        }
+
+        .firebase-logo::before {
+            content: '🔥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="「Firestoreを活用したチャットアプリ」">
+    <meta property="og:description" content="「Firestoreを活用したチャットアプリ」">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/484dd8dc">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/484dd8dc/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="「Firestoreを活用したチャットアプリ」">
+    <meta name="twitter:description" content="「Firestoreを活用したチャットアプリ」">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/484dd8dc/thumbnail.png">
+  </head>
+<body>
+    <!-- Decorative elements -->
+    <div class="bg-decoration circle-1"></div>
+    <div class="bg-decoration circle-2"></div>
+    <div class="bg-decoration circle-3"></div>
+
+    <div class="chat-bubble bubble-1">こんにちは！</div>
+    <div class="chat-bubble bubble-2">リアルタイムチャット</div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="icon-wrapper">
+            <div class="chat-icon"></div>
+        </div>
+
+        <h1>チャットアプリ</h1>
+        <p class="subtitle">Firestore を活用した</p>
+
+        <div class="tech-stack">
+            <div class="tech-badge">
+                <span class="firebase-logo"></span>
+                Firestore
+            </div>
+            <div class="tech-badge">リアルタイム</div>
+            <div class="tech-badge">HTML5</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7つの習慣 - 視覚的要約</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sumi: #2C2C2C;
+            --sumi-light: #4A4A4A;
+            --shiro: #F5F5F0;
+            --kin: #D4AF37;
+            --shu: #C73E3A;
+            --ai: #1E4D8B;
+            --midori: #3A7D44;
+            --murasaki: #5D3F6A;
+            --yamabuki: #F8B500;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--shiro);
+            color: var(--sumi);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--shiro) 0%, #E8E8E0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: var(--sumi);
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--sumi-light);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 3rem;
+        }
+
+        .hero-ornament {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--kin), transparent);
+            margin: 0 auto 2rem;
+        }
+
+        /* コンテナ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* セクション */
+        .section {
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--sumi);
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            border-left: 6px solid var(--kin);
+            letter-spacing: 0.05em;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--sumi-light);
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        /* 要約カード */
+        .summary-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--kin);
+            margin-bottom: 3rem;
+        }
+
+        .summary-card h3 {
+            font-size: 1.8rem;
+            color: var(--shu);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .summary-card p {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(212, 175, 55, 0.3) 60%);
+            font-weight: 500;
+            padding: 0 0.2rem;
+        }
+
+        .highlight-red {
+            background: linear-gradient(transparent 60%, rgba(199, 62, 58, 0.2) 60%);
+            font-weight: 500;
+            padding: 0 0.2rem;
+        }
+
+        .highlight-blue {
+            background: linear-gradient(transparent 60%, rgba(30, 77, 139, 0.2) 60%);
+            font-weight: 500;
+            padding: 0 0.2rem;
+        }
+
+        /* キーポイントリスト */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .key-point {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--ai);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .key-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .key-point-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--ai);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .key-point h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--sumi);
+        }
+
+        .key-point p {
+            font-size: 1rem;
+            color: var(--sumi-light);
+            line-height: 1.8;
+        }
+
+        /* グラフコンテナ */
+        .chart-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--sumi);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+
+        /* 習慣カード */
+        .habit-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 4rem;
+            border-top: 6px solid var(--kin);
+        }
+
+        .habit-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1.5rem;
+        }
+
+        .habit-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--kin), var(--yamabuki));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .habit-title-group h3 {
+            font-size: 2rem;
+            color: var(--sumi);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .habit-category {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--shiro);
+            color: var(--sumi-light);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .habit-description {
+            font-size: 1.15rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            color: var(--sumi);
+        }
+
+        .habit-visual {
+            margin: 3rem 0;
+        }
+
+        .habit-details {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .detail-box {
+            background: var(--shiro);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--shu);
+        }
+
+        .detail-box h4 {
+            font-size: 1.3rem;
+            color: var(--shu);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .detail-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-box li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .detail-box li::before {
+            content: '●';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--kin);
+        }
+
+        /* フローチャート */
+        .flow-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .flow-item {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--ai);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .flow-item::after {
+            content: '↓';
+            position: absolute;
+            left: -1rem;
+            bottom: -2rem;
+            font-size: 2rem;
+            color: var(--ai);
+        }
+
+        .flow-item:last-child::after {
+            content: '';
+        }
+
+        .flow-item strong {
+            color: var(--shu);
+            font-size: 1.1rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .habit-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .chart-wrapper {
+                height: 300px;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* スクロールアニメーション用 */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SVG図形用のスタイル */
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            margin: 2rem 0;
+        }
+
+        /* 円形図 */
+        .circle-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+            min-height: 500px;
+        }
+
+        .circle-center {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--kin), var(--yamabuki));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            z-index: 2;
+            position: relative;
+        }
+
+        .circle-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .circle-item {
+            position: absolute;
+            width: 180px;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 3px solid var(--ai);
+        }
+
+        .circle-item h5 {
+            font-size: 1.1rem;
+            color: var(--sumi);
+            margin-bottom: 0.5rem;
+        }
+
+        .circle-item p {
+            font-size: 0.9rem;
+            color: var(--sumi-light);
+        }
+
+        /* ピラミッド図 */
+        .pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .pyramid-level {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .pyramid-level:hover {
+            transform: scale(1.05);
+        }
+
+        .pyramid-level-1 {
+            width: 90%;
+            border-top: 5px solid var(--shu);
+        }
+
+        .pyramid-level-2 {
+            width: 75%;
+            border-top: 5px solid var(--ai);
+        }
+
+        .pyramid-level-3 {
+            width: 60%;
+            border-top: 5px solid var(--midori);
+        }
+
+        .pyramid-level h4 {
+            font-size: 1.5rem;
+            color: var(--sumi);
+            margin-bottom: 1rem;
+        }
+
+        .pyramid-level p {
+            font-size: 1rem;
+            color: var(--sumi-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title serif">7つの習慣</h1>
+            <div class="hero-ornament"></div>
+            <p class="hero-subtitle">人格主義の回復</p>
+            <p style="color: var(--sumi-light); font-size: 1.1rem; font-weight: 300;">スティーブン・R・コヴィー著</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- 本の全体要約セクション -->
+        <section class="section" id="overview">
+            <h2 class="section-title serif">本の全体要約</h2>
+            <p class="section-subtitle">まず全体像を理解しましょう</p>
+
+            <div class="summary-card">
+                <h3 class="serif">核心となる思想</h3>
+                <p>
+                    『7つの習慣』は、<span class="highlight">真の成功は人格を土台とする</span>という人格主義に基づいた自己啓発の古典です。
+                    著者スティーブン・R・コヴィーは、表面的なテクニックやスキル(個性主義)ではなく、<span class="highlight-red">誠実、謙虚、勇気、正義といった普遍的な原則</span>に基づいた人格を育むことが、
+                    持続的な成功と真の幸福への道であると説いています。
+                </p>
+                <p>
+                    本書は、<span class="highlight-blue">私的成功(第1〜3の習慣)</span>から<span class="highlight-blue">公的成功(第4〜6の習慣)</span>、
+                    そして<span class="highlight-blue">最新再生(第7の習慣)</span>へと段階的に成長するフレームワークを提供します。
+                </p>
+            </div>
+
+            <div class="key-points">
+                <div class="key-point">
+                    <div class="key-point-number">1</div>
+                    <h4 class="serif">インサイド・アウト</h4>
+                    <p>自分自身の内面から変化を始めることが、外部環境を変える唯一の方法です。</p>
+                </div>
+                <div class="key-point">
+                    <div class="key-point-number">2</div>
+                    <h4 class="serif">原則中心のパラダイム</h4>
+                    <p>普遍的な原則に基づいて生きることで、状況に左右されない確固たる軸を持つことができます。</p>
+                </div>
+                <div class="key-point">
+                    <div class="key-point-number">3</div>
+                    <h4 class="serif">成長の連続性</h4>
+                    <p>依存→自立→相互依存という成長の段階を経て、真の成熟に到達します。</p>
+                </div>
+            </div>
+
+            <!-- 成長段階のビジュアル化 -->
+            <div class="chart-container">
+                <h3 class="chart-title serif">成長の連続性 - 依存から相互依存へ</h3>
+                <div class="chart-wrapper">
+                    <canvas id="maturityChart"></canvas>
+                </div>
+                <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                    ※ 各段階での成長度合いと習慣の関係性を示しています
+                </p>
+            </div>
+        </section>
+
+        <!-- 7つの習慣の構造 -->
+        <section class="section" id="structure">
+            <h2 class="section-title serif">7つの習慣の構造</h2>
+            <p class="section-subtitle">3つのフェーズで構成される体系的な成長モデル</p>
+
+            <div class="pyramid">
+                <div class="pyramid-level pyramid-level-3">
+                    <h4 class="serif">第7の習慣：最新再生</h4>
+                    <p>刃を研ぐ - 4つの側面(肉体・精神・知性・社会情緒)のバランスある成長</p>
+                </div>
+                <div class="pyramid-level pyramid-level-2">
+                    <h4 class="serif">公的成功(第4〜6の習慣)</h4>
+                    <p>Win-Win・理解してから理解される・シナジーを創り出す</p>
+                </div>
+                <div class="pyramid-level pyramid-level-1">
+                    <h4 class="serif">私的成功(第1〜3の習慣)</h4>
+                    <p>主体的である・終わりを思い描く・最優先事項を優先する</p>
+                </div>
+            </div>
+
+            <!-- 7つの習慣の相関図 -->
+            <div class="chart-container">
+                <h3 class="chart-title serif">7つの習慣の相互関係</h3>
+                <div class="chart-wrapper">
+                    <canvas id="habitsRelationChart"></canvas>
+                </div>
+                <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                    ※ 各習慣の相互依存関係と影響度を表現しています
+                </p>
+            </div>
+        </section>
+
+        <!-- 第1の習慣 -->
+        <section class="section habit-section" id="habit1">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">1</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">主体的である</h3>
+                        <span class="habit-category">私的成功の基礎</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    <span class="highlight">自分の人生の責任を自ら引き受ける</span>ことが第1の習慣です。
+                    刺激と反応の間には選択の自由があり、私たちは状況に対して<span class="highlight-red">どのように反応するかを自ら選択できる</span>のです。
+                    反応的な人は外部環境や他人のせいにしますが、主体的な人は自分の価値観に基づいて行動を選択します。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">刺激と反応のモデル</h3>
+                        <div class="flow-chart">
+                            <div class="flow-item">
+                                <strong>刺激 (Stimulus)</strong><br>
+                                外部からの出来事・状況・他者の言動
+                            </div>
+                            <div class="flow-item" style="background: var(--shiro); border-left-color: var(--kin); border-left-width: 8px;">
+                                <strong>選択の自由 (Freedom to Choose)</strong><br>
+                                ここに主体性がある：自己意識・想像力・良心・意志の力
+                            </div>
+                            <div class="flow-item">
+                                <strong>反応 (Response)</strong><br>
+                                自分の価値観に基づいた主体的な行動
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">影響の輪と関心の輪</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="circleOfInfluenceChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 主体的な人は影響の輪に集中し、それを拡大させていきます
+                        </p>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">主体性を発揮するために</h4>
+                        <ul>
+                            <li>言葉を変える：「〜できない」→「〜を選択する」</li>
+                            <li>影響の輪に集中する：変えられることにエネルギーを注ぐ</li>
+                            <li>小さなコミットメントを守る：自己信頼を築く</li>
+                            <li>問題を3つに分類する：直接的コントロール/間接的コントロール/コントロール不可能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第2の習慣 -->
+        <section class="section habit-section" id="habit2">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">2</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">終わりを思い描くことから始める</h3>
+                        <span class="habit-category">私的成功のビジョン</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    <span class="highlight">人生の最期にどうありたいかを明確にイメージし、それを基準に今日の行動を決める</span>習慣です。
+                    多くの人は「成功のはしご」を一生懸命登っても、それが<span class="highlight-red">間違った壁に立てかけられていた</span>ことに気づきます。
+                    この習慣は、すべての行動を2度創造する(第一の創造:知的創造、第二の創造:物的創造)という原則に基づいています。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">2度の創造プロセス</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="creationProcessChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">ミッション・ステートメントの4つの領域</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                            <div class="detail-box" style="border-left-color: var(--ai);">
+                                <h4 class="serif" style="color: var(--ai);">肉体的側面</h4>
+                                <ul>
+                                    <li>健康と体力の維持</li>
+                                    <li>運動と栄養管理</li>
+                                    <li>休息とリラクゼーション</li>
+                                </ul>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--midori);">
+                                <h4 class="serif" style="color: var(--midori);">精神的側面</h4>
+                                <ul>
+                                    <li>価値観の明確化</li>
+                                    <li>瞑想や内省の時間</li>
+                                    <li>原則との調和</li>
+                                </ul>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--murasaki);">
+                                <h4 class="serif" style="color: var(--murasaki);">知的側面</h4>
+                                <ul>
+                                    <li>継続的な学習</li>
+                                    <li>読書と執筆</li>
+                                    <li>スキルの向上</li>
+                                </ul>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--shu);">
+                                <h4 class="serif" style="color: var(--shu);">社会・情緒的側面</h4>
+                                <ul>
+                                    <li>人間関係の構築</li>
+                                    <li>貢献とサービス</li>
+                                    <li>共感と理解</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">ミッション・ステートメント作成のステップ</h4>
+                        <ul>
+                            <li>自分の葬儀を思い描く：何と言われたいか？</li>
+                            <li>自分の役割を洗い出す：家族、仕事、コミュニティでの役割</li>
+                            <li>各役割での長期目標を設定する</li>
+                            <li>中心となる原則を特定する：誠実、貢献、成長、愛など</li>
+                            <li>文章化し、定期的に見直す</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第3の習慣 -->
+        <section class="section habit-section" id="habit3">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">3</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">最優先事項を優先する</h3>
+                        <span class="habit-category">私的成功の実行</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    第1の習慣で主体性を、第2の習慣でビジョンを得たら、第3の習慣で<span class="highlight">実際に重要なことを実行する</span>段階です。
+                    <span class="highlight-red">緊急ではないが重要なこと(第II領域)</span>に時間を投資することが、長期的な成功の鍵となります。
+                    時間管理ではなく、自己管理のマトリックスを用いて優先順位を明確にします。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">時間管理のマトリックス</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
+                            <div class="detail-box" style="border-left-color: var(--shu); background: #FFF5F5;">
+                                <h4 class="serif" style="color: var(--shu);">第I領域：緊急かつ重要</h4>
+                                <ul>
+                                    <li>危機対応</li>
+                                    <li>締切のある仕事</li>
+                                    <li>クレーム対応</li>
+                                </ul>
+                                <p style="margin-top: 1rem; font-weight: 500;">→ 避けられないが、減らすべき</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--ai); border-width: 6px; background: #F0F8FF;">
+                                <h4 class="serif" style="color: var(--ai);">第II領域：緊急でないが重要</h4>
+                                <ul>
+                                    <li>予防活動</li>
+                                    <li>人間関係づくり</li>
+                                    <li>計画立案</li>
+                                    <li>自己啓発</li>
+                                </ul>
+                                <p style="margin-top: 1rem; font-weight: 700; color: var(--ai);">→ 最も集中すべき領域！</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--yamabuki); background: #FFFEF0;">
+                                <h4 class="serif" style="color: var(--yamabuki);">第III領域：緊急だが重要でない</h4>
+                                <ul>
+                                    <li>多くの電話</li>
+                                    <li>多くの会議</li>
+                                    <li>他人の些細な用事</li>
+                                </ul>
+                                <p style="margin-top: 1rem; font-weight: 500;">→ 断る勇気を持つ</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--sumi-light); background: #F8F8F8;">
+                                <h4 class="serif" style="color: var(--sumi-light);">第IV領域：緊急でも重要でもない</h4>
+                                <ul>
+                                    <li>暇つぶし</li>
+                                    <li>無意味な電話</li>
+                                    <li>時間の浪費</li>
+                                </ul>
+                                <p style="margin-top: 1rem; font-weight: 500;">→ 完全に排除する</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">時間配分の理想と現実</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="timeAllocationChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 効果的な人は第II領域に65%以上の時間を投資します
+                        </p>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">週間計画の立て方</h4>
+                        <ul>
+                            <li>役割を確認する：自分の主要な役割をリストアップ</li>
+                            <li>各役割の目標を設定：今週達成したい2〜3の重要な目標</li>
+                            <li>スケジューリング：第II領域の活動を最優先で予定に入れる</li>
+                            <li>デイリーアダプティング：日々の状況に応じて柔軟に調整</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第4の習慣 -->
+        <section class="section habit-section" id="habit4">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">4</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">Win-Winを考える</h3>
+                        <span class="habit-category">公的成功の基礎</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    私的成功を達成した後、他者との関係性において<span class="highlight">お互いが利益を得られる第3の案を見つける</span>姿勢が第4の習慣です。
+                    Win-Winは単なる妥協ではなく、<span class="highlight-red">豊かさマインドセット</span>に基づいた、創造的な解決策を見出すパラダイムです。
+                    人生はゼロサムゲームではなく、協力によって全体のパイを大きくできるのです。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">人間関係の6つのパラダイム</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="paradigmChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 各パラダイムの効果性と持続可能性を比較
+                        </p>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">Win-Winの5つの要素</h3>
+                        <div class="circle-diagram">
+                            <div class="circle-center">
+                                Win-Win<br>の実現
+                            </div>
+                            <div class="circle-items">
+                                <div class="circle-item" style="top: 0%; left: 50%; transform: translateX(-50%);">
+                                    <h5 class="serif">①人格</h5>
+                                    <p>誠実・成熟・豊かさマインド</p>
+                                </div>
+                                <div class="circle-item" style="top: 30%; right: 5%;">
+                                    <h5 class="serif">②関係</h5>
+                                    <p>信頼残高を築く</p>
+                                </div>
+                                <div class="circle-item" style="bottom: 10%; right: 15%;">
+                                    <h5 class="serif">③合意</h5>
+                                    <p>期待を明確化する</p>
+                                </div>
+                                <div class="circle-item" style="bottom: 10%; left: 15%;">
+                                    <h5 class="serif">④システム</h5>
+                                    <p>Win-Winを支援する構造</p>
+                                </div>
+                                <div class="circle-item" style="top: 30%; left: 5%;">
+                                    <h5 class="serif">⑤プロセス</h5>
+                                    <p>相手の立場を理解→問題を定義→解決策を創造</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">Win-Winを実現するために</h4>
+                        <ul>
+                            <li>豊かさマインドセットを育てる：資源は限られていないという信念</li>
+                            <li>信頼残高を積み上げる：小さな約束を守り、誠実に行動する</li>
+                            <li>相手の「Win」を理解する：何が相手にとっての成功か？</li>
+                            <li>No Dealも選択肢：Win-Winが不可能なら取引しないことも選ぶ</li>
+                            <li>長期的視点を持つ：一時的な利益より持続的な関係を重視</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第5の習慣 -->
+        <section class="section habit-section" id="habit5">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">5</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">まず理解に徹し、そして理解される</h3>
+                        <span class="habit-category">公的成功のコミュニケーション</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    <span class="highlight">まず相手を深く理解することが、自分を理解してもらうための鍵</span>です。
+                    多くの人は相手の話を聴きながら、次に何を話そうかを考えています。真の傾聴とは、
+                    <span class="highlight-red">共感的傾聴</span>であり、相手の感情や意図を理解しようとする姿勢です。
+                    これは相手に「心理的空気」を与え、信頼関係を深める最も強力な方法です。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">傾聴の5つのレベル</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="listeningLevelsChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 効果性の高い傾聴ほど深い理解と信頼を生み出します
+                        </p>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">自叙伝的反応 vs 共感的反応</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <div class="detail-box" style="border-left-color: var(--sumi-light); background: #F8F8F8;">
+                                <h4 class="serif" style="color: var(--sumi-light);">自叙伝的反応(×)</h4>
+                                <ul>
+                                    <li><strong>評価する:</strong> 「君は間違っている」</li>
+                                    <li><strong>探る:</strong> 「なぜそうしたの?」</li>
+                                    <li><strong>助言する:</strong> 「私ならこうする」</li>
+                                    <li><strong>解釈する:</strong> 「君の本当の問題は…」</li>
+                                </ul>
+                                <p style="margin-top: 1rem; color: var(--sumi-light);">→ 自分の経験で相手を理解しようとする</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--ai); border-width: 6px; background: #F0F8FF;">
+                                <h4 class="serif" style="color: var(--ai);">共感的反応(○)</h4>
+                                <ul>
+                                    <li><strong>言い換える:</strong> 「つまり〜ということですね」</li>
+                                    <li><strong>内容を要約:</strong> 「要するに〜」</li>
+                                    <li><strong>感情を反映:</strong> 「〜と感じているのですね」</li>
+                                    <li><strong>要約+感情:</strong> 「〜だから〜と感じているのですね」</li>
+                                </ul>
+                                <p style="margin-top: 1rem; color: var(--ai); font-weight: 700;">→ 相手の視点で理解しようとする</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">理解のプロセス</h3>
+                        <div class="flow-chart">
+                            <div class="flow-item" style="border-left-color: var(--ai);">
+                                <strong>①共感的に聴く</strong><br>
+                                相手の言葉・感情・意図を理解する
+                            </div>
+                            <div class="flow-item" style="border-left-color: var(--ai);">
+                                <strong>②確認する</strong><br>
+                                理解したことを言い換えて確認する
+                            </div>
+                            <div class="flow-item" style="border-left-color: var(--ai);">
+                                <strong>③相手が「理解された」と感じる</strong><br>
+                                心理的空気が満たされる
+                            </div>
+                            <div class="flow-item" style="border-left-color: var(--kin);">
+                                <strong>④自分の考えを伝える</strong><br>
+                                相手が理解されたと感じてから、論理的に説明する
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">共感的傾聴の実践ポイント</h4>
+                        <ul>
+                            <li>相手の目を見て、全身で聴く姿勢を示す</li>
+                            <li>すぐにアドバイスしない：まず相手の気持ちを受け止める</li>
+                            <li>沈黙を恐れない：相手が考える時間を与える</li>
+                            <li>自分の経験を押し付けない：「私も同じ」は要注意</li>
+                            <li>感情を言葉にする：「悲しんでいるんですね」「嬉しそうですね」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第6の習慣 -->
+        <section class="section habit-section" id="habit6">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">6</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">シナジーを創り出す</h3>
+                        <span class="habit-category">公的成功の創造的協力</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    シナジーとは、<span class="highlight">1+1が3にも10にもなる状態</span>です。
+                    異なる視点や強みを持つ人々が協力することで、誰も予想しなかった<span class="highlight-red">第3の案</span>が生まれます。
+                    これは第4の習慣(Win-Win)と第5の習慣(理解)が土台となって初めて可能になる、最も高度な相互依存のレベルです。
+                    違いを脅威ではなく、創造の機会として捉えることが鍵となります。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">シナジー創造のプロセス</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="synergyProcessChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 各段階での価値創造の拡大を示しています
+                        </p>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">違いへの反応レベル</h3>
+                        <div style="margin: 2rem 0;">
+                            <div class="detail-box" style="border-left-color: var(--sumi-light); background: #F8F8F8; margin-bottom: 1rem;">
+                                <h4 class="serif" style="color: var(--sumi-light);">レベル1：違いを否定する</h4>
+                                <p>「私の方が正しい。あなたは間違っている」→ 防衛的・対立的</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--yamabuki); margin-bottom: 1rem;">
+                                <h4 class="serif" style="color: var(--yamabuki);">レベル2：違いを尊重する</h4>
+                                <p>「あなたはそう考えるんですね。私は違いますが」→ 寛容だが消極的</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--midori); margin-bottom: 1rem;">
+                                <h4 class="serif" style="color: var(--midori);">レベル3：違いを尊重し、評価する</h4>
+                                <p>「あなたの見方は興味深い。教えてください」→ 好奇心を持つ</p>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--ai); border-width: 6px; background: #F0F8FF;">
+                                <h4 class="serif" style="color: var(--ai);">レベル4：違いを価値として活用する</h4>
+                                <p>「あなたの視点と私の視点を組み合わせたら、もっと良い案が生まれそうです！」→ シナジー創造</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">シナジー効果の比較</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="synergyEffectChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 協力の質が成果に与える影響の違い
+                        </p>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">シナジーを生み出すために</h4>
+                        <ul>
+                            <li>違いを歓迎する：「なぜあなたはそう考えるのですか？」と好奇心を持つ</li>
+                            <li>第3の案を探す：妥協ではなく、両者を超える新しい解決策</li>
+                            <li>創造的な環境を作る：批判を恐れず、自由に意見を出せる場</li>
+                            <li>自分の弱みを認める：完璧である必要はない、補完し合う</li>
+                            <li>実験精神を持つ：失敗を学びの機会として捉える</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第7の習慣 -->
+        <section class="section habit-section" id="habit7">
+            <div class="habit-card">
+                <div class="habit-header">
+                    <div class="habit-number">7</div>
+                    <div class="habit-title-group">
+                        <h3 class="serif">刃を研ぐ</h3>
+                        <span class="habit-category">最新再生</span>
+                    </div>
+                </div>
+
+                <p class="habit-description">
+                    <span class="highlight">自分自身という最も大切な資源を維持し、成長させる</span>習慣です。
+                    木こりが刃を研がずに必死に木を切り続けても、やがて切れなくなるように、
+                    <span class="highlight-red">肉体・精神・知性・社会/情緒の4つの側面をバランスよく磨く</span>ことで、
+                    他の6つの習慣を実践し続けることができます。これは「P/PCバランス」(成果と成果を生み出す能力のバランス)の原則に基づいています。
+                </p>
+
+                <div class="habit-visual">
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">4つの側面のバランス</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="fourDimensionsChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ 理想的には4つの側面が均等に発達している状態
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                        <div class="detail-box" style="border-left-color: var(--shu);">
+                            <h4 class="serif" style="color: var(--shu);">肉体的側面</h4>
+                            <p style="margin-bottom: 1rem; font-weight: 500;">身体を適切にケアする</p>
+                            <ul>
+                                <li>運動：持久力・柔軟性・筋力</li>
+                                <li>栄養：バランスの取れた食事</li>
+                                <li>ストレス管理：十分な睡眠と休息</li>
+                            </ul>
+                            <p style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 4px; font-size: 0.95rem;">
+                                <strong>実践例:</strong> 週3回の30分運動、毎日7時間睡眠
+                            </p>
+                        </div>
+
+                        <div class="detail-box" style="border-left-color: var(--ai);">
+                            <h4 class="serif" style="color: var(--ai);">精神的側面</h4>
+                            <p style="margin-bottom: 1rem; font-weight: 500;">価値観を明確にし、それに沿って生きる</p>
+                            <ul>
+                                <li>瞑想や祈り</li>
+                                <li>読書(文学・詩・哲学)</li>
+                                <li>自然の中で過ごす時間</li>
+                                <li>ミッション・ステートメントの見直し</li>
+                            </ul>
+                            <p style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 4px; font-size: 0.95rem;">
+                                <strong>実践例:</strong> 毎朝15分の瞑想、週1回の内省時間
+                            </p>
+                        </div>
+
+                        <div class="detail-box" style="border-left-color: var(--midori);">
+                            <h4 class="serif" style="color: var(--midori);">知的側面</h4>
+                            <p style="margin-bottom: 1rem; font-weight: 500;">継続的に学び、心を鍛える</p>
+                            <ul>
+                                <li>読書：良質な本を読む</li>
+                                <li>執筆：考えを整理し表現する</li>
+                                <li>計画：目標設定と振り返り</li>
+                                <li>新しいスキルの習得</li>
+                            </ul>
+                            <p style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 4px; font-size: 0.95rem;">
+                                <strong>実践例:</strong> 毎日30分の読書、月1冊の本を完読
+                            </p>
+                        </div>
+
+                        <div class="detail-box" style="border-left-color: var(--murasaki);">
+                            <h4 class="serif" style="color: var(--murasaki);">社会・情緒的側面</h4>
+                            <p style="margin-bottom: 1rem; font-weight: 500;">他者との関係性を深める</p>
+                            <ul>
+                                <li>共感的コミュニケーション</li>
+                                <li>他者への奉仕と貢献</li>
+                                <li>シナジーを創り出す協力</li>
+                                <li>信頼関係の構築</li>
+                            </ul>
+                            <p style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 4px; font-size: 0.95rem;">
+                                <strong>実践例:</strong> 週1回の家族時間、月1回のボランティア
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 class="chart-title serif">P/PCバランス - 成果と成果能力</h3>
+                        <div style="margin: 2rem 0;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                                <div class="detail-box" style="border-left-color: var(--sumi-light); background: #FFF0F0;">
+                                    <h4 class="serif" style="color: var(--sumi-light);">Pのみ重視(×)</h4>
+                                    <p style="font-weight: 500; margin-bottom: 1rem;">成果(Performance)だけを追求</p>
+                                    <p>→ 短期的には成果が出るが、やがて燃え尽きる。健康や人間関係が犠牲になる。</p>
+                                </div>
+                                <div class="detail-box" style="border-left-color: var(--sumi-light); background: #F0F0FF;">
+                                    <h4 class="serif" style="color: var(--sumi-light);">PCのみ重視(×)</h4>
+                                    <p style="font-weight: 500; margin-bottom: 1rem;">能力(Production Capability)だけを重視</p>
+                                    <p>→ 準備ばかりで実行しない。成果が出ず、モチベーションが低下する。</p>
+                                </div>
+                            </div>
+                            <div class="detail-box" style="border-left-color: var(--ai); border-width: 6px; background: #F0F8FF;">
+                                <h4 class="serif" style="color: var(--ai);">P/PCバランス(○)</h4>
+                                <p style="font-weight: 500; margin-bottom: 1rem;">成果と成果能力の両方をバランスよく</p>
+                                <p>→ 持続的に高い成果を出し続けることができる。「刃を研ぐ」時間を確保することで、より効率的に成果を生み出せる。</p>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="pcBalanceChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                            ※ バランスの取れた投資が長期的な成功をもたらします
+                        </p>
+                    </div>
+                </div>
+
+                <div class="habit-details">
+                    <div class="detail-box">
+                        <h4 class="serif">「刃を研ぐ」時間の確保</h4>
+                        <ul>
+                            <li>毎日最低1時間を第II領域(緊急でないが重要なこと)に投資する</li>
+                            <li>4つの側面それぞれに週に最低2〜3時間を割り当てる</li>
+                            <li>定期的な振り返り：週次で自分の状態をチェックする</li>
+                            <li>小さな習慣から始める：完璧を目指さず、継続を重視</li>
+                            <li>上向きの螺旋：学ぶ→決意する→実行する→また学ぶ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめセクション -->
+        <section class="section" id="conclusion">
+            <h2 class="section-title serif">まとめ：統合された生き方</h2>
+            <p class="section-subtitle">7つの習慣を日々の実践へ</p>
+
+            <div class="summary-card">
+                <h3 class="serif">インサイド・アウトの成長</h3>
+                <p>
+                    7つの習慣は、<span class="highlight">依存から自立へ、そして相互依存へ</span>という成長の過程を示しています。
+                    第1〜3の習慣で私的成功(自立)を達成し、第4〜6の習慣で公的成功(相互依存)を実現し、
+                    第7の習慣で継続的な成長を可能にします。
+                </p>
+                <p>
+                    これらは単なるテクニックではなく、<span class="highlight-red">生き方そのもの</span>です。
+                    誠実、貢献、成長、尊重といった普遍的な原則に基づいた人格を育むことで、
+                    真に効果的な人生を送ることができるのです。
+                </p>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title serif">7つの習慣の相互作用と成長曲線</h3>
+                <div class="chart-wrapper">
+                    <canvas id="finalIntegrationChart"></canvas>
+                </div>
+                <p style="text-align: center; color: var(--sumi-light); font-size: 1rem; margin-top: 1rem;">
+                    ※ 各習慣の実践により、人生の効果性が指数関数的に向上していきます
+                </p>
+            </div>
+
+            <div class="key-points">
+                <div class="key-point" style="border-left-color: var(--shu);">
+                    <div class="key-point-number" style="background: var(--shu);">始</div>
+                    <h4 class="serif">今日から始める</h4>
+                    <p>完璧を目指さず、1つの習慣から始めましょう。小さな一歩が大きな変化を生みます。</p>
+                </div>
+                <div class="key-point" style="border-left-color: var(--midori);">
+                    <div class="key-point-number" style="background: var(--midori);">続</div>
+                    <h4 class="serif">継続する</h4>
+                    <p>21日で習慣が身につくわけではありません。生涯にわたる実践と改善のプロセスです。</p>
+                </div>
+                <div class="key-point" style="border-left-color: var(--ai);">
+                    <div class="key-point-number" style="background: var(--ai);">育</div>
+                    <h4 class="serif">人格を育てる</h4>
+                    <p>成果よりも人格。何を成し遂げたかより、どんな人間になったかが重要です。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer style="background: var(--sumi); color: var(--shiro); padding: 3rem 2rem; text-align: center; margin-top: 5rem;">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">「7つの習慣」視覚的要約</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">原著：Stephen R. Covey "The 7 Habits of Highly Effective People"</p>
+        <div style="width: 60px; height: 2px; background: var(--kin); margin: 2rem auto;"></div>
+        <p style="font-size: 0.85rem; opacity: 0.6;">本サイトは教育目的で作成されています</p>
+    </footer>
+
+    <script>
+        // スクロールアニメーション
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Chart.js共通設定
+        Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+        Chart.defaults.font.size = 13;
+        Chart.defaults.color = '#2C2C2C';
+
+        const chartColors = {
+            sumi: '#2C2C2C',
+            kin: '#D4AF37',
+            shu: '#C73E3A',
+            ai: '#1E4D8B',
+            midori: '#3A7D44',
+            murasaki: '#5D3F6A',
+            yamabuki: '#F8B500',
+            shiro: '#F5F5F0'
+        };
+
+        // 1. 成長の連続性チャート
+        const maturityCtx = document.getElementById('maturityChart').getContext('2d');
+        new Chart(maturityCtx, {
+            type: 'line',
+            data: {
+                labels: ['依存', '第1の習慣', '第2の習慣', '第3の習慣\n(自立)', '第4の習慣', '第5の習慣', '第6の習慣\n(相互依存)', '第7の習慣'],
+                datasets: [{
+                    label: '効果性レベル',
+                    data: [20, 35, 50, 65, 75, 85, 95, 100],
+                    borderColor: chartColors.kin,
+                    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: chartColors.kin,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '効果性・成熟度',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. 習慣の相互関係チャート(レーダーチャート)
+        const habitsRelationCtx = document.getElementById('habitsRelationChart').getContext('2d');
+        new Chart(habitsRelationCtx, {
+            type: 'radar',
+            data: {
+                labels: ['第1: 主体性', '第2: ビジョン', '第3: 実行力', '第4: 協力', '第5: 理解', '第6: 創造', '第7: 更新'],
+                datasets: [{
+                    label: '各習慣の重要度',
+                    data: [95, 90, 85, 90, 88, 92, 95],
+                    borderColor: chartColors.ai,
+                    backgroundColor: 'rgba(30, 77, 139, 0.2)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: chartColors.ai,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. 影響の輪チャート
+        const circleOfInfluenceCtx = document.getElementById('circleOfInfluenceChart').getContext('2d');
+        new Chart(circleOfInfluenceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['影響の輪(変えられる)', '関心の輪(変えられない)'],
+                datasets: [{
+                    data: [40, 60],
+                    backgroundColor: [
+                        chartColors.ai,
+                        'rgba(0, 0, 0, 0.1)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: { size: 13 }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 4. 2度の創造プロセスチャート
+        const creationProcessCtx = document.getElementById('creationProcessChart').getContext('2d');
+        new Chart(creationProcessCtx, {
+            type: 'bar',
+            data: {
+                labels: ['第一の創造\n(知的創造)', '第二の創造\n(物的創造)'],
+                datasets: [{
+                    label: '重要度',
+                    data: [90, 75],
+                    backgroundColor: [chartColors.murasaki, chartColors.midori],
+                    borderWidth: 0,
+                    barThickness: 80
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 5. 時間配分チャート
+        const timeAllocationCtx = document.getElementById('timeAllocationChart').getContext('2d');
+        new Chart(timeAllocationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['第I領域\n緊急×重要', '第II領域\n重要のみ', '第III領域\n緊急のみ', '第IV領域\n両方×'],
+                datasets: [{
+                    label: '一般的な人',
+                    data: [25, 15, 50, 10],
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                }, {
+                    label: '効果的な人',
+                    data: [20, 65, 10, 5],
+                    backgroundColor: chartColors.ai
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13 }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '時間配分 (%)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 6. パラダイムチャート
+        const paradigmCtx = document.getElementById('paradigmChart').getContext('2d');
+        new Chart(paradigmCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Win-Win', 'Win-Lose', 'Lose-Win', 'Lose-Lose', 'Win', 'No Deal'],
+                datasets: [{
+                    label: '長期的効果性',
+                    data: [95, 30, 40, 10, 60, 70],
+                    backgroundColor: [
+                        chartColors.ai,
+                        chartColors.shu,
+                        chartColors.yamabuki,
+                        '#999',
+                        chartColors.midori,
+                        chartColors.murasaki
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '長期的効果性スコア',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 7. 傾聴のレベルチャート
+        const listeningLevelsCtx = document.getElementById('listeningLevelsChart').getContext('2d');
+        new Chart(listeningLevelsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['無視する', '聞くふり', '選択的に聴く', '注意して聴く', '共感的に聴く'],
+                datasets: [{
+                    label: '理解度と信頼構築効果',
+                    data: [5, 20, 40, 70, 95],
+                    backgroundColor: [
+                        '#CCC',
+                        '#AAA',
+                        chartColors.yamabuki,
+                        chartColors.midori,
+                        chartColors.ai
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '効果性スコア',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 8. シナジープロセスチャート
+        const synergyProcessCtx = document.getElementById('synergyProcessChart').getContext('2d');
+        new Chart(synergyProcessCtx, {
+            type: 'line',
+            data: {
+                labels: ['Aの案', 'Bの案', '妥協案', '第3の案\n(シナジー)'],
+                datasets: [{
+                    label: '価値創造レベル',
+                    data: [60, 65, 55, 100],
+                    borderColor: chartColors.midori,
+                    backgroundColor: 'rgba(58, 125, 68, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 8,
+                    pointHoverRadius: 10,
+                    pointBackgroundColor: chartColors.midori,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 110,
+                        title: {
+                            display: true,
+                            text: '価値創造レベル',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 9. シナジー効果比較チャート
+        const synergyEffectCtx = document.getElementById('synergyEffectChart').getContext('2d');
+        new Chart(synergyEffectCtx, {
+            type: 'bar',
+            data: {
+                labels: ['単独作業', '妥協', '協力', 'シナジー'],
+                datasets: [{
+                    label: '成果',
+                    data: [50, 60, 80, 120],
+                    backgroundColor: [
+                        '#CCC',
+                        chartColors.yamabuki,
+                        chartColors.midori,
+                        chartColors.ai
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 130,
+                        title: {
+                            display: true,
+                            text: '成果レベル (1+1=?)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 10. 4つの側面チャート
+        const fourDimensionsCtx = document.getElementById('fourDimensionsChart').getContext('2d');
+        new Chart(fourDimensionsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['肉体的', '精神的', '知的', '社会・情緒的'],
+                datasets: [{
+                    label: '現在の状態(例)',
+                    data: [60, 50, 80, 65],
+                    borderColor: 'rgba(0, 0, 0, 0.3)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 2
+                }, {
+                    label: '目標(理想)',
+                    data: [85, 85, 85, 85],
+                    borderColor: chartColors.ai,
+                    backgroundColor: 'rgba(30, 77, 139, 0.2)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: chartColors.ai
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13 }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 11. P/PCバランスチャート
+        const pcBalanceCtx = document.getElementById('pcBalanceChart').getContext('2d');
+        new Chart(pcBalanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['0ヶ月', '3ヶ月', '6ヶ月', '12ヶ月', '24ヶ月', '36ヶ月'],
+                datasets: [{
+                    label: 'Pのみ重視',
+                    data: [50, 80, 90, 70, 40, 20],
+                    borderColor: chartColors.shu,
+                    backgroundColor: 'rgba(199, 62, 58, 0.1)',
+                    borderDash: [5, 5],
+                    tension: 0.4,
+                    borderWidth: 2
+                }, {
+                    label: 'P/PCバランス',
+                    data: [50, 60, 75, 85, 95, 100],
+                    borderColor: chartColors.ai,
+                    backgroundColor: 'rgba(30, 77, 139, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: chartColors.ai
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13 }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 110,
+                        title: {
+                            display: true,
+                            text: '持続的成果レベル',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '時間経過',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 12. 最終統合チャート
+        const finalIntegrationCtx = document.getElementById('finalIntegrationChart').getContext('2d');
+        new Chart(finalIntegrationCtx, {
+            type: 'line',
+            data: {
+                labels: ['スタート', '1ヶ月', '3ヶ月', '6ヶ月', '1年', '2年', '3年', '5年'],
+                datasets: [{
+                    label: '習慣なし',
+                    data: [10, 15, 20, 25, 30, 35, 40, 45],
+                    borderColor: '#CCC',
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    pointRadius: 0
+                }, {
+                    label: '一部の習慣のみ',
+                    data: [10, 25, 40, 50, 60, 65, 70, 75],
+                    borderColor: chartColors.yamabuki,
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 3
+                }, {
+                    label: '7つの習慣を実践',
+                    data: [10, 30, 50, 70, 85, 95, 100, 110],
+                    borderColor: chartColors.ai,
+                    backgroundColor: 'rgba(30, 77, 139, 0.1)',
+                    fill: true,
+                    borderWidth: 4,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: chartColors.ai,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13 }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 120,
+                        title: {
+                            display: true,
+                            text: '人生の効果性',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '実践期間',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

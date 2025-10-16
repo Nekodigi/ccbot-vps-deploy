@@ -1,0 +1,54 @@
+{
+  "project_id": "0f7c8979",
+  "summary": "「超シンプルなWebサイトを生成しました」",
+  "prompt": "\"超シンプルなWebサイトを作って    #トンマナ\"",
+  "created_at": "2025-10-12T04:49:58.199677",
+  "updated_at": "2025-10-12T04:49:58.199727",
+  "created_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1332652816065363981",
+    "channel_name": "general",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "updated_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1332652816065363981",
+    "channel_name": "general",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "thumbnail_url": "https://dummyimage.com/1200x630/6b7280/f9fafb&text=%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B5%E3%82%A4%E3%83%88",
+  "thumbnail_generation_log": [
+    "選択された戦略: CLAUDE_CODE",
+    "🎨 Claude Codeでサムネイル生成を試行中...",
+    "❌ Claude Code生成失敗 - グラデーションにフォールバック",
+    "🎨 グラデーション画像を生成中...",
+    "✅ グラデーション生成成功 (検証済み): https://dummyimage.com/1200x630/6b7280/f9fafb&text=%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B5%E3%82%A4%E3%83%88"
+  ],
+  "file_count": 6,
+  "tags": [
+    "css",
+    "javascript",
+    "html"
+  ],
+  "seo": {
+    "title": "「超シンプルなWebサイトを生成しました」",
+    "description": "「超シンプルなWebサイトを生成しました」",
+    "keywords": [
+      "css",
+      "javascript",
+      "html",
+      "「超シンプルなWebサイトを生成しました」"
+    ],
+    "og_image": "https://dummyimage.com/1200x630/6b7280/f9fafb&text=%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B5%E3%82%A4%E3%83%88",
+    "og_url": "https://13.230.222.37/ccbot/projects/0f7c8979",
+    "canonical_url": "https://13.230.222.37/ccbot/projects/0f7c8979"
+  }
+}

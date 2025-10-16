@@ -1,0 +1,48 @@
+{
+  "project_id": "64333286",
+  "summary": "「超シンプルなWebサイトを生成しました」",
+  "prompt": "\"超シンプルなWebサイトを作って    #トンマナ\"",
+  "created_at": "2025-10-12T04:55:54.174165",
+  "updated_at": "2025-10-12T04:55:54.174219",
+  "created_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1332652816065363981",
+    "channel_name": "general",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "updated_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1332652816065363981",
+    "channel_name": "general",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "thumbnail_url": "https://13.230.222.37/ccbot/projects/64333286/thumbnail.png",
+  "thumbnail_generation_log": [
+    "選択された戦略: CLAUDE_CODE",
+    "🎨 Claude Codeでサムネイル生成を試行中...",
+    "✅ Claude Code生成成功: thumbnail.png (364494 bytes)"
+  ],
+  "file_count": 3,
+  "tags": [
+    "html"
+  ],
+  "seo": {
+    "title": "「超シンプルなWebサイトを生成しました」",
+    "description": "「超シンプルなWebサイトを生成しました」",
+    "keywords": [
+      "html",
+      "「超シンプルなWebサイトを生成しました」"
+    ],
+    "og_image": "https://13.230.222.37/ccbot/projects/64333286/thumbnail.png",
+    "og_url": "https://13.230.222.37/ccbot/projects/64333286",
+    "canonical_url": "https://13.230.222.37/ccbot/projects/64333286"
+  }
+}

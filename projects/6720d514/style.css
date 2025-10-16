@@ -1,0 +1,1199 @@
+/* ==============================================
+   和風Webサイト - スタイルシート
+   ============================================== */
+
+/* ==============================================
+   基本設定
+   ============================================== */
+:root {
+    /* 和のカラーパレット */
+    --primary-color: #8B4513;        /* 茶褐色（ちゃかっしょく） */
+    --secondary-color: #C41E3A;      /* 深緋（こきひ） */
+    --accent-color: #D4AF37;         /* 金色 */
+    --dark-red: #641220;             /* 臙脂（えんじ） */
+    --cream: #F8F3E8;                /* 生成り色 */
+    --light-beige: #FFF8DC;          /* 象牙色 */
+    --charcoal: #2C2C2C;             /* 墨色 */
+    --dark-brown: #4A2C2A;           /* 濃茶 */
+    --gold: #D4AF37;                 /* 金色 */
+    --silver: #C0C0C0;               /* 銀色 */
+    --cherry-blossom: #FFB7C5;       /* 桜色 */
+    --pine-green: #1B5E20;           /* 松葉色 */
+    --indigo: #003459;               /* 藍色 */
+
+    /* グラデーション */
+    --gradient-sunset: linear-gradient(135deg, #C41E3A 0%, #8B4513 100%);
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+
+    /* 影 */
+    --shadow-sm: 0 2px 8px rgba(44, 44, 44, 0.1);
+    --shadow-md: 0 4px 16px rgba(44, 44, 44, 0.15);
+    --shadow-lg: 0 8px 24px rgba(44, 44, 44, 0.2);
+
+    /* トランジション */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.4s ease;
+    --transition-slow: 0.6s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Serif JP', 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', serif;
+    line-height: 1.8;
+    color: var(--charcoal);
+    background-color: var(--cream);
+    overflow-x: hidden;
+}
+
+/* ==============================================
+   桜の花びらアニメーション
+   ============================================== */
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.sakura {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--cherry-blossom);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ==============================================
+   ヘッダー & ナビゲーション
+   ============================================== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(44, 44, 44, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: var(--shadow-md);
+    transition: padding var(--transition-normal);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.2rem 5%;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.logo-kanji {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    font-family: 'Noto Serif JP', serif;
+    letter-spacing: 0.1em;
+}
+
+.logo-romaji {
+    font-size: 0.7rem;
+    color: var(--cream);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    position: relative;
+}
+
+.nav-kanji {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.nav-text {
+    font-size: 0.75rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: var(--gold);
+    transition: transform var(--transition-normal);
+}
+
+.nav-links a:hover {
+    transform: translateY(-2px);
+}
+
+.nav-links a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: all var(--transition-normal);
+}
+
+/* ==============================================
+   ヒーローセクション
+   ============================================== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(135deg, rgba(196, 30, 58, 0.8) 0%, rgba(139, 69, 19, 0.9) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+    background-size: cover, 4px 4px;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 183, 197, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" fill="rgba(255,255,255,0.02)" font-family="serif">和</text></svg>') repeat;
+    background-size: 400px;
+    opacity: 0.3;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    max-width: 900px;
+}
+
+.hero-title {
+    margin-bottom: 2rem;
+}
+
+.title-main {
+    display: block;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease;
+}
+
+.title-sub {
+    display: block;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero-description {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    line-height: 2;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    border: 2px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: var(--charcoal);
+    border-color: var(--gold);
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: var(--charcoal);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+}
+
+.scroll-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, white, transparent);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ==============================================
+   共通セクション設定
+   ============================================== */
+section {
+    position: relative;
+    padding: 6rem 0;
+    z-index: 2;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.title-kanji {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--dark-red);
+    letter-spacing: 0.2em;
+    position: relative;
+}
+
+.title-line {
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-gold);
+}
+
+.title-english {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+/* ==============================================
+   理念セクション
+   ============================================== */
+.philosophy {
+    background:
+        linear-gradient(to bottom, var(--cream) 0%, var(--light-beige) 100%),
+        repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(139, 69, 19, 0.03) 50px, rgba(139, 69, 19, 0.03) 51px);
+}
+
+.philosophy-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+    align-items: center;
+}
+
+.philosophy-text {
+    padding: 2rem;
+}
+
+.lead-text {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.8;
+    color: var(--dark-red);
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--gold);
+    padding-left: 1.5rem;
+}
+
+.body-text {
+    font-size: 1.1rem;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.philosophy-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-frame {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    padding: 2rem;
+    background: white;
+    box-shadow: var(--shadow-lg);
+}
+
+.zen-circle {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-red);
+}
+
+.zen-circle svg {
+    width: 100%;
+    height: 100%;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.value-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 2px solid var(--gold);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.value-card:hover::before {
+    left: 100%;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--dark-red);
+}
+
+.value-icon {
+    font-size: 4rem;
+    color: var(--dark-red);
+    margin-bottom: 1rem;
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.value-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ==============================================
+   事業内容セクション
+   ============================================== */
+.services {
+    background:
+        linear-gradient(to bottom, var(--light-beige) 0%, var(--cream) 50%, var(--light-beige) 100%);
+    position: relative;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(196, 30, 58, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+}
+
+.service-card {
+    background: white;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    position: relative;
+    border-top: 5px solid var(--gold);
+    border-bottom: 5px solid var(--gold);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 0;
+    background: var(--dark-red);
+    transition: height var(--transition-slow);
+}
+
+.service-card:hover::before {
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-number {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(212, 175, 55, 0.2);
+}
+
+.service-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    color: var(--dark-red);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.service-subtitle {
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.service-tags {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.4rem 1rem;
+    background: var(--cream);
+    color: var(--dark-brown);
+    font-size: 0.85rem;
+    border: 1px solid var(--gold);
+    letter-spacing: 0.05em;
+    transition: all var(--transition-fast);
+}
+
+.tag:hover {
+    background: var(--gold);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ==============================================
+   ギャラリーセクション
+   ============================================== */
+.gallery {
+    background: var(--cream);
+    position: relative;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    border: 3px solid transparent;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.placeholder-pattern {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform var(--transition-slow);
+}
+
+.gallery-item:hover .placeholder-pattern {
+    transform: scale(1.1);
+}
+
+/* 和柄パターン */
+.pattern-1 {
+    background:
+        repeating-linear-gradient(45deg, var(--dark-red), var(--dark-red) 10px, var(--gold) 10px, var(--gold) 20px),
+        var(--cream);
+    opacity: 0.8;
+}
+
+.pattern-2 {
+    background:
+        radial-gradient(circle, var(--gold) 20%, transparent 20%),
+        radial-gradient(circle, var(--dark-red) 20%, transparent 20%);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    background-color: var(--cream);
+}
+
+.pattern-3 {
+    background:
+        linear-gradient(45deg, var(--dark-brown) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--dark-brown) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--dark-brown) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--dark-brown) 75%);
+    background-size: 40px 40px;
+    background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+    background-color: var(--light-beige);
+}
+
+.pattern-4 {
+    background:
+        repeating-linear-gradient(0deg, var(--charcoal) 0px, var(--charcoal) 2px, transparent 2px, transparent 20px),
+        repeating-linear-gradient(90deg, var(--charcoal) 0px, var(--charcoal) 2px, transparent 2px, transparent 20px),
+        var(--cream);
+}
+
+.pattern-5 {
+    background:
+        radial-gradient(circle at 50% 50%, var(--indigo) 0%, var(--pine-green) 100%);
+}
+
+.pattern-6 {
+    background:
+        repeating-conic-gradient(from 0deg at 50% 50%, var(--pine-green) 0deg, var(--dark-brown) 90deg, var(--pine-green) 180deg);
+}
+
+.gallery-info {
+    padding: 1.5rem;
+    background: white;
+}
+
+.gallery-info h4 {
+    font-size: 1.3rem;
+    color: var(--dark-red);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.gallery-info p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ==============================================
+   お問合せセクション
+   ============================================== */
+.contact {
+    background:
+        linear-gradient(135deg, var(--light-beige) 0%, var(--cream) 100%);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-info h3 {
+    font-size: 2rem;
+    color: var(--dark-red);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.contact-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: #555;
+}
+
+.info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.info-icon {
+    font-size: 2rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.info-text h4 {
+    font-size: 1.2rem;
+    color: var(--dark-red);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.info-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #666;
+}
+
+.contact-form-wrapper {
+    background: white;
+    padding: 3rem;
+    box-shadow: var(--shadow-lg);
+    border-top: 5px solid var(--gold);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: var(--charcoal);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.required {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: 'Noto Serif JP', serif;
+    border: 2px solid #ddd;
+    background: var(--cream);
+    color: var(--charcoal);
+    transition: all var(--transition-normal);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.btn-large {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+}
+
+/* ==============================================
+   フッター
+   ============================================== */
+footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 4rem 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient-gold);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.footer-logo .logo-kanji {
+    font-size: 2rem;
+}
+
+.footer-logo .logo-romaji {
+    font-size: 0.9rem;
+}
+
+.footer-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+    transform: translateX(5px);
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.social-link {
+    color: var(--cream);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    display: inline-block;
+}
+
+.social-link:hover {
+    color: var(--gold);
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.footer-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0px,
+        var(--gold) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    opacity: 0.3;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #999;
+    letter-spacing: 0.05em;
+}
+
+/* ==============================================
+   アニメーション
+   ============================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* スクロールアニメーション用 */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==============================================
+   レスポンシブデザイン
+   ============================================== */
+@media (max-width: 1024px) {
+    .philosophy-content {
+        grid-template-columns: 1fr;
+    }
+
+    .image-frame {
+        width: 300px;
+        height: 300px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 5%;
+    }
+
+    .logo-kanji {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(44, 44, 44, 0.98);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 3rem 2rem;
+        gap: 2rem;
+        transition: left var(--transition-normal);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links a {
+        flex-direction: row;
+        gap: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .services-grid,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    section {
+        padding: 4rem 0;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .title-kanji {
+        font-size: 2rem;
+    }
+
+    .title-line {
+        width: 40px;
+    }
+
+    .service-card,
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+}

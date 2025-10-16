@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGP画像生成</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        #ogp-canvas {
+            border: 1px solid #ddd;
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #2c5f8d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #4a8cc7;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h2>OGP画像生成ツール</h2>
+        <p>以下のボタンをクリックして画像をダウンロードしてください</p>
+    </div>
+    <canvas id="ogp-canvas" width="1200" height="630"></canvas>
+    <div class="controls">
+        <button onclick="downloadImage()">画像をダウンロード (ogp-image.png)</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('ogp-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 背景のグラデーション
+        const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+        gradient.addColorStop(0, '#2c5f8d');
+        gradient.addColorStop(1, '#4a8cc7');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 1200, 630);
+
+        // 装飾的な円
+        ctx.globalAlpha = 0.1;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(1000, 100, 250, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(200, 500, 200, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+
+        // メインタイトル
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 100px "Arial", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('7つの習慣', 600, 200);
+
+        // サブタイトル
+        ctx.font = '40px "Arial", sans-serif';
+        ctx.fillText('成功への原則を学ぶ', 600, 280);
+
+        // 区切り線
+        ctx.strokeStyle = '#f39c12';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(300, 340);
+        ctx.lineTo(900, 340);
+        ctx.stroke();
+
+        // 説明文
+        ctx.font = '30px "Arial", sans-serif';
+        ctx.fillText('スティーブン・R・コヴィー', 600, 400);
+
+        // 7つのキーワードを配置
+        const keywords = [
+            '主体的', '終わりを思い描く', '最優先事項',
+            'Win-Win', '理解に徹する', 'シナジー', '刃を研ぐ'
+        ];
+
+        ctx.font = 'bold 24px "Arial", sans-serif';
+        const startX = 150;
+        const spacing = 150;
+        const y = 520;
+
+        keywords.forEach((keyword, index) => {
+            // 背景の丸
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.beginPath();
+            ctx.arc(startX + index * spacing, y, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 番号
+            ctx.fillStyle = '#f39c12';
+            ctx.fillText((index + 1).toString(), startX + index * spacing, y);
+        });
+
+        // インタラクティブ学習アプリ
+        ctx.font = 'italic 28px "Arial", sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('インタラクティブ学習アプリ', 600, 580);
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'ogp-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>

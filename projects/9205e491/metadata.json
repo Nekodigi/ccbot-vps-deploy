@@ -1,0 +1,48 @@
+{
+  "project_id": "9205e491",
+  "summary": "「洗練されたサムネイルHTMLページを生成しました」",
+  "prompt": "このサイトのサムネイル作ってhttp://43.206.228.194/ccbot/projects/\n\n日本のビジネス場面で使われるような、シンプルかつ洗練されたデザインにしてください。ただし、重要な箇所に関しては、色やマーカーを使って美しく強調してください。\n先行事例の調査は必須とし、表現フォーマットは、既存のものを遵守したうえで、内容や細部にオリジナリティを加えてください\n制作する前に、計画をしっかり立てたうえで実行に移してください\nデザイン原則にのっとり、重要な情報は目立ち、不要な情報は隠れるようにしてください。\n\nCreate a beautiful, modern thumbnail HTML page for this project.\r\n\r\nProject: {project_summary}\r\nUser Request: {prompt}\r\n\r\nRequirements:\r\n- Single self-contained HTML file (no external dependencies)\r\n- Size: 1200px width × 630px height (OGP standard)\r\n- Design: Modern, clean, professional Japanese aesthetic\r\n- Use CSS Grid/Flexbox for layout\r\n- Include project title/description attractively\r\n- Use appropriate colors, gradients, or geometric shapes\r\n- Font: Use web-safe fonts or import Google Fonts\r\n- Responsive and visually appealing\r\n- Save as thumbnail.html\r\n\r\nThe HTML should have:\r\n- Fixed viewport: 1200x630px\r\n- Centered content\r\n- Beautiful background (gradient, solid color, or subtle pattern)\r\n- Clear, readable text with proper contrast\r\n- Professional appearance suitable for social media preview\r\n\r\nExample structure:\r\n<!DOCTYPE html>\r\n<html lang=\"ja\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=1200, height=630\">\r\n    <title>Thumbnail</title>\r\n    <style>\r\n        body {\r\n            margin: 0;\r\n            width: 1200px;\r\n            height: 630px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n        }\r\n        .container {\r\n            text-align: center;\r\n            color: white;\r\n            padding: 40px;\r\n        }\r\n        h1 {\r\n            font-size: 72px;\r\n            margin: 0;\r\n            font-weight: 700;\r\n        }\r\n        p {\r\n            font-size: 32px;\r\n            margin-top: 20px;\r\n            opacity: 0.9;\r\n        }\r\n    </style>\r\n</head>\r\n<body>\r\n    <div class=\"container\">\r\n        <h1>Project Title</h1>\r\n        <p>Description</p>\r\n    </div>\r\n</body>\r\n</html>",
+  "created_at": "2025-10-12T05:28:01.167461",
+  "updated_at": "2025-10-12T05:28:01.167522",
+  "created_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1426802180190638133",
+    "channel_name": "サムネイル",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "updated_by": {
+    "user_id": "1043761710227533865",
+    "username": "nekokazu",
+    "display_name": "Nekokazu",
+    "discriminator": "0",
+    "channel_id": "1426802180190638133",
+    "channel_name": "サムネイル",
+    "guild_id": "1332652816065363978",
+    "guild_name": "Personal"
+  },
+  "thumbnail_url": "http://13.230.222.37/ccbot/projects/9205e491/thumbnail.png",
+  "thumbnail_generation_log": [
+    "選択された戦略: CLAUDE_CODE",
+    "🎨 Claude Codeでサムネイル生成を試行中...",
+    "✅ Claude Code生成成功: thumbnail.png (440068 bytes)"
+  ],
+  "file_count": 2,
+  "tags": [
+    "html"
+  ],
+  "seo": {
+    "title": "「洗練されたサムネイルHTMLページを生成しました」",
+    "description": "「洗練されたサムネイルHTMLページを生成しました」",
+    "keywords": [
+      "html",
+      "「洗練されたサムネイルHTMLページを生成しました」"
+    ],
+    "og_image": "http://13.230.222.37/ccbot/projects/9205e491/thumbnail.png",
+    "og_url": "http://13.230.222.37/ccbot/projects/9205e491",
+    "canonical_url": "http://13.230.222.37/ccbot/projects/9205e491"
+  }
+}
