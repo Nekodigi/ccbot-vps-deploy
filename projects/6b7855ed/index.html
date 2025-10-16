@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="カメラを使って仮想オブジェクトを現実空間に配置できるARアプリケーション">
+
+    <!-- OGP Tags -->
+    <meta property="og:title" content="AR Experience - 拡張現実体験アプリ">
+    <meta property="og:description" content="カメラを使って仮想オブジェクトを現実空間に配置できるARアプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/6b7855ed">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/6b7855ed/icon-512x512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR Experience - 拡張現実体験アプリ">
+    <meta name="twitter:description" content="カメラを使って仮想オブジェクトを現実空間に配置できるARアプリケーション">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/6b7855ed/icon-512x512.png">
+
+    <title>AR Experience - 拡張現実体験アプリ</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192x192.png">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="app-title">AR Experience</h1>
+            <button id="infoBtn" class="info-btn" aria-label="情報">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </button>
+        </header>
+
+        <!-- AR View -->
+        <div id="arContainer" class="ar-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+
+            <!-- AR Overlay -->
+            <div id="overlay" class="overlay">
+                <div class="status-indicator" id="statusIndicator">
+                    <div class="status-dot"></div>
+                    <span class="status-text">準備中...</span>
+                </div>
+            </div>
+
+            <!-- Virtual Objects Layer -->
+            <div id="objectsLayer" class="objects-layer"></div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-section">
+                <h3 class="section-title">オブジェクト配置</h3>
+                <div class="object-buttons">
+                    <button class="object-btn" data-object="cube">
+                        <span class="object-icon">◼</span>
+                        <span class="object-label">立方体</span>
+                    </button>
+                    <button class="object-btn" data-object="sphere">
+                        <span class="object-icon">●</span>
+                        <span class="object-label">球体</span>
+                    </button>
+                    <button class="object-btn" data-object="pyramid">
+                        <span class="object-icon">▲</span>
+                        <span class="object-label">三角錐</span>
+                    </button>
+                    <button class="object-btn" data-object="text">
+                        <span class="object-icon">T</span>
+                        <span class="object-label">テキスト</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3 class="section-title">AI機能</h3>
+                <div class="ai-buttons">
+                    <button id="captureBtn" class="action-btn primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.66-.9l.82-1.2A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+                        </svg>
+                        <span>撮影してAI分析</span>
+                    </button>
+                    <button id="clearBtn" class="action-btn secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>オブジェクトクリア</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Analysis Result -->
+        <div id="aiResultPanel" class="ai-result-panel hidden">
+            <div class="result-header">
+                <h3>AI分析結果</h3>
+                <button id="closeResultBtn" class="close-btn">×</button>
+            </div>
+            <div id="aiResultContent" class="result-content">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div id="infoModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>使い方</h2>
+                    <button id="closeInfoBtn" class="close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-section">
+                        <h3>基本操作</h3>
+                        <ul>
+                            <li>カメラを通して現実空間を表示します</li>
+                            <li>画面をタップして仮想オブジェクトを配置できます</li>
+                            <li>オブジェクトボタンで配置するアイテムを選択できます</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h3>AI機能</h3>
+                        <ul>
+                            <li>「撮影してAI分析」でカメラ映像をAIが解析します</li>
+                            <li>映っているものの説明や特徴を教えてくれます</li>
+                            <li>Firebase AI Logic SDKを使用しています</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h3>対応ブラウザ</h3>
+                        <ul>
+                            <li>Chrome、Safari、Edgeなどのモダンブラウザ</li>
+                            <li>カメラアクセス権限が必要です</li>
+                            <li>PWA対応でホーム画面に追加可能です</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camera Permission Request -->
+        <div id="permissionRequest" class="permission-request hidden">
+            <div class="permission-content">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.66-.9l.82-1.2A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+                </svg>
+                <h2>カメラへのアクセスが必要です</h2>
+                <p>AR体験を開始するには、カメラの使用を許可してください</p>
+                <button id="requestPermissionBtn" class="action-btn primary large">カメラを有効にする</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="app.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3Dジャイロビューア | インタラクティブ3D体験</title>
+
+    <!-- SEO / OGP -->
+    <meta name="description" content="スマートフォンのジャイロセンサーを使って3D空間を操作できるインタラクティブなWebアプリケーション">
+    <meta name="keywords" content="3D,ジャイロセンサー,インタラクティブ,PWA,WebGL">
+
+    <!-- OGP -->
+    <meta property="og:title" content="3Dジャイロビューア">
+    <meta property="og:description" content="スマートフォンのジャイロセンサーを使って3D空間を操作">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/9c966f6b">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/9c966f6b/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="3Dジャイロビューア">
+    <meta name="twitter:description" content="スマートフォンのジャイロセンサーを使って3D空間を操作">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/9c966f6b/og-image.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 3Dキャンバス -->
+        <div id="canvas-container"></div>
+
+        <!-- UI Overlay -->
+        <div class="overlay">
+            <div class="header">
+                <h1 class="title">3D Gyro Viewer</h1>
+                <p class="subtitle">デバイスを傾けて操作</p>
+            </div>
+
+            <!-- コントロールパネル -->
+            <div class="controls">
+                <button id="startBtn" class="btn-primary">
+                    <span class="btn-icon">▶</span>
+                    <span class="btn-text">体験を開始</span>
+                </button>
+
+                <div id="statusPanel" class="status-panel hidden">
+                    <div class="status-item">
+                        <span class="status-label">ジャイロ:</span>
+                        <span id="gyroStatus" class="status-value inactive">未接続</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">傾き:</span>
+                        <span id="orientationValue" class="status-value">0°, 0°</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 説明 -->
+            <div class="info-box">
+                <h2 class="info-title">使い方</h2>
+                <ul class="info-list">
+                    <li>スマートフォンを傾けると3Dオブジェクトが動きます</li>
+                    <li>PC/デスクトップではマウスドラッグで操作できます</li>
+                    <li>タップで視点をリセットできます</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ローディング -->
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">読み込み中...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

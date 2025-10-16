@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Icon Generator</title>
+</head>
+<body>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <script>
+        function createIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+
+            // 背景グラデーション
+            const grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, '#4a90e2');
+            grad.addColorStop(1, '#e24a90');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, size, size);
+
+            // 3Dボックスの描画
+            ctx.save();
+            ctx.translate(size / 2, size / 2);
+
+            // キューブ
+            const cubeSize = size * 0.4;
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size * 0.02;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+
+            // 正面
+            ctx.fillRect(-cubeSize/2, -cubeSize/2, cubeSize, cubeSize);
+            ctx.strokeRect(-cubeSize/2, -cubeSize/2, cubeSize, cubeSize);
+
+            // 右側面（3D効果）
+            ctx.beginPath();
+            ctx.moveTo(cubeSize/2, -cubeSize/2);
+            ctx.lineTo(cubeSize/2 + cubeSize/4, -cubeSize/2 - cubeSize/4);
+            ctx.lineTo(cubeSize/2 + cubeSize/4, cubeSize/2 - cubeSize/4);
+            ctx.lineTo(cubeSize/2, cubeSize/2);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.fill();
+            ctx.stroke();
+
+            // 上面（3D効果）
+            ctx.beginPath();
+            ctx.moveTo(-cubeSize/2, -cubeSize/2);
+            ctx.lineTo(-cubeSize/2 + cubeSize/4, -cubeSize/2 - cubeSize/4);
+            ctx.lineTo(cubeSize/2 + cubeSize/4, -cubeSize/2 - cubeSize/4);
+            ctx.lineTo(cubeSize/2, -cubeSize/2);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.restore();
+
+            // ダウンロードリンク作成
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                a.textContent = `Download icon-${size}.png`;
+                a.style.display = 'block';
+                a.style.margin = '10px';
+                document.body.appendChild(a);
+            });
+        }
+
+        createIcon(document.getElementById('canvas192'), 192);
+        createIcon(document.getElementById('canvas512'), 512);
+    </script>
+</body>
+</html>

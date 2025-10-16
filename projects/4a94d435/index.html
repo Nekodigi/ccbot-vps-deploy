@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="カメラで撮影した物体についてAIに質問できるアプリ">
+    <meta property="og:title" content="Object Vision - AIに物体を質問">
+    <meta property="og:description" content="カメラで撮影した物体についてAIに質問できるアプリ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/4a94d435">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/4a94d435/icon-512.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Object Vision - AIに物体を質問">
+    <meta name="twitter:description" content="カメラで撮影した物体についてAIに質問できるアプリ">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/4a94d435/icon-512.png">
+    <meta name="theme-color" content="#2563eb">
+    <title>Object Vision - AIに物体を質問</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Object Vision</h1>
+            <p class="subtitle">カメラで撮影した物体についてAIに質問</p>
+        </header>
+
+        <main class="main-content">
+            <!-- カメラビュー -->
+            <section class="camera-section">
+                <div class="video-container" id="videoContainer">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="capture-overlay" id="captureOverlay" style="display: none;">
+                        <img id="capturedImage" alt="撮影画像">
+                    </div>
+                </div>
+
+                <div class="camera-controls">
+                    <button id="startCamera" class="btn btn-primary">カメラを起動</button>
+                    <button id="captureBtn" class="btn btn-success" style="display: none;">撮影する</button>
+                    <button id="retakeBtn" class="btn btn-secondary" style="display: none;">撮り直す</button>
+                </div>
+            </section>
+
+            <!-- 質問セクション -->
+            <section class="question-section" id="questionSection" style="display: none;">
+                <div class="input-group">
+                    <label for="questionInput" class="label">この画像について質問してください</label>
+                    <textarea
+                        id="questionInput"
+                        class="textarea"
+                        placeholder="例: これは何ですか？&#10;例: この物体の特徴を教えてください&#10;例: 使い方を説明してください"
+                        rows="3"
+                    ></textarea>
+                </div>
+                <button id="askBtn" class="btn btn-primary btn-large">AIに質問する</button>
+            </section>
+
+            <!-- 回答セクション -->
+            <section class="answer-section" id="answerSection" style="display: none;">
+                <h2 class="section-title">AIからの回答</h2>
+                <div class="answer-box" id="answerBox">
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>AIが分析中...</p>
+                    </div>
+                    <div id="answerContent" class="answer-content"></div>
+                </div>
+            </section>
+
+            <!-- 履歴セクション -->
+            <section class="history-section" id="historySection" style="display: none;">
+                <h2 class="section-title">会話履歴</h2>
+                <div class="history-list" id="historyList"></div>
+                <button id="clearHistoryBtn" class="btn btn-secondary btn-small">履歴をクリア</button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Object Vision - Powered by Firebase AI Logic</p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
