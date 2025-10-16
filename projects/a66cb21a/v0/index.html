@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AR空間に現在地の3Dモデルを表示するWebアプリケーション">
+    <meta property="og:title" content="AR 3D Location Viewer">
+    <meta property="og:description" content="AR空間に現在地の3Dモデルを表示">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR 3D Location Viewer">
+    <meta name="twitter:description" content="AR空間に現在地の3Dモデルを表示">
+
+    <title>AR 3D Location Viewer</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2196F3">
+    <link rel="icon" type="image/png" href="./icon-192.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+
+        .description {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            text-align: left;
+            margin-bottom: 32px;
+            padding: 0 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            background: #2196F3;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .button-primary {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease, transform 0.1s ease;
+            margin-bottom: 12px;
+        }
+
+        .button-primary:hover {
+            background: #1976D2;
+        }
+
+        .button-primary:active {
+            transform: scale(0.98);
+        }
+
+        .button-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            font-size: 14px;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .status-message.info {
+            background: #E3F2FD;
+            color: #1565C0;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #FFEBEE;
+            color: #C62828;
+            display: block;
+        }
+
+        .status-message.success {
+            background: #E8F5E9;
+            color: #2E7D32;
+            display: block;
+        }
+
+        .requirements {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+        }
+
+        .requirements-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .requirements-text {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        #viewer-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        #viewer-container.active {
+            display: block;
+        }
+
+        #three-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .viewer-controls {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            padding: 16px 24px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .viewer-info {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .close-button {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: #d32f2f;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="「ARで3Dモデルを表示するアプリ」">
+    <meta property="og:description" content="「ARで3Dモデルを表示するアプリ」">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="「ARで3Dモデルを表示するアプリ」">
+    <meta name="twitter:description" content="「ARで3Dモデルを表示するアプリ」">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a/thumbnail.png">
+  </head>
+<body>
+    <div class="container">
+        <h1>AR 3D Location Viewer</h1>
+        <p class="description">
+            現在地の3Dモデルを空間に表示します
+        </p>
+
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">1</div>
+                <div class="feature-text">位置情報を使用して現在地を取得</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">2</div>
+                <div class="feature-text">Google Maps Platform の3D地形データを読み込み</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">3</div>
+                <div class="feature-text">3D空間で地形を表示・操作</div>
+            </div>
+        </div>
+
+        <button id="start-button" class="button-primary">3Dビューアーを起動</button>
+
+        <div id="status-message" class="status-message"></div>
+
+        <div class="requirements">
+            <div class="requirements-title">必要な環境</div>
+            <div class="requirements-text">
+                HTTPS環境、位置情報許可、WebGL対応ブラウザが必要です
+            </div>
+        </div>
+    </div>
+
+    <div id="viewer-container">
+        <div class="viewer-controls">
+            <div class="viewer-info" id="viewer-info">読み込み中...</div>
+            <button id="close-button" class="close-button">閉じる</button>
+        </div>
+        <canvas id="three-canvas"></canvas>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">3Dモデルを読み込んでいます...</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="./app.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => console.log('ServiceWorker registered'))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "量子コンピュータシミュレーター",
+  "short_name": "Quantum Sim",
+  "description": "ブラウザで動作する量子コンピュータシミュレーター。量子ビット、量子ゲート、ブロッホ球の可視化を体験できます。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0f1e",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "science", "utilities"],
+  "screenshots": [],
+  "lang": "ja"
+}

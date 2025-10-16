@@ -2,7 +2,6 @@
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js';
 import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js';
-import { getAI, getGenerativeModel, GoogleAIBackend } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-ai.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyChB7eBjMaX_lRpfIgUxQDi39Qh82R4oyQ",
@@ -17,19 +16,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Firebase AI Logic SDKを使用してGemini APIを初期化
-const ai = getAI(app, { backend: new GoogleAIBackend() });
-const model = getGenerativeModel(ai, { model: "gemini-2.0-flash-exp" });
-
 // AI解説機能
 export async function getAIExplanation(prompt) {
     try {
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
-        return text;
+        // Gemini APIを直接使用
+        const apiKey = firebaseConfig.apiKey;
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: prompt
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 1000,
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            return data.candidates[0].content.parts[0].text;
+        } else {
+            throw new Error('Unexpected API response format');
+        }
     } catch (error) {
         console.error('AI解説エラー:', error);
-        return 'AI解説の取得に失敗しました。もう一度お試しください。エラー: ' + error.message;
+        return 'AI解説の取得に失敗しました。もう一度お試しください。';
     }
 }
 
