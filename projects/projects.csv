@@ -1,12 +1,13 @@
 url,title,image_url,created_at,tags,author,channel
-http://13.230.236.43/ccbot/projects/a03e518f,シンプルで洗練されたWebサイト制作。,http://13.230.236.43/ccbot/projects/a03e518f/thumbnail.png,2025-10-15T12:58:18.514325,Webサイト;シンプル;デザイン,Nekokazu,general
-http://13.230.236.43/ccbot/projects/5ee8e009,便利な料理ブログサイトの制作。,http://13.230.236.43/ccbot/projects/5ee8e009/thumbnail.png,2025-10-15T13:00:23.906414,料理ブログ;ウェブサイト;デザイン;シンプル,kouta,botのコマンド打つ用
-http://13.230.236.43/ccbot/projects/2d1589d6,スターバックス風のカフェ公式サイト制作。,http://13.230.236.43/ccbot/projects/2d1589d6/thumbnail.png,2025-10-15T13:18:03.917204,カフェ;サイト;デザイン;シンプル;レスポンシブ,kouta,botのコマンド打つ用
-http://13.230.236.43/ccbot/projects/3c93c445,「大喜利投稿サイト」,http://13.230.236.43/ccbot/projects/3c93c445/thumbnail.png,2025-10-16T12:39:29.343002,大喜利;サイト;インタラクティブ;デザイン,IImon,botのコマンド打つ用
-http://13.230.236.43/ccbot/projects/cd2dd26f,PWA対応アプリの開発。,http://13.230.236.43/ccbot/projects/cd2dd26f/thumbnail.png,2025-10-16T15:36:56.105811,PWA;アプリ;シンプル;デザイン,Nekokazu,general
-http://13.230.236.43/ccbot/projects/4dc7a8e6,「リアルタイムDBを利用したアプリ」,http://13.230.236.43/ccbot/projects/4dc7a8e6/thumbnail.png,2025-10-16T15:47:17.842308,リアルタイムDB;Firebase;アプリ;Web,Nekokazu,general
-http://13.230.236.43/ccbot/projects/1ab84597,「Firebaseを利用したチャットアプリ」,http://13.230.236.43/ccbot/projects/1ab84597/thumbnail.png,2025-10-16T15:52:31.689129,Firebase;チャットアプリ;リアルタイム;Web,Nekokazu,general
-http://13.230.236.43/ccbot/projects/484dd8dc,「Firestoreを活用したチャットアプリ」,http://13.230.236.43/ccbot/projects/484dd8dc/thumbnail.png,2025-10-16T16:03:25.253359,Firestore;チャットアプリ;Firebase;リアルタイム,Nekokazu,general
-http://13.230.236.43/ccbot/projects/75a7cc05,「PWA対応のシンプルなウェブアプリ」,https://via.placeholder.com/400x300/667eea/ffffff?text=75a7cc05,2025-10-16T17:09:50.383651,PWA;ウェブアプリ;シンプル;デザイン;Firebase,Nekokazu,general
-http://13.230.236.43/ccbot/projects/790f6ce8,AIと対話できるPWAアプリ,http://13.230.236.43/ccbot/projects/790f6ce8/thumbnail.png,2025-10-16T18:44:24.170327,PWA;アプリ;Firebase,Nekokazu,general
-http://13.230.236.43/ccbot/projects/9c966f6b,スマホのジャイロセンサーを活用した3Dアプリ。,http://13.230.236.43/ccbot/projects/9c966f6b/thumbnail.png,2025-10-16T18:46:32.985735,アプリ;ジャイロセンサー;PWA;スマホ,Nekokazu,general
+a03e518f,シンプルで洗練されたWebサイト制作。,a03e518f/thumbnail.png,2025-10-15T12:58:18.514325,Webサイト;シンプル;デザイン,Nekokazu,general
+5ee8e009,便利な料理ブログサイトの制作。,5ee8e009/thumbnail.png,2025-10-15T13:00:23.906414,料理ブログ;ウェブサイト;デザイン;シンプル,kouta,botのコマンド打つ用
+2d1589d6,スターバックス風のカフェ公式サイト制作。,2d1589d6/thumbnail.png,2025-10-15T13:18:03.917204,カフェ;サイト;デザイン;シンプル;レスポンシブ,kouta,botのコマンド打つ用
+3c93c445,「大喜利投稿サイト」,3c93c445/thumbnail.png,2025-10-16T12:39:29.343002,大喜利;サイト;インタラクティブ;デザイン,IImon,botのコマンド打つ用
+cd2dd26f,PWA対応アプリの開発。,cd2dd26f/thumbnail.png,2025-10-16T15:36:56.105811,PWA;アプリ;シンプル;デザイン,Nekokazu,general
+4dc7a8e6,「リアルタイムDBを利用したアプリ」,4dc7a8e6/thumbnail.png,2025-10-16T15:47:17.842308,リアルタイムDB;Firebase;アプリ;Web,Nekokazu,general
+1ab84597,「Firebaseを利用したチャットアプリ」,1ab84597/thumbnail.png,2025-10-16T15:52:31.689129,Firebase;チャットアプリ;リアルタイム;Web,Nekokazu,general
+484dd8dc,「Firestoreを活用したチャットアプリ」,484dd8dc/thumbnail.png,2025-10-16T16:03:25.253359,Firestore;チャットアプリ;Firebase;リアルタイム,Nekokazu,general
+75a7cc05,「PWA対応のシンプルなウェブアプリ」,https://via.placeholder.com/400x300/667eea/ffffff?text=75a7cc05 ,2025-10-16T17:09:50.383651,PWA;ウェブアプリ;シンプル;デザイン;Firebase,Nekokazu,general
+790f6ce8,AIと対話できるPWAアプリ,790f6ce8/thumbnail.png,2025-10-16T18:44:24.170327,PWA;アプリ;Firebase,Nekokazu,general
+9c966f6b,スマホのジャイロセンサーを活用した3Dアプリ。,9c966f6b/thumbnail.png,2025-10-16T18:46:32.985735,アプリ;ジャイロセンサー;PWA;スマホ,Nekokazu,general
+http://13.230.236.43/ccbot/projects/4a94d435,物体認識に基づく質問アプリ。,http://13.230.236.43/ccbot/projects/4a94d435/thumbnail.png,2025-10-16T18:49:32.275843,物体認識;質問アプリ;PWA;Firebase,Nekokazu,general
