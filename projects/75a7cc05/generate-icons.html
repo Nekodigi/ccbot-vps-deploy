@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Icon Generator</title>
+</head>
+<body>
+  <canvas id="canvas192" width="192" height="192"></canvas>
+  <canvas id="canvas512" width="512" height="512"></canvas>
+  <script>
+    function generateIcon(canvasId, size) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+
+      // 背景
+      ctx.fillStyle = '#2563eb';
+      ctx.roundRect(0, 0, size, size, size / 4);
+      ctx.fill();
+
+      const scale = size / 512;
+
+      // チャットバブル1
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.roundRect(80 * scale, 120 * scale, 240 * scale, 160 * scale, 24 * scale);
+      ctx.fill();
+
+      // ドット1
+      ctx.fillStyle = '#2563eb';
+      ctx.beginPath();
+      ctx.arc(140 * scale, 160 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(180 * scale, 160 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(220 * scale, 160 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // ライン1
+      ctx.fillStyle = '#dbeafe';
+      ctx.roundRect(100 * scale, 200 * scale, 180 * scale, 12 * scale, 6 * scale);
+      ctx.fill();
+
+      ctx.roundRect(100 * scale, 230 * scale, 140 * scale, 12 * scale, 6 * scale);
+      ctx.fill();
+
+      // チャットバブル2
+      ctx.fillStyle = 'white';
+      ctx.roundRect(192 * scale, 232 * scale, 240 * scale, 160 * scale, 24 * scale);
+      ctx.fill();
+
+      // ドット2
+      ctx.fillStyle = '#2563eb';
+      ctx.beginPath();
+      ctx.arc(252 * scale, 272 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(292 * scale, 272 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(332 * scale, 272 * scale, 8 * scale, 0, Math.PI * 2);
+      ctx.fill();
+
+      // ライン2
+      ctx.fillStyle = '#dbeafe';
+      ctx.roundRect(212 * scale, 312 * scale, 180 * scale, 12 * scale, 6 * scale);
+      ctx.fill();
+
+      ctx.roundRect(212 * scale, 342 * scale, 140 * scale, 12 * scale, 6 * scale);
+      ctx.fill();
+
+      // ダウンロード
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `icon-${size}.png`;
+        a.click();
+      });
+    }
+
+    // roundRect polyfill
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+      CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+        if (w < 2 * r) r = w / 2;
+        if (h < 2 * r) r = h / 2;
+        this.beginPath();
+        this.moveTo(x + r, y);
+        this.arcTo(x + w, y, x + w, y + h, r);
+        this.arcTo(x + w, y + h, x, y + h, r);
+        this.arcTo(x, y + h, x, y, r);
+        this.arcTo(x, y, x + w, y, r);
+        this.closePath();
+        return this;
+      };
+    }
+
+    window.onload = () => {
+      setTimeout(() => {
+        generateIcon('canvas192', 192);
+        setTimeout(() => {
+          generateIcon('canvas512', 512);
+        }, 500);
+      }, 500);
+    };
+  </script>
+</body>
+</html>
