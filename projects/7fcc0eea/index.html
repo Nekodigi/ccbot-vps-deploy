@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WebXR対応のAR体験アプリケーション - 3Dモデルを実世界に配置して体験できます">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="AR体験アプリ">
+    <meta property="og:description" content="WebXR対応のAR体験アプリケーション - 3Dモデルを実世界に配置して体験できます">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/7fcc0eea">
+    <meta property="og:image" content="./og-image.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR体験アプリ">
+    <meta name="twitter:description" content="WebXR対応のAR体験アプリケーション - 3Dモデルを実世界に配置して体験できます">
+    <meta name="twitter:image" content="./og-image.png">
+
+    <title>AR体験アプリ</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2196F3">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">AR体験アプリ</h1>
+            <p class="subtitle">3Dモデルを実世界に配置して体験</p>
+        </header>
+
+        <main class="main-content">
+            <div class="ar-section">
+                <div class="model-container" id="modelContainer">
+                    <model-viewer
+                        id="modelViewer"
+                        src="./models/box.glb"
+                        alt="3D Model"
+                        ar
+                        ar-modes="webxr scene-viewer quick-look"
+                        camera-controls
+                        touch-action="pan-y"
+                        auto-rotate
+                        shadow-intensity="1"
+                        environment-image="neutral"
+                        exposure="1"
+                        poster="./loading.png"
+                        loading="eager">
+
+                        <button slot="ar-button" class="ar-button" id="arButton">
+                            <span class="ar-icon">📱</span>
+                            <span class="ar-text">ARで見る</span>
+                        </button>
+
+                        <div class="progress-bar" slot="progress-bar">
+                            <div class="update-bar"></div>
+                        </div>
+                    </model-viewer>
+                </div>
+
+                <div class="info-card">
+                    <h2 class="info-title">使い方</h2>
+                    <ol class="instruction-list">
+                        <li><span class="step-number">1</span>ARボタンをタップしてください</li>
+                        <li><span class="step-number">2</span>カメラへのアクセスを許可してください</li>
+                        <li><span class="step-number">3</span>平面を検出して、配置したい場所をタップします</li>
+                        <li><span class="step-number">4</span>モデルをピンチやドラッグで操作できます</li>
+                    </ol>
+                </div>
+
+                <div class="model-selector">
+                    <h2 class="selector-title">モデルを選択</h2>
+                    <div class="model-grid" id="modelGrid">
+                        <button class="model-card active" data-model="./models/box.glb" data-name="キューブ">
+                            <div class="model-preview">
+                                <div class="preview-icon">📦</div>
+                            </div>
+                            <span class="model-name">キューブ</span>
+                        </button>
+                        <button class="model-card" data-model="./models/sphere.glb" data-name="スフィア">
+                            <div class="model-preview">
+                                <div class="preview-icon">⚽</div>
+                            </div>
+                            <span class="model-name">スフィア</span>
+                        </button>
+                        <button class="model-card" data-model="./models/cylinder.glb" data-name="シリンダー">
+                            <div class="model-preview">
+                                <div class="preview-icon">🔋</div>
+                            </div>
+                            <span class="model-name">シリンダー</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">機能</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3 class="feature-name">高精度配置</h3>
+                            <p class="feature-desc">WebXR APIによる正確な3D配置</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📐</div>
+                            <h3 class="feature-name">スケール調整</h3>
+                            <p class="feature-desc">ピンチ操作でサイズ変更が可能</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔄</div>
+                            <h3 class="feature-name">360度回転</h3>
+                            <p class="feature-desc">あらゆる角度から確認できます</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💡</div>
+                            <h3 class="feature-name">リアルな陰影</h3>
+                            <p class="feature-desc">環境に合わせた自然な表示</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="footer-text">Powered by WebXR & Model Viewer</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

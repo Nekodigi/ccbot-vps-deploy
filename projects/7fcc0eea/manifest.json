@@ -1,0 +1,36 @@
+{
+  "name": "AR体験アプリ",
+  "short_name": "AR体験",
+  "description": "WebXR対応のAR体験アプリケーション - 3Dモデルを実世界に配置して体験できます",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F5F5F5",
+  "theme_color": "#2196F3",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "ja",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "entertainment"],
+  "screenshots": [
+    {
+      "src": "./screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "prefer_related_applications": false
+}

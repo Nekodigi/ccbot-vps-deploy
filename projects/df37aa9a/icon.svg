@@ -1,0 +1,31 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Chat bubble -->
+  <path d="M 128 102
+           L 358 102
+           A 26 26 0 0 1 384 128
+           L 384 282
+           A 26 26 0 0 1 358 308
+           L 204 308
+           L 154 384
+           L 166 308
+           L 128 308
+           A 26 26 0 0 1 102 282
+           L 102 128
+           A 26 26 0 0 1 128 102 Z"
+        fill="white"/>
+
+  <!-- Dots -->
+  <circle cx="192" cy="205" r="15" fill="#2563eb"/>
+  <circle cx="256" cy="205" r="15" fill="#2563eb"/>
+  <circle cx="320" cy="205" r="15" fill="#2563eb"/>
+</svg>
