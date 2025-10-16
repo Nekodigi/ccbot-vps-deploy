@@ -81,7 +81,6 @@
           <span id="currentUser" class="current-user"></span>
         </div>
       </div>
-      <button id="settingsBtn" class="settings-btn">設定</button>
       <button id="logoutBtn" class="logout-btn">ログアウト</button>
     </header>
 
@@ -119,74 +118,9 @@
     </footer>
   </div>
 
-  <!-- AI設定モーダル -->
-  <div id="settingsModal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">AI設定</h2>
-        <button id="closeSettings" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="setting-item">
-          <div class="setting-header">
-            <label class="setting-label">AIユーザーを有効化</label>
-            <label class="switch">
-              <input type="checkbox" id="aiEnabled">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <p class="setting-description">AIがチャットに参加してメッセージに自動応答します</p>
-        </div>
-
-        <div id="aiSettings" class="ai-settings-panel" style="display: none;">
-          <div class="setting-item">
-            <label class="setting-label">AIユーザー名</label>
-            <input type="text" id="aiUsername" class="setting-input" value="AI アシスタント" maxlength="20">
-            <p class="setting-description">チャットに表示されるAIの名前</p>
-          </div>
-
-          <div class="setting-item">
-            <label class="setting-label">応答モード</label>
-            <select id="aiResponseMode" class="setting-select">
-              <option value="all">すべてのメッセージに応答</option>
-              <option value="mention">メンション時のみ応答</option>
-              <option value="random">ランダムに応答</option>
-            </select>
-          </div>
-
-          <div class="setting-item">
-            <label class="setting-label">応答スタイル</label>
-            <select id="aiPersonality" class="setting-select">
-              <option value="friendly">フレンドリー</option>
-              <option value="professional">プロフェッショナル</option>
-              <option value="casual">カジュアル</option>
-              <option value="helpful">サポート重視</option>
-            </select>
-          </div>
-
-          <div class="setting-item">
-            <label class="setting-label">応答間隔（秒）</label>
-            <input type="number" id="aiResponseDelay" class="setting-input" min="0" max="30" value="3">
-            <p class="setting-description">メッセージ受信後、応答するまでの待機時間</p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button id="saveSettings" class="save-btn">保存</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-  <script type="importmap">
-    {
-      "imports": {
-        "@google/genai": "https://esm.run/@google/generative-ai"
-      }
-    }
-  </script>
 
   <script src="app.js"></script>
 </body>

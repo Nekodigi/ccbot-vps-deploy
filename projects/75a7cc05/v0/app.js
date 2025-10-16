@@ -20,22 +20,6 @@ const username = 'nekokazu'; // ユーザー名
 const projectId = '75a7cc05';
 const messagesRef = db.collection('ccbotDev').doc(username).collection('apps').doc(projectId).collection('messages');
 const usersRef = db.collection('ccbotDev').doc(username).collection('apps').doc(projectId).collection('users');
-const settingsRef = db.collection('ccbotDev').doc(username).collection('apps').doc(projectId).collection('settings');
-
-// ========================================
-// AI設定
-// ========================================
-let aiConfig = {
-  enabled: false,
-  username: 'AI アシスタント',
-  userId: 'ai-user-001',
-  responseMode: 'mention', // 'all', 'mention', 'random'
-  personality: 'friendly', // 'friendly', 'professional', 'casual', 'helpful'
-  responseDelay: 3 // 秒
-};
-
-let genAI = null;
-let aiModel = null;
 
 // ========================================
 // グローバル変数
@@ -55,7 +39,6 @@ const elements = {
   usernameInput: document.getElementById('usernameInput'),
   loginBtn: document.getElementById('loginBtn'),
   logoutBtn: document.getElementById('logoutBtn'),
-  settingsBtn: document.getElementById('settingsBtn'),
   messageInput: document.getElementById('messageInput'),
   sendBtn: document.getElementById('sendBtn'),
   messagesList: document.getElementById('messagesList'),
@@ -63,16 +46,7 @@ const elements = {
   currentUserDisplay: document.getElementById('currentUser'),
   onlineCount: document.getElementById('onlineCount'),
   charCount: document.getElementById('charCount'),
-  typingIndicator: document.getElementById('typingIndicator'),
-  settingsModal: document.getElementById('settingsModal'),
-  closeSettings: document.getElementById('closeSettings'),
-  aiEnabled: document.getElementById('aiEnabled'),
-  aiSettings: document.getElementById('aiSettings'),
-  aiUsername: document.getElementById('aiUsername'),
-  aiResponseMode: document.getElementById('aiResponseMode'),
-  aiPersonality: document.getElementById('aiPersonality'),
-  aiResponseDelay: document.getElementById('aiResponseDelay'),
-  saveSettings: document.getElementById('saveSettings')
+  typingIndicator: document.getElementById('typingIndicator')
 };
 
 // ========================================
@@ -119,25 +93,6 @@ function setupEventListeners() {
 
   // ログアウトボタン
   elements.logoutBtn.addEventListener('click', handleLogout);
-
-  // 設定ボタン
-  elements.settingsBtn.addEventListener('click', openSettings);
-
-  // 設定モーダル閉じる
-  elements.closeSettings.addEventListener('click', closeSettings);
-
-  // モーダル外クリックで閉じる
-  elements.settingsModal.addEventListener('click', (e) => {
-    if (e.target === elements.settingsModal) {
-      closeSettings();
-    }
-  });
-
-  // AI有効化トグル
-  elements.aiEnabled.addEventListener('change', handleAIToggle);
-
-  // 設定保存
-  elements.saveSettings.addEventListener('click', saveAISettings);
 
   // 送信ボタン
   elements.sendBtn.addEventListener('click', handleSendMessage);
@@ -208,9 +163,6 @@ async function loginUser(username) {
     // メッセージをリッスン
     listenToMessages();
     listenToUsers();
-
-    // AI設定を読み込み
-    await loadAISettings();
 
     hideLoading();
 
@@ -330,9 +282,6 @@ function listenToMessages() {
           const message = change.doc.data();
           const messageId = change.doc.id;
           displayMessage(message, messageId);
-
-          // AI応答処理
-          handleNewMessage(message, messageId);
         }
       });
     }, (error) => {
@@ -377,11 +326,6 @@ function displayMessage(message, messageId) {
   } else {
     const isOwn = message.userId === currentUser.id;
     messageElement.classList.add(isOwn ? 'own' : 'other');
-
-    // AIメッセージの場合、data属性を追加
-    if (message.isAI) {
-      messageElement.setAttribute('data-is-ai', 'true');
-    }
 
     const timestamp = message.timestamp ? formatTimestamp(message.timestamp.toDate()) : '送信中...';
 
@@ -547,259 +491,3 @@ async function cleanupOldMessages() {
 
 // 1日1回クリーンアップを実行（オプション）
 // setInterval(cleanupOldMessages, 24 * 60 * 60 * 1000);
-
-// ========================================
-// AI機能
-// ========================================
-
-// AI初期化
-async function initializeAI() {
-  try {
-    const { GoogleGenerativeAI } = await import('@google/genai');
-    genAI = new GoogleGenerativeAI(firebaseConfig.apiKey);
-    aiModel = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    console.log('AI初期化完了');
-    return true;
-  } catch (error) {
-    console.error('AI初期化エラー:', error);
-    return false;
-  }
-}
-
-// AI設定の読み込み
-async function loadAISettings() {
-  try {
-    const doc = await settingsRef.doc('ai').get();
-    if (doc.exists) {
-      const data = doc.data();
-      aiConfig = { ...aiConfig, ...data };
-
-      // UI更新
-      elements.aiEnabled.checked = aiConfig.enabled;
-      elements.aiUsername.value = aiConfig.username;
-      elements.aiResponseMode.value = aiConfig.responseMode;
-      elements.aiPersonality.value = aiConfig.personality;
-      elements.aiResponseDelay.value = aiConfig.responseDelay;
-
-      if (aiConfig.enabled) {
-        elements.aiSettings.style.display = 'block';
-        await startAI();
-      }
-    }
-  } catch (error) {
-    console.error('AI設定読み込みエラー:', error);
-  }
-}
-
-// AI設定の保存
-async function saveAISettings() {
-  try {
-    aiConfig.username = elements.aiUsername.value.trim() || 'AI アシスタント';
-    aiConfig.responseMode = elements.aiResponseMode.value;
-    aiConfig.personality = elements.aiPersonality.value;
-    aiConfig.responseDelay = parseInt(elements.aiResponseDelay.value) || 3;
-
-    await settingsRef.doc('ai').set(aiConfig);
-
-    if (aiConfig.enabled) {
-      // AIユーザー情報を更新
-      await usersRef.doc(aiConfig.userId).update({
-        username: aiConfig.username
-      });
-    }
-
-    closeSettings();
-    alert('設定を保存しました');
-  } catch (error) {
-    console.error('AI設定保存エラー:', error);
-    alert('設定の保存に失敗しました');
-  }
-}
-
-// 設定モーダル
-function openSettings() {
-  elements.settingsModal.style.display = 'flex';
-}
-
-function closeSettings() {
-  elements.settingsModal.style.display = 'none';
-}
-
-function handleAIToggle() {
-  const enabled = elements.aiEnabled.checked;
-  elements.aiSettings.style.display = enabled ? 'block' : 'none';
-
-  if (enabled) {
-    startAI();
-  } else {
-    stopAI();
-  }
-}
-
-// AI開始
-async function startAI() {
-  if (aiConfig.enabled) return;
-
-  showLoading();
-
-  try {
-    // AI初期化
-    const initialized = await initializeAI();
-    if (!initialized) {
-      throw new Error('AI初期化に失敗しました');
-    }
-
-    aiConfig.enabled = true;
-
-    // AIユーザーをFirestoreに登録
-    await usersRef.doc(aiConfig.userId).set({
-      username: aiConfig.username,
-      lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-      online: true,
-      isAI: true
-    });
-
-    // システムメッセージ
-    await sendSystemMessage(`${aiConfig.username}が参加しました`);
-
-    console.log('AI起動完了');
-  } catch (error) {
-    console.error('AI起動エラー:', error);
-    elements.aiEnabled.checked = false;
-    elements.aiSettings.style.display = 'none';
-    alert('AIの起動に失敗しました');
-  } finally {
-    hideLoading();
-  }
-}
-
-// AI停止
-async function stopAI() {
-  if (!aiConfig.enabled) return;
-
-  try {
-    aiConfig.enabled = false;
-
-    // AIユーザーをオフラインに
-    await usersRef.doc(aiConfig.userId).update({
-      online: false,
-      lastActive: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    // システムメッセージ
-    await sendSystemMessage(`${aiConfig.username}が退出しました`);
-
-    console.log('AI停止完了');
-  } catch (error) {
-    console.error('AI停止エラー:', error);
-  }
-}
-
-// メッセージ監視とAI応答
-let lastProcessedMessageId = null;
-
-async function handleNewMessage(message, messageId) {
-  // AI無効時は何もしない
-  if (!aiConfig.enabled || !aiModel) return;
-
-  // 自分のメッセージまたはシステムメッセージは無視
-  if (message.userId === aiConfig.userId || message.type === 'system') return;
-
-  // 既に処理済みのメッセージは無視
-  if (messageId === lastProcessedMessageId) return;
-
-  // 応答判定
-  const shouldRespond = checkShouldRespond(message);
-  if (!shouldRespond) return;
-
-  lastProcessedMessageId = messageId;
-
-  // 応答遅延
-  await delay(aiConfig.responseDelay * 1000);
-
-  // AI応答生成
-  try {
-    const response = await generateAIResponse(message);
-    await sendAIMessage(response);
-  } catch (error) {
-    console.error('AI応答エラー:', error);
-  }
-}
-
-// 応答判定
-function checkShouldRespond(message) {
-  const text = message.text.toLowerCase();
-  const aiName = aiConfig.username.toLowerCase();
-
-  switch (aiConfig.responseMode) {
-    case 'all':
-      return true;
-
-    case 'mention':
-      return text.includes(aiName) || text.includes('@ai') || text.includes('ai');
-
-    case 'random':
-      return Math.random() < 0.3; // 30%の確率で応答
-
-    default:
-      return false;
-  }
-}
-
-// AI応答生成
-async function generateAIResponse(message) {
-  try {
-    const personality = getPersonalityPrompt();
-    const prompt = `${personality}
-
-ユーザー「${message.username}」からのメッセージ: ${message.text}
-
-上記のメッセージに対して、自然な会話として返答してください。
-返答は簡潔に、1-3文程度で。`;
-
-    const result = await aiModel.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
-  } catch (error) {
-    console.error('AI応答生成エラー:', error);
-    return 'すみません、今は応答できません。';
-  }
-}
-
-// パーソナリティプロンプト
-function getPersonalityPrompt() {
-  const prompts = {
-    friendly: 'あなたは親しみやすく、フレンドリーなAIアシスタントです。絵文字は使わず、カジュアルで温かい言葉遣いで会話してください。',
-    professional: 'あなたはプロフェッショナルで丁寧なAIアシスタントです。敬語を使い、正確な情報提供を心がけてください。',
-    casual: 'あなたはカジュアルで気さくなAIアシスタントです。友達のような気軽な言葉遣いで会話してください。',
-    helpful: 'あなたは助けになることを最優先するAIアシスタントです。ユーザーの質問に対して具体的で実用的な回答を提供してください。'
-  };
-
-  return prompts[aiConfig.personality] || prompts.friendly;
-}
-
-// AIメッセージ送信
-async function sendAIMessage(text) {
-  try {
-    await messagesRef.add({
-      text: text,
-      username: aiConfig.username,
-      userId: aiConfig.userId,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      type: 'user',
-      isAI: true
-    });
-
-    // AIユーザーの最終アクティブ時刻を更新
-    await usersRef.doc(aiConfig.userId).update({
-      lastActive: firebase.firestore.FieldValue.serverTimestamp()
-    });
-  } catch (error) {
-    console.error('AIメッセージ送信エラー:', error);
-  }
-}
-
-// 遅延ユーティリティ
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
