@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>ARで3Dモデルを表示するアプリ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Noto Sans JP', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Geometric background elements */
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+
+        .shape {
+            position: absolute;
+            border: 2px solid #00d4ff;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: -100px;
+            right: 100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: 150px;
+            transform: rotate(45deg);
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            top: 50%;
+            left: -75px;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 60px;
+            max-width: 1000px;
+        }
+
+        /* AR Icon */
+        .ar-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .ar-icon-inner {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #00d4ff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 212, 255, 0.1);
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .ar-icon-corners {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #00d4ff;
+        }
+
+        .corner-tl {
+            top: -4px;
+            left: -4px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 20px 0 0 0;
+        }
+
+        .corner-tr {
+            top: -4px;
+            right: -4px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 20px 0 0;
+        }
+
+        .corner-bl {
+            bottom: -4px;
+            left: -4px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 20px;
+        }
+
+        .corner-br {
+            bottom: -4px;
+            right: -4px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 20px 0;
+        }
+
+        .cube {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 4s linear infinite;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 212, 255, 0.3);
+            border: 2px solid #00d4ff;
+        }
+
+        .cube-front  { transform: translateZ(25px); }
+        .cube-back   { transform: rotateY(180deg) translateZ(25px); }
+        .cube-right  { transform: rotateY(90deg) translateZ(25px); }
+        .cube-left   { transform: rotateY(-90deg) translateZ(25px); }
+        .cube-top    { transform: rotateX(90deg) translateZ(25px); }
+        .cube-bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        @keyframes rotate3d {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        /* Title */
+        h1 {
+            font-size: 68px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .highlight {
+            color: #00d4ff;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Description */
+        .description {
+            font-size: 28px;
+            color: #b8c5d6;
+            margin-top: 20px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 1px;
+        }
+
+        /* Technology tags */
+        .tech-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 10px 24px;
+            background: rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 25px;
+            font-size: 18px;
+            color: #00d4ff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="「ARで3Dモデルを表示するアプリ」">
+    <meta property="og:description" content="「ARで3Dモデルを表示するアプリ」">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="「ARで3Dモデルを表示するアプリ」">
+    <meta name="twitter:description" content="「ARで3Dモデルを表示するアプリ」">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/a66cb21a/thumbnail.png">
+  </head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="ar-icon">
+            <div class="ar-icon-inner">
+                <div class="ar-icon-corners">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                </div>
+                <div class="cube">
+                    <div class="cube-face cube-front"></div>
+                    <div class="cube-face cube-back"></div>
+                    <div class="cube-face cube-right"></div>
+                    <div class="cube-face cube-left"></div>
+                    <div class="cube-face cube-top"></div>
+                    <div class="cube-face cube-bottom"></div>
+                </div>
+            </div>
+        </div>
+
+        <h1>
+            <span class="highlight">AR</span>で3Dモデルを<br>表示するアプリ
+        </h1>
+
+        <p class="description">
+            拡張現実技術を活用した<br>次世代3Dビューアー
+        </p>
+
+        <div class="tech-tags">
+            <div class="tag">WebXR</div>
+            <div class="tag">3D Models</div>
+            <div class="tag">PWA</div>
+        </div>
+    </div>
+</body>
+</html>
