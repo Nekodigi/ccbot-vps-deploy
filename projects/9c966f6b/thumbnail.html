@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>3D ジャイロセンサーアプリ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 3D効果の背景要素 */
+        .bg-shape {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            transform: rotate(45deg);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -150px;
+            transform: rotate(30deg);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%) rotate(60deg);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 3Dキューブのアイコン */
+        .cube-container {
+            position: absolute;
+            left: 150px;
+            top: 50%;
+            transform: translateY(-50%);
+            perspective: 1000px;
+        }
+
+        .cube {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 6s infinite linear;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .front  { transform: translateZ(90px); }
+        .back   { transform: translateZ(-90px) rotateY(180deg); }
+        .right  { transform: rotateY(90deg) translateZ(90px); }
+        .left   { transform: rotateY(-90deg) translateZ(90px); }
+        .top    { transform: rotateX(90deg) translateZ(90px); }
+        .bottom { transform: rotateX(-90deg) translateZ(90px); }
+
+        @keyframes rotate3d {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        /* コンテンツエリア */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: left;
+            color: white;
+            padding: 60px;
+            margin-left: 350px;
+            max-width: 750px;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 68px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .highlight {
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: rgba(255, 215, 0, 0.4);
+            z-index: -1;
+        }
+
+        .description {
+            font-size: 26px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .features {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* スマホアイコン */
+        .phone-icon {
+            position: absolute;
+            bottom: 40px;
+            right: 60px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="スマホのジャイロセンサーを活用した3Dアプリ。">
+    <meta property="og:description" content="スマホのジャイロセンサーを活用した3Dアプリ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://13.230.236.43/ccbot/projects/9c966f6b">
+    <meta property="og:image" content="http://13.230.236.43/ccbot/projects/9c966f6b/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="スマホのジャイロセンサーを活用した3Dアプリ。">
+    <meta name="twitter:description" content="スマホのジャイロセンサーを活用した3Dアプリ。">
+    <meta name="twitter:image" content="http://13.230.236.43/ccbot/projects/9c966f6b/thumbnail.png">
+  </head>
+<body>
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <div class="cube-container">
+        <div class="cube">
+            <div class="cube-face front"></div>
+            <div class="cube-face back"></div>
+            <div class="cube-face right"></div>
+            <div class="cube-face left"></div>
+            <div class="cube-face top"></div>
+            <div class="cube-face bottom"></div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="label">PWA APPLICATION</div>
+        <h1>
+            <span class="highlight">3D</span><br>
+            ジャイロセンサー<br>
+            アプリ
+        </h1>
+        <p class="description">
+            スマートフォンの動きで操作する<br>
+            インタラクティブ3D体験
+        </p>
+        <div class="features">
+            <div class="feature-tag">ジャイロスコープ</div>
+            <div class="feature-tag">リアルタイム3D</div>
+            <div class="feature-tag">PWA対応</div>
+        </div>
+    </div>
+
+    <div class="phone-icon">📱</div>
+</body>
+</html>
