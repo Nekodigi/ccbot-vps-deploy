@@ -1,0 +1,30 @@
+{
+  "name": "AI Chat - AIとの対話アプリ",
+  "short_name": "AI Chat",
+  "description": "AIと自然に対話できるチャットアプリケーション。Firebase AI Logic SDKを活用した高性能なAI対話体験を提供します。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "lang": "ja"
+}

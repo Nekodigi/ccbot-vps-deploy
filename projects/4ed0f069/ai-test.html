@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI機能テスト - 量子シミュレーター</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #1a1a2e;
+            border: 1px solid #2a2a3e;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #00d4ff;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #06ffa5;
+        }
+        button {
+            background: #00d4ff;
+            color: #0f0f1e;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover {
+            background: #00b8d4;
+        }
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #252538;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #00d4ff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #2a2a3e;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .error {
+            color: #ff4444;
+        }
+        .success {
+            color: #06ffa5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Firebase AI Logic SDK テスト</h1>
+
+    <div class="test-section">
+        <h2>接続テスト</h2>
+        <p>Firebase AI Logic SDKが正しく読み込まれているか確認します。</p>
+        <div id="connection-status" class="status">チェック中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>基本テスト</h2>
+        <p>シンプルなプロンプトでAI機能をテストします。</p>
+        <button id="test-basic">基本テストを実行</button>
+        <div id="basic-result" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>量子状態解説テスト</h2>
+        <p>量子状態についての解説を生成します。</p>
+        <button id="test-quantum">量子状態解説を取得</button>
+        <div id="quantum-result" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>複雑なプロンプトテスト</h2>
+        <p>より複雑な内容でAI応答を確認します。</p>
+        <button id="test-complex">複雑なテストを実行</button>
+        <div id="complex-result" class="result" style="display: none;"></div>
+    </div>
+
+    <script type="module">
+        import { getAIExplanation } from './firebase-config.js';
+
+        // 接続ステータスチェック
+        const statusDiv = document.getElementById('connection-status');
+        try {
+            // Firebase AI Logic SDKの読み込みを確認
+            import('https://www.gstatic.com/firebasejs/12.4.0/firebase-ai.js')
+                .then(() => {
+                    statusDiv.innerHTML = '<span class="success">✓ Firebase AI Logic SDK 読み込み成功</span>';
+                })
+                .catch((error) => {
+                    statusDiv.innerHTML = `<span class="error">✗ Firebase AI Logic SDK 読み込み失敗: ${error.message}</span>`;
+                });
+        } catch (error) {
+            statusDiv.innerHTML = `<span class="error">✗ エラー: ${error.message}</span>`;
+        }
+
+        // 基本テスト
+        document.getElementById('test-basic').addEventListener('click', async () => {
+            const button = document.getElementById('test-basic');
+            const resultDiv = document.getElementById('basic-result');
+
+            button.disabled = true;
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading"></div> AI応答を取得中...';
+
+            try {
+                const prompt = 'こんにちは！あなたの名前と、どのようなことができるか、簡潔に教えてください。';
+                const result = await getAIExplanation(prompt);
+                resultDiv.innerHTML = result;
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">エラー: ${error.message}</span>`;
+            } finally {
+                button.disabled = false;
+            }
+        });
+
+        // 量子状態解説テスト
+        document.getElementById('test-quantum').addEventListener('click', async () => {
+            const button = document.getElementById('test-quantum');
+            const resultDiv = document.getElementById('quantum-result');
+
+            button.disabled = true;
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading"></div> AI解説を生成中...';
+
+            try {
+                const prompt = `量子コンピュータのシミュレーション状態について、初心者にも分かりやすく日本語で解説してください。
+
+量子ビット数: 1
+現在の状態ベクトル:
+0.707+0.000i |0⟩
+0.707+0.000i |1⟩
+
+以下の点について説明してください:
+1. この状態が物理的に何を意味するか
+2. 重ね合わせ状態の度合い
+3. 測定するとどのような結果が得られる可能性があるか
+
+簡潔に2-3段落で説明してください。`;
+
+                const result = await getAIExplanation(prompt);
+                resultDiv.innerHTML = result;
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">エラー: ${error.message}</span>`;
+            } finally {
+                button.disabled = false;
+            }
+        });
+
+        // 複雑なプロンプトテスト
+        document.getElementById('test-complex').addEventListener('click', async () => {
+            const button = document.getElementById('test-complex');
+            const resultDiv = document.getElementById('complex-result');
+
+            button.disabled = true;
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading"></div> AI応答を取得中...';
+
+            try {
+                const prompt = `量子ゲートについて説明してください。特に以下のゲートについて:
+- Hadamardゲート(H)
+- パウリXゲート(X)
+- CNOTゲート
+
+それぞれのゲートの役割と、なぜ量子コンピュータに重要なのかを、3つの段落で簡潔に説明してください。`;
+
+                const result = await getAIExplanation(prompt);
+                resultDiv.innerHTML = result;
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">エラー: ${error.message}</span>`;
+            } finally {
+                button.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
