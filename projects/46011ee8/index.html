@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="日本のビジネスシーンに最適化されたAI搭載アプリケーション">
+    <meta name="theme-color" content="#000000">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="ビジネスAIアプリ">
+    <meta property="og:description" content="日本のビジネスシーンに最適化されたAI搭載アプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/46011ee8/">
+    <meta property="og:image" content="./icons/icon-512x512.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ビジネスAIアプリ">
+    <meta name="twitter:description" content="日本のビジネスシーンに最適化されたAI搭載アプリケーション">
+    <meta name="twitter:image" content="./icons/icon-512x512.png">
+
+    <title>ビジネスAIアプリ - ログイン</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-card">
+            <h1 class="logo">ビジネスAI</h1>
+            <p class="subtitle">データ分析とAI提案で業務を支援</p>
+
+            <div id="loginForm" class="form-container">
+                <h2>ログイン</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">メールアドレス</label>
+                        <input type="email" id="loginEmail" name="email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">パスワード</label>
+                        <input type="password" id="loginPassword" name="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">ログイン</button>
+                </form>
+                <p class="form-switch">
+                    アカウントをお持ちでない方は<span class="link" id="showRegister">新規登録</span>
+                </p>
+            </div>
+
+            <div id="registerForm" class="form-container" style="display: none;">
+                <h2>新規登録</h2>
+                <form id="registerFormElement">
+                    <div class="form-group">
+                        <label for="registerEmail">メールアドレス</label>
+                        <input type="email" id="registerEmail" name="email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">パスワード</label>
+                        <input type="password" id="registerPassword" name="password" required autocomplete="new-password" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerName">お名前</label>
+                        <input type="text" id="registerName" name="name" required autocomplete="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </form>
+                <p class="form-switch">
+                    すでにアカウントをお持ちの方は<span class="link" id="showLogin">ログイン</span>
+                </p>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="successMessage" class="success-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="module" src="./auth.js"></script>
+</body>
+</html>

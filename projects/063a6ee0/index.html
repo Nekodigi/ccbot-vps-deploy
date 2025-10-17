@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AIを活用したビジネス文書作成アシスタント。議事録、メール、報告書などを効率的に作成できます。">
+    <meta property="og:title" content="ビジネス文書AIアシスタント">
+    <meta property="og:description" content="AIを活用したビジネス文書作成アシスタント。議事録、メール、報告書などを効率的に作成できます。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/063a6ee0/">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/063a6ee0/icon-512.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ビジネス文書AIアシスタント">
+    <meta name="twitter:description" content="AIを活用したビジネス文書作成アシスタント。議事録、メール、報告書などを効率的に作成できます。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/063a6ee0/icon-512.png">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    <title>ビジネス文書AIアシスタント</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">ビジネス文書AIアシスタント</h1>
+                <p class="subtitle">AIを活用して効率的に文書を作成</p>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="document-type-selector">
+                <label for="docType" class="label">文書タイプ</label>
+                <select id="docType" class="select">
+                    <option value="minutes">議事録</option>
+                    <option value="email">ビジネスメール</option>
+                    <option value="report">業務報告書</option>
+                    <option value="proposal">提案書</option>
+                    <option value="summary">要約</option>
+                </select>
+            </div>
+
+            <div class="input-section">
+                <label for="inputText" class="label">
+                    <span class="label-text">入力内容</span>
+                    <span class="label-hint" id="inputHint">会議の内容やポイントを入力してください</span>
+                </label>
+                <textarea
+                    id="inputText"
+                    class="textarea"
+                    placeholder="例: 本日の会議では新製品の開発について議論しました。リリース時期は来年3月を予定し、ターゲット層は20-30代の若年層です。"
+                    rows="8"
+                ></textarea>
+            </div>
+
+            <div class="tone-section">
+                <label class="label">文体</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="tone" value="formal" checked class="radio-input">
+                        <span class="radio-text">フォーマル</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="tone" value="casual" class="radio-input">
+                        <span class="radio-text">カジュアル</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="tone" value="polite" class="radio-input">
+                        <span class="radio-text">丁寧</span>
+                    </label>
+                </div>
+            </div>
+
+            <button id="generateBtn" class="generate-btn">
+                <span id="btnText">文書を生成</span>
+                <span id="btnLoader" class="loader hidden"></span>
+            </button>
+
+            <div id="outputSection" class="output-section hidden">
+                <div class="output-header">
+                    <label class="label">生成された文書</label>
+                    <button id="copyBtn" class="copy-btn">コピー</button>
+                </div>
+                <div id="outputText" class="output-text"></div>
+            </div>
+
+            <div id="errorSection" class="error-section hidden">
+                <p id="errorText" class="error-text"></p>
+            </div>
+
+            <div id="historySection" class="history-section">
+                <h2 class="section-title">生成履歴</h2>
+                <div id="historyList" class="history-list"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="footer-text">Powered by Firebase AI Logic & Gemini</p>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast hidden">
+        <span id="toastText"></span>
+    </div>
+
+    <script type="module" src="./firebase-config.js"></script>
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - シンプルなタスク管理</title>
+    <meta name="description" content="オフラインでも使える、シンプルで洗練されたタスク管理アプリ">
+
+    <!-- OGP -->
+    <meta property="og:title" content="TaskFlow - シンプルなタスク管理">
+    <meta property="og:description" content="オフラインでも使える、シンプルで洗練されたタスク管理アプリ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/390baa27/">
+    <meta property="og:image" content="./icon-512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="TaskFlow - シンプルなタスク管理">
+    <meta name="twitter:description" content="オフラインでも使える、シンプルで洗練されたタスク管理アプリ">
+    <meta name="twitter:image" content="./icon-512.png">
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header-title">TaskFlow</h1>
+            <div class="header-status">
+                <span id="statusIndicator" class="status-indicator online">オンライン</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="add-task-section">
+                <form id="taskForm" class="task-form">
+                    <input
+                        type="text"
+                        id="taskInput"
+                        class="task-input"
+                        placeholder="新しいタスクを入力..."
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="add-button">追加</button>
+                </form>
+            </div>
+
+            <div class="filter-section">
+                <button class="filter-button active" data-filter="all">すべて</button>
+                <button class="filter-button" data-filter="active">未完了</button>
+                <button class="filter-button" data-filter="completed">完了済み</button>
+            </div>
+
+            <div class="task-stats">
+                <span id="taskCount">0件のタスク</span>
+            </div>
+
+            <ul id="taskList" class="task-list"></ul>
+
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <p class="empty-text">タスクがありません</p>
+                <p class="empty-subtext">上のフォームから新しいタスクを追加してください</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="footer-text">© 2025 TaskFlow. PWA対応タスク管理アプリ</p>
+        </footer>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

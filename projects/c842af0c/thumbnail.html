@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWAアプリ開発プロジェクト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            overflow: hidden;
+        }
+
+        .thumbnail {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thumbnail::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+        }
+
+        .thumbnail::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+        }
+
+        .content {
+            z-index: 10;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .icon-container {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 64px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+    </style>
+
+    <meta property="og:title" content="シンプルなPWAアプリを迅速に開発するプロジェクト。">
+    <meta property="og:description" content="シンプルなPWAアプリを迅速に開発するプロジェクト。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/c842af0c">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/c842af0c/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="シンプルなPWAアプリを迅速に開発するプロジェクト。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/c842af0c/thumbnail.png">
+  </head>
+<body>
+    <div class="thumbnail">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            <div class="icon-container">
+                <div class="icon">⚡</div>
+                <div class="icon">📱</div>
+                <div class="icon">🚀</div>
+            </div>
+            <h1>シンプルなPWAアプリを<br>迅速に開発</h1>
+            <div class="subtitle">プロジェクト</div>
+            <div class="badge">Progressive Web App</div>
+        </div>
+    </div>
+</body>
+</html>

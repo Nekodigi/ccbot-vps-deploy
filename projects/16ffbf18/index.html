@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="情報を簡単に管理・共有できるWebアプリケーション。AI機能を活用し、オフラインでも利用可能なPWA対応アプリ。">
+    <meta name="keywords" content="情報管理,共有,PWA,AI,Firebase,Gemini">
+    <meta name="author" content="Nekokazu">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="情報管理アプリ - InfoHub">
+    <meta property="og:description" content="情報を簡単に管理・共有できるWebアプリケーション。AI機能を活用し、オフラインでも利用可能。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/16ffbf18">
+    <meta property="og:image" content="./icons/icon-512x512.png">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="情報管理アプリ - InfoHub">
+    <meta name="twitter:description" content="情報を簡単に管理・共有できるWebアプリケーション。AI機能を活用し、オフラインでも利用可能。">
+    <meta name="twitter:image" content="./icons/icon-512x512.png">
+    <meta name="twitter:creator" content="@nekokazu">
+
+    <title>InfoHub - 情報管理アプリ</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#000000">
+    <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p>読み込み中...</p>
+    </div>
+
+    <!-- Auth Container -->
+    <div id="auth-container" class="auth-container" style="display: none;">
+        <div class="auth-box">
+            <h1>InfoHub</h1>
+            <p class="auth-subtitle">情報管理・共有アプリケーション</p>
+
+            <div id="login-form" class="auth-form">
+                <h2>ログイン</h2>
+                <input type="email" id="login-email" placeholder="メールアドレス" required>
+                <input type="password" id="login-password" placeholder="パスワード" required>
+                <button id="login-btn" class="btn-primary">ログイン</button>
+                <p class="auth-switch">アカウントをお持ちでない方は <a href="#" id="show-signup">新規登録</a></p>
+            </div>
+
+            <div id="signup-form" class="auth-form" style="display: none;">
+                <h2>新規登録</h2>
+                <input type="email" id="signup-email" placeholder="メールアドレス" required>
+                <input type="password" id="signup-password" placeholder="パスワード（6文字以上）" required>
+                <input type="password" id="signup-password-confirm" placeholder="パスワード（確認）" required>
+                <button id="signup-btn" class="btn-primary">登録</button>
+                <p class="auth-switch">既にアカウントをお持ちの方は <a href="#" id="show-login">ログイン</a></p>
+            </div>
+
+            <div id="auth-error" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">InfoHub</h1>
+                <div class="header-actions">
+                    <span id="user-email" class="user-email"></span>
+                    <button id="logout-btn" class="btn-secondary">ログアウト</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Add Info Section -->
+            <section class="add-info-section">
+                <h2>新しい情報を追加</h2>
+                <div class="add-info-form">
+                    <input type="text" id="info-title" placeholder="タイトル" required>
+                    <textarea id="info-content" placeholder="内容" rows="4" required></textarea>
+                    <div class="form-actions">
+                        <button id="ai-suggest-btn" class="btn-secondary">AI提案を取得</button>
+                        <button id="add-info-btn" class="btn-primary">追加</button>
+                    </div>
+                </div>
+                <div id="ai-suggestion" class="ai-suggestion" style="display: none;"></div>
+            </section>
+
+            <!-- Info List Section -->
+            <section class="info-list-section">
+                <div class="section-header">
+                    <h2>保存された情報</h2>
+                    <div class="filter-controls">
+                        <input type="text" id="search-input" placeholder="検索...">
+                    </div>
+                </div>
+                <div id="info-list" class="info-list">
+                    <!-- Info items will be dynamically added here -->
+                </div>
+                <div id="no-info-message" class="no-info-message" style="display: none;">
+                    まだ情報が登録されていません。上記のフォームから追加してください。
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 InfoHub by Nekokazu. All rights reserved.</p>
+            <p id="offline-indicator" class="offline-indicator" style="display: none;">オフラインモード</p>
+        </footer>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>情報を共有</h2>
+            <p>共有用のリンクが生成されました:</p>
+            <div class="share-link-container">
+                <input type="text" id="share-link" readonly>
+                <button id="copy-link-btn" class="btn-primary">コピー</button>
+            </div>
+            <p class="share-note">このリンクを共有することで、他のユーザーがこの情報を閲覧できます。</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyChB7eBjMaX_lRpfIgUxQDi39Qh82R4oyQ",
+            authDomain: "sandbox-35d1d.firebaseapp.com",
+            projectId: "sandbox-35d1d",
+            storageBucket: "sandbox-35d1d.appspot.com",
+            messagingSenderId: "906287459396",
+            appId: "1:906287459396:web:c931c95d943157cae36011",
+            measurementId: "G-LE2Q0XC7B6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Make globally available
+        window.firebaseApp = app;
+        window.firebaseAuth = auth;
+        window.firebaseDb = db;
+
+        // Signal that Firebase is ready
+        window.firebaseReady = true;
+        window.dispatchEvent(new Event('firebase-ready'));
+    </script>
+
+    <!-- App Scripts -->
+    <script src="./auth.js" type="module"></script>
+    <script src="./app.js" type="module"></script>
+    <script src="./ai-support.js" type="module"></script>
+    <script src="./share.js" type="module"></script>
+    <script src="./pwa-init.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator</title>
+</head>
+<body>
+    <h1>Generating Icons...</h1>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div id="status"></div>
+
+    <script>
+        // SVG icon design (red and black theme)
+        const svgIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <rect width="512" height="512" fill="#000000"/>
+                <circle cx="256" cy="200" r="80" fill="#dc3545"/>
+                <rect x="176" y="280" width="160" height="40" rx="20" fill="#dc3545"/>
+                <rect x="140" y="340" width="232" height="40" rx="20" fill="#ffffff"/>
+                <rect x="140" y="400" width="232" height="40" rx="20" fill="#ffffff"/>
+            </svg>
+        `;
+
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const status = document.getElementById('status');
+
+        async function generateIcons() {
+            for (const size of sizes) {
+                canvas.width = size;
+                canvas.height = size;
+
+                // Draw background
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, size, size);
+
+                // Draw red circle (info icon)
+                ctx.fillStyle = '#dc3545';
+                ctx.beginPath();
+                ctx.arc(size / 2, size * 0.39, size * 0.156, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw red rounded rectangle (top element)
+                ctx.fillStyle = '#dc3545';
+                roundRect(ctx, size * 0.344, size * 0.547, size * 0.313, size * 0.078, size * 0.039);
+
+                // Draw white rounded rectangles (info lines)
+                ctx.fillStyle = '#ffffff';
+                roundRect(ctx, size * 0.273, size * 0.664, size * 0.453, size * 0.078, size * 0.039);
+                roundRect(ctx, size * 0.273, size * 0.781, size * 0.453, size * 0.078, size * 0.039);
+
+                // Convert canvas to blob and trigger download
+                const blob = await new Promise(resolve => canvas.toBlob(resolve));
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+
+                status.innerHTML += `<p>Generated icon-${size}x${size}.png</p>`;
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+
+            status.innerHTML += '<p style="color: green; font-weight: bold;">All icons generated!</p>';
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Auto-start generation
+        generateIcons();
+    </script>
+</body>
+</html>

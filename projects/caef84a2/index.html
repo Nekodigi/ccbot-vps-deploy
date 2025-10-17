@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タスク管理 - Business Task Manager</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="シンプルで洗練されたビジネス向けタスク管理アプリケーション。オフライン対応で、どこでもタスクを管理できます。">
+    <meta name="keywords" content="タスク管理,TODO,ビジネス,PWA,生産性">
+    <meta name="author" content="Nekokazu">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="タスク管理 - Business Task Manager">
+    <meta property="og:description" content="シンプルで洗練されたビジネス向けタスク管理アプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/caef84a2/">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/caef84a2/icon-512.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="タスク管理 - Business Task Manager">
+    <meta name="twitter:description" content="シンプルで洗練されたビジネス向けタスク管理アプリケーション">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/caef84a2/icon-512.png">
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="タスク管理">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header-title">タスク管理</h1>
+            <div class="header-status">
+                <span id="sync-status" class="sync-status">同期中...</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="task-input-section">
+                <form id="task-form" class="task-form">
+                    <input
+                        type="text"
+                        id="task-input"
+                        class="task-input"
+                        placeholder="新しいタスクを入力してください"
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="btn btn-primary">追加</button>
+                </form>
+            </section>
+
+            <section class="filter-section">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">すべて</button>
+                    <button class="filter-btn" data-filter="active">未完了</button>
+                    <button class="filter-btn" data-filter="completed">完了</button>
+                </div>
+            </section>
+
+            <section class="task-list-section">
+                <div id="task-list" class="task-list">
+                    <!-- Tasks will be dynamically inserted here -->
+                </div>
+                <div id="empty-state" class="empty-state">
+                    <p>タスクがありません</p>
+                    <p class="empty-state-hint">上のフォームからタスクを追加してください</p>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">未完了</span>
+                        <span id="active-count" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">完了</span>
+                        <span id="completed-count" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">合計</span>
+                        <span id="total-count" class="stat-value">0</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

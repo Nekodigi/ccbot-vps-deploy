@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="シンプルで洗練されたビジネス向けWebアプリケーション。AI機能とリアルタイムデータ管理を提供。">
+    <meta name="theme-color" content="#000000">
+
+    <!-- OGP -->
+    <meta property="og:title" content="Business Dashboard">
+    <meta property="og:description" content="シンプルで洗練されたビジネス向けWebアプリケーション。AI機能とリアルタイムデータ管理を提供。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/e7c599df/">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/e7c599df/icon-512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Business Dashboard">
+    <meta name="twitter:description" content="シンプルで洗練されたビジネス向けWebアプリケーション。AI機能とリアルタイムデータ管理を提供。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/e7c599df/icon-512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <title>Business Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div id="app" class="app">
+        <!-- Auth Screen -->
+        <div id="authScreen" class="screen active">
+            <div class="auth-container">
+                <h1 class="app-title">Business Dashboard</h1>
+                <p class="app-subtitle">シンプルで洗練されたデータ管理</p>
+
+                <div id="authTabs" class="auth-tabs">
+                    <button id="loginTab" class="tab-button active" data-tab="login">ログイン</button>
+                    <button id="signupTab" class="tab-button" data-tab="signup">新規登録</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail">メールアドレス</label>
+                        <input type="email" id="loginEmail" class="form-input" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">パスワード</label>
+                        <input type="password" id="loginPassword" class="form-input" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">ログイン</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupEmail">メールアドレス</label>
+                        <input type="email" id="signupEmail" class="form-input" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">パスワード</label>
+                        <input type="password" id="signupPassword" class="form-input" required minlength="6" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPasswordConfirm">パスワード確認</label>
+                        <input type="password" id="signupPasswordConfirm" class="form-input" required minlength="6" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </form>
+
+                <div id="authError" class="error-message"></div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="screen">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <h1 class="navbar-title">Business Dashboard</h1>
+                    <div class="navbar-actions">
+                        <span id="userEmail" class="user-email"></span>
+                        <button id="logoutBtn" class="btn btn-secondary">ログアウト</button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="dashboard-layout">
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <button class="nav-item active" data-view="overview">
+                            <span class="nav-icon">■</span>
+                            <span class="nav-label">概要</span>
+                        </button>
+                        <button class="nav-item" data-view="data">
+                            <span class="nav-icon">▢</span>
+                            <span class="nav-label">データ管理</span>
+                        </button>
+                        <button class="nav-item" data-view="ai">
+                            <span class="nav-icon">◆</span>
+                            <span class="nav-label">AI分析</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <main class="main-content">
+                    <!-- Overview View -->
+                    <div id="overviewView" class="view active">
+                        <h2 class="view-title">概要</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-label">総データ数</div>
+                                <div class="stat-value" id="totalDataCount">0</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">最終更新</div>
+                                <div class="stat-value" id="lastUpdate">-</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">ステータス</div>
+                                <div class="stat-value stat-active">稼働中</div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <h3 class="section-title">最近のデータ</h3>
+                            <div id="recentDataList" class="data-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management View -->
+                    <div id="dataView" class="view">
+                        <div class="view-header">
+                            <h2 class="view-title">データ管理</h2>
+                            <button id="addDataBtn" class="btn btn-primary">データ追加</button>
+                        </div>
+
+                        <div id="dataList" class="data-list"></div>
+
+                        <!-- Add/Edit Data Modal -->
+                        <div id="dataModal" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="modalTitle">データ追加</h3>
+                                    <button class="modal-close" id="closeModal">&times;</button>
+                                </div>
+                                <form id="dataForm">
+                                    <div class="form-group">
+                                        <label for="dataTitle">タイトル</label>
+                                        <input type="text" id="dataTitle" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dataDescription">説明</label>
+                                        <textarea id="dataDescription" class="form-input" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dataValue">値</label>
+                                        <input type="number" id="dataValue" class="form-input" step="0.01">
+                                    </div>
+                                    <div class="modal-actions">
+                                        <button type="button" class="btn btn-secondary" id="cancelDataBtn">キャンセル</button>
+                                        <button type="submit" class="btn btn-primary">保存</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Analysis View -->
+                    <div id="aiView" class="view">
+                        <h2 class="view-title">AI分析</h2>
+
+                        <div class="ai-section">
+                            <h3 class="section-title">データ分析</h3>
+                            <p class="section-description">AIを使ってデータを分析し、インサイトを取得します</p>
+
+                            <div class="form-group">
+                                <label for="aiPrompt">分析リクエスト</label>
+                                <textarea id="aiPrompt" class="form-input" rows="3" placeholder="例: 最近のデータのトレンドを分析してください"></textarea>
+                            </div>
+                            <button id="analyzeBtn" class="btn btn-primary">分析開始</button>
+
+                            <div id="aiResult" class="ai-result"></div>
+                            <div id="aiLoading" class="loading-spinner" style="display: none;">
+                                <div class="spinner"></div>
+                                <span>AI分析中...</span>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module" src="./firebase-config.js"></script>
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

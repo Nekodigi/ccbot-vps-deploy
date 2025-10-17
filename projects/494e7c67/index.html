@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI搭載のスマートタスク管理アプリ。効率的なタスク管理をサポートします。">
+    <meta name="theme-color" content="#2C3E50">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="TaskFlow - AIスマートタスク管理">
+    <meta property="og:description" content="AI搭載のスマートタスク管理アプリ。効率的なタスク管理をサポートします。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/494e7c67">
+    <meta property="og:image" content="./icon-512.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TaskFlow - AIスマートタスク管理">
+    <meta name="twitter:description" content="AI搭載のスマートタスク管理アプリ。効率的なタスク管理をサポートします。">
+    <meta name="twitter:image" content="./icon-512.png">
+
+    <title>TaskFlow - AIスマートタスク管理</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">TaskFlow</h1>
+            <p class="app-subtitle">AIスマートタスク管理</p>
+        </header>
+
+        <main class="main-content">
+            <!-- AI分析セクション -->
+            <section class="ai-section" id="aiSection">
+                <button class="ai-button" id="aiAnalyzeBtn" aria-label="AIでタスクを分析">
+                    <span class="ai-icon">✨</span>
+                    <span>AIで分析</span>
+                </button>
+                <div class="ai-result" id="aiResult" role="status" aria-live="polite"></div>
+            </section>
+
+            <!-- タスク入力セクション -->
+            <section class="task-input-section">
+                <form class="task-form" id="taskForm">
+                    <label for="taskInput" class="visually-hidden">新しいタスクを入力</label>
+                    <input
+                        type="text"
+                        id="taskInput"
+                        class="task-input"
+                        placeholder="新しいタスクを入力..."
+                        maxlength="200"
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="add-button" aria-label="タスクを追加">
+                        追加
+                    </button>
+                </form>
+            </section>
+
+            <!-- タスクリストセクション -->
+            <section class="task-list-section">
+                <div class="task-filter">
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">すべて</button>
+                    <button class="filter-btn" data-filter="active" aria-pressed="false">進行中</button>
+                    <button class="filter-btn" data-filter="completed" aria-pressed="false">完了</button>
+                </div>
+
+                <ul class="task-list" id="taskList" role="list">
+                    <!-- タスクがここに動的に追加されます -->
+                </ul>
+
+                <div class="task-stats" id="taskStats">
+                    <span id="activeCount">0</span> 件のタスク
+                </div>
+            </section>
+        </main>
+
+        <!-- ローディング表示 -->
+        <div class="loading" id="loading" role="alert" aria-live="assertive" aria-hidden="true">
+            <div class="loading-spinner"></div>
+            <p>処理中...</p>
+        </div>
+
+        <!-- オフライン通知 -->
+        <div class="offline-notice" id="offlineNotice" role="alert" aria-live="polite">
+            オフラインモード
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>
