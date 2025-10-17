@@ -382,47 +382,20 @@
             const hittestStatus = document.getElementById('hittest-status');
             const startButton = document.getElementById('start-ar-button');
 
-            // モバイルデバイスの判定
-            const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            const isAndroidChrome = /Android/i.test(navigator.userAgent) && /Chrome/i.test(navigator.userAgent);
-
             if (!navigator.xr) {
                 webxrStatus.textContent = '非対応';
                 webxrStatus.className = 'status-value not-supported';
-
-                // Android Chromeの場合は、WebXR Device API Polyfillを推奨
-                if (isAndroidChrome) {
-                    arStatus.textContent = '要確認';
-                    arStatus.className = 'status-value checking';
-                    hittestStatus.textContent = '要確認';
-                    hittestStatus.className = 'status-value checking';
-                    // ボタンを有効化して試行を許可
-                    startButton.disabled = false;
-                    return true;
-                } else {
-                    arStatus.textContent = '非対応';
-                    arStatus.className = 'status-value not-supported';
-                    hittestStatus.textContent = '非対応';
-                    hittestStatus.className = 'status-value not-supported';
-                    return false;
-                }
+                arStatus.textContent = '非対応';
+                arStatus.className = 'status-value not-supported';
+                hittestStatus.textContent = '非対応';
+                hittestStatus.className = 'status-value not-supported';
+                return false;
             }
 
             webxrStatus.textContent = '対応';
             webxrStatus.className = 'status-value supported';
 
             try {
-                // Android Chromeの場合、isSessionSupportedが不正確な場合があるため、
-                // 実際にセッションをリクエストして確認
-                if (isAndroidChrome) {
-                    arStatus.textContent = '対応可能性あり';
-                    arStatus.className = 'status-value supported';
-                    hittestStatus.textContent = '対応可能性あり';
-                    hittestStatus.className = 'status-value supported';
-                    startButton.disabled = false;
-                    return true;
-                }
-
                 const isARSupported = await navigator.xr.isSessionSupported('immersive-ar');
 
                 if (isARSupported) {
@@ -433,40 +406,19 @@
                     startButton.disabled = false;
                     return true;
                 } else {
-                    // モバイルデバイスの場合は試行を許可
-                    if (isMobile) {
-                        arStatus.textContent = '試行可能';
-                        arStatus.className = 'status-value checking';
-                        hittestStatus.textContent = '試行可能';
-                        hittestStatus.className = 'status-value checking';
-                        startButton.disabled = false;
-                        return true;
-                    } else {
-                        arStatus.textContent = '非対応';
-                        arStatus.className = 'status-value not-supported';
-                        hittestStatus.textContent = '非対応';
-                        hittestStatus.className = 'status-value not-supported';
-                        return false;
-                    }
-                }
-            } catch (error) {
-                console.error('AR対応チェックエラー:', error);
-
-                // エラーが発生してもモバイルデバイスの場合は試行を許可
-                if (isMobile) {
-                    arStatus.textContent = '試行可能';
-                    arStatus.className = 'status-value checking';
-                    hittestStatus.textContent = '試行可能';
-                    hittestStatus.className = 'status-value checking';
-                    startButton.disabled = false;
-                    return true;
-                } else {
-                    arStatus.textContent = 'エラー';
+                    arStatus.textContent = '非対応';
                     arStatus.className = 'status-value not-supported';
-                    hittestStatus.textContent = 'エラー';
+                    hittestStatus.textContent = '非対応';
                     hittestStatus.className = 'status-value not-supported';
                     return false;
                 }
+            } catch (error) {
+                console.error('AR対応チェックエラー:', error);
+                arStatus.textContent = 'エラー';
+                arStatus.className = 'status-value not-supported';
+                hittestStatus.textContent = 'エラー';
+                hittestStatus.className = 'status-value not-supported';
+                return false;
             }
         }
 
@@ -560,45 +512,12 @@
 
         // ARセッション開始
         async function startARSession() {
-            // navigator.xrが存在しない場合
-            if (!navigator.xr) {
-                const errorMsg = 'お使いのブラウザはWebXRをサポートしていません。\n\n' +
-                    '以下の環境で動作します:\n' +
-                    '• Android Chrome（最新版）\n' +
-                    '• ARCore対応のAndroidデバイス\n\n' +
-                    'Chrome flags（chrome://flags）で以下を有効にしてください:\n' +
-                    '• WebXR Incubations';
-                alert(errorMsg);
-                return;
-            }
-
             try {
-                // まずhit-testなしで試行
-                let session;
-                try {
-                    session = await navigator.xr.requestSession('immersive-ar', {
-                        requiredFeatures: ['hit-test'],
-                        optionalFeatures: ['dom-overlay'],
-                        domOverlay: { root: document.getElementById('ar-overlay') }
-                    });
-                } catch (hitTestError) {
-                    console.warn('hit-test必須でのセッション開始に失敗。オプション機能として再試行:', hitTestError);
-
-                    // hit-testをoptionalFeaturesに移動して再試行
-                    try {
-                        session = await navigator.xr.requestSession('immersive-ar', {
-                            optionalFeatures: ['hit-test', 'dom-overlay'],
-                            domOverlay: { root: document.getElementById('ar-overlay') }
-                        });
-                    } catch (fallbackError) {
-                        console.warn('dom-overlayなしで再試行:', fallbackError);
-
-                        // dom-overlayなしで最終試行
-                        session = await navigator.xr.requestSession('immersive-ar', {
-                            optionalFeatures: ['hit-test']
-                        });
-                    }
-                }
+                const session = await navigator.xr.requestSession('immersive-ar', {
+                    requiredFeatures: ['hit-test'],
+                    optionalFeatures: ['dom-overlay'],
+                    domOverlay: { root: document.getElementById('ar-overlay') }
+                });
 
                 xrSession = session;
                 await renderer.xr.setSession(session);
@@ -615,28 +534,7 @@
 
             } catch (error) {
                 console.error('ARセッション開始エラー:', error);
-
-                let errorMsg = 'ARセッションを開始できませんでした。\n\n';
-
-                if (error.name === 'NotSupportedError') {
-                    errorMsg += '原因: ARが端末でサポートされていません\n\n' +
-                        '確認事項:\n' +
-                        '• ARCore対応のAndroidデバイスを使用\n' +
-                        '• Google Playストアから「Google Play開発者サービス（AR）」をインストール\n' +
-                        '• Android Chrome（最新版）を使用\n' +
-                        '• chrome://flags で「WebXR Incubations」を有効化';
-                } else if (error.name === 'NotAllowedError') {
-                    errorMsg += '原因: カメラへのアクセスが拒否されました\n\n' +
-                        'カメラの権限を許可してください';
-                } else if (error.name === 'SecurityError') {
-                    errorMsg += '原因: セキュリティエラー\n\n' +
-                        'HTTPSで接続していることを確認してください';
-                } else {
-                    errorMsg += `エラー詳細: ${error.name}\n${error.message}\n\n` +
-                        '端末がARに対応していない可能性があります';
-                }
-
-                alert(errorMsg);
+                alert('ARセッションを開始できませんでした。Android ChromeまたはARCore対応デバイスをお使いください。');
             }
         }
 
