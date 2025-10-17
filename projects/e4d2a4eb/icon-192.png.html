@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html><body><canvas id="c"></canvas><script>
+const c=document.getElementById('c');c.width=192;c.height=192;
+const ctx=c.getContext('2d');
+ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,192,192);
+ctx.fillStyle='#e94560';ctx.beginPath();ctx.arc(96,96,80,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#f1f1f1';ctx.font='bold 60px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText('CC',96,96);
+c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='icon-192.png';a.click();});
+</script></body></html>

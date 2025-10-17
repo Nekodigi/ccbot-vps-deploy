@@ -1,0 +1,55 @@
+{
+  "name": "Claude Code 活用ガイド",
+  "short_name": "Claude Code",
+  "description": "Claude Codeの機能、使い方、ベストプラクティスをまとめた完全ガイド",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["development", "productivity", "education"],
+  "screenshots": [
+    {
+      "src": "./screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "概要",
+      "url": "./index.html#overview",
+      "description": "Claude Codeの概要を確認"
+    },
+    {
+      "name": "機能",
+      "url": "./index.html#features",
+      "description": "基本機能を確認"
+    },
+    {
+      "name": "活用方法",
+      "url": "./index.html#usage",
+      "description": "活用方法とベストプラクティス"
+    }
+  ]
+}

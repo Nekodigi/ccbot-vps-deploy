@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#1a1a2e"/>
+  <circle cx="256" cy="256" r="179.2" fill="#e94560" opacity="0.2"/>
+  <circle cx="256" cy="256" r="143.36" fill="#e94560" opacity="0.4"/>
+  <text x="256" y="317.44" font-family="Arial, sans-serif" font-size="153.6" font-weight="bold" text-anchor="middle" fill="#f1f1f1">CC</text>
+</svg>
