@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>議事録作成支援 | MeetingNote AI</title>
+    <meta name="description" content="AI搭載の議事録作成支援ツール。会議の内容を入力するだけで、自動的にサマリーとアクションアイテムを生成します。">
+    <meta name="keywords" content="議事録,会議,AI,ビジネスツール,PWA">
+    <meta name="author" content="Nekokazu">
+    <meta property="og:title" content="議事録作成支援 | MeetingNote AI">
+    <meta property="og:description" content="AI搭載の議事録作成支援ツール。会議の内容を入力するだけで、自動的にサマリーとアクションアイテムを生成します。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/icon-512.png">
+    <meta property="og:site_name" content="MeetingNote AI">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="議事録作成支援 | MeetingNote AI">
+    <meta name="twitter:description" content="AI搭載の議事録作成支援ツール。会議の内容を入力するだけで、自動的にサマリーとアクションアイテムを生成します。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/icon-512.png">
+    <meta name="twitter:creator" content="@nekokazu">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1a73e8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MeetingNote AI">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header-title">MeetingNote AI</h1>
+            <p class="header-subtitle">議事録作成支援ツール</p>
+        </header>
+        <main class="main">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">新規議事録</h2>
+                </div>
+                <div class="form-group">
+                    <label for="meeting-title" class="label">会議タイトル</label>
+                    <input type="text" id="meeting-title" class="input" placeholder="例: 週次進捗会議" required>
+                </div>
+                <div class="form-group">
+                    <label for="meeting-date" class="label">会議日時</label>
+                    <input type="datetime-local" id="meeting-date" class="input" required>
+                </div>
+                <div class="form-group">
+                    <label for="meeting-content" class="label">議事内容</label>
+                    <textarea id="meeting-content" class="textarea" rows="10" placeholder="会議の内容を入力してください...&#10;&#10;例:&#10;・プロジェクトの進捗報告&#10;・来週の予定確認&#10;・課題の共有と対応方針の決定" required></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="generate-btn" class="button button-primary">
+                        <span class="button-text">AI分析を実行</span>
+                    </button>
+                    <button id="save-btn" class="button button-secondary" disabled>
+                        <span class="button-text">保存</span>
+                    </button>
+                </div>
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">AI分析中...</p>
+                </div>
+            </section>
+            <section class="section" id="result-section" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title">AI分析結果</h2>
+                </div>
+                <div class="result-card">
+                    <h3 class="result-card-title">要約</h3>
+                    <div id="summary-result" class="result-content"></div>
+                </div>
+                <div class="result-card">
+                    <h3 class="result-card-title">アクションアイテム</h3>
+                    <div id="action-items-result" class="result-content"></div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">保存済み議事録</h2>
+                    <button id="refresh-btn" class="button-icon" title="更新">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="notes-list" class="notes-list">
+                    <p class="empty-message">保存された議事録はまだありません</p>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="footer-text">© 2025 MeetingNote AI | Powered by Firebase & Gemini</p>
+        </footer>
+    </div>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+        import { getVertexAI, getGenerativeModel } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-vertexai-preview.js';
+        window.firebaseModules = { initializeApp, getFirestore, getVertexAI, getGenerativeModel };
+    </script>
+    <script src="./firebase-config.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="情報収集・整理を簡単にするシンプルなPWAアプリケーション。AIアシスタント機能でさらに便利に。">
+    <meta name="theme-color" content="#000000">
+
+    <!-- OGP Meta Tags -->
+    <!-- Twitter Card Meta Tags -->
+    <title>InfoCollector - 情報収集・整理アプリ</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" type="image/png" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <meta property="og:title" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta property="og:description" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed/thumbnail.png">
+  </head>
+<body>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-container">
+            <h1 class="app-title">InfoCollector</h1>
+            <p class="app-subtitle">情報収集・整理を簡単に</p>
+
+            <div id="auth-forms">
+                <div id="login-form" class="auth-form active">
+                    <h2>ログイン</h2>
+                    <input type="email" id="login-email" placeholder="メールアドレス" required>
+                    <input type="password" id="login-password" placeholder="パスワード" required>
+                    <button id="login-btn" class="btn-primary">ログイン</button>
+                    <p class="auth-switch">
+                        アカウントをお持ちでない方は
+                        <a href="#" id="show-signup">新規登録</a>
+                    </p>
+                </div>
+
+                <div id="signup-form" class="auth-form">
+                    <h2>新規登録</h2>
+                    <input type="email" id="signup-email" placeholder="メールアドレス" required>
+                    <input type="password" id="signup-password" placeholder="パスワード（6文字以上）" required>
+                    <button id="signup-btn" class="btn-primary">新規登録</button>
+                    <p class="auth-switch">
+                        既にアカウントをお持ちの方は
+                        <a href="#" id="show-login">ログイン</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="auth-error" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="app-screen" class="screen" style="display: none;">
+        <header class="app-header">
+            <h1>InfoCollector</h1>
+            <div class="header-actions">
+                <span id="user-email" class="user-info"></span>
+                <button id="logout-btn" class="btn-secondary">ログアウト</button>
+            </div>
+        </header>
+
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="collect">収集</button>
+            <button class="tab-btn" data-tab="organize">整理</button>
+            <button class="tab-btn" data-tab="assistant">AI</button>
+        </nav>
+
+        <main class="app-content">
+            <!-- Collect Tab -->
+            <div id="collect-tab" class="tab-content active">
+                <div class="section-header">
+                    <h2>情報収集</h2>
+                </div>
+
+                <div class="add-info-form">
+                    <input type="text" id="info-title" placeholder="タイトル" required>
+                    <textarea id="info-content" placeholder="内容" rows="4" required></textarea>
+                    <input type="text" id="info-url" placeholder="URL（オプション）">
+                    <input type="text" id="info-tags" placeholder="タグ（カンマ区切り）">
+                    <button id="add-info-btn" class="btn-primary">追加</button>
+                </div>
+            </div>
+
+            <!-- Organize Tab -->
+            <div id="organize-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>情報整理</h2>
+                    <div class="filter-controls">
+                        <input type="text" id="search-input" placeholder="検索...">
+                        <select id="category-filter">
+                            <option value="all">すべて</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="info-list" class="info-list">
+                    <!-- Info items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- AI Assistant Tab -->
+            <div id="assistant-tab" class="tab-content">
+                <div class="section-header">
+                    <h2>AIアシスタント</h2>
+                </div>
+
+                <div class="chat-container">
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="chat-message system">
+                            <p>収集した情報について質問してください。AIがお答えします。</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <textarea id="chat-input" placeholder="質問を入力..." rows="2"></textarea>
+                        <button id="send-chat-btn" class="btn-primary">送信</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Offline Screen -->
+    <div id="offline-screen" class="screen offline-screen" style="display: none;">
+        <div class="offline-container">
+            <h1>オフラインモード</h1>
+            <p>インターネット接続がありません。</p>
+            <p>一部の機能は制限されますが、保存済みの情報は閲覧できます。</p>
+            <button id="retry-connection" class="btn-primary">再接続</button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

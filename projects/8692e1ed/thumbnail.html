@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウェブアプリ開発ファイル一式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+        }
+
+        .thumbnail {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+
+        .thumbnail::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .thumbnail::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .icon-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .file-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .file-icon:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .file-icon:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .file-icon:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .file-icon:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        .file-icon:nth-child(5) {
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 400;
+            opacity: 0.95;
+            letter-spacing: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+            margin: 40px auto;
+            border-radius: 2px;
+        }
+    </style>
+
+    <meta property="og:title" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta property="og:description" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ウェブアプリの開発に必要なファイル一式。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/8692e1ed/thumbnail.png">
+  </head>
+<body>
+    <div class="thumbnail">
+        <div class="content">
+            <div class="icon-container">
+                <div class="file-icon">📄</div>
+                <div class="file-icon">💻</div>
+                <div class="file-icon">🎨</div>
+                <div class="file-icon">⚙️</div>
+                <div class="file-icon">📦</div>
+            </div>
+
+            <div class="decorative-line"></div>
+
+            <h1>ウェブアプリの開発に<br>必要なファイル一式</h1>
+
+            <div class="subtitle">Web Development Complete Set</div>
+        </div>
+    </div>
+</body>
+</html>

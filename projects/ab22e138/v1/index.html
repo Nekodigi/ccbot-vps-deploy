@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タスク管理 - Task Manager PWA</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="シンプルで洗練されたタスク管理PWAアプリ。タスクの追加、編集、削除、期限管理を効率的に行えます。">
+    <meta name="keywords" content="タスク管理,PWA,Todo,生産性,タスクマネージャー">
+    <meta name="author" content="Nekokazu">
+
+    <!-- OGP Tags -->
+    <meta property="og:title" content="タスク管理 - Task Manager PWA">
+    <meta property="og:description" content="シンプルで洗練されたタスク管理PWAアプリ。タスクの追加、編集、削除、期限管理を効率的に行えます。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/v1/">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/v1/icon-512.png">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="タスク管理 - Task Manager PWA">
+    <meta name="twitter:description" content="シンプルで洗練されたタスク管理PWAアプリ。タスクの追加、編集、削除、期限管理を効率的に行えます。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/ab22e138/v1/icon-512.png">
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p>読み込み中...</p>
+    </div>
+
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-screen hidden">
+        <div class="auth-container">
+            <h1 class="auth-title">タスク管理</h1>
+            <p class="auth-subtitle">アカウントにログインしてタスクを管理</p>
+
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" placeholder="example@email.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" placeholder="6文字以上" required autocomplete="current-password">
+                </div>
+
+                <div id="auth-error" class="auth-error hidden"></div>
+
+                <button id="login-btn" class="btn btn-primary">ログイン</button>
+                <button id="register-btn" class="btn btn-secondary">新規登録</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="app-screen" class="app-screen hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">タスク管理</h1>
+                <div class="header-actions">
+                    <span id="user-email" class="user-email"></span>
+                    <button id="logout-btn" class="btn btn-small">ログアウト</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Task Input -->
+            <div class="task-input-section">
+                <div class="task-input-container">
+                    <input type="text" id="task-title" class="task-input" placeholder="新しいタスクを入力..." maxlength="200">
+                    <input type="datetime-local" id="task-deadline" class="task-deadline-input">
+                    <button id="add-task-btn" class="btn btn-add">追加</button>
+                </div>
+            </div>
+
+            <!-- Filter and Sort Controls -->
+            <div class="controls-section">
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">すべて</button>
+                    <button class="filter-btn" data-filter="pending">未完了</button>
+                    <button class="filter-btn" data-filter="completed">完了</button>
+                </div>
+
+                <div class="sort-controls">
+                    <label for="sort-select">並び替え:</label>
+                    <select id="sort-select" class="sort-select">
+                        <option value="created-desc">作成日時（新しい順）</option>
+                        <option value="created-asc">作成日時（古い順）</option>
+                        <option value="deadline-asc">期限（近い順）</option>
+                        <option value="deadline-desc">期限（遠い順）</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <div class="task-list-section">
+                <div id="task-list" class="task-list">
+                    <!-- Tasks will be dynamically inserted here -->
+                </div>
+                <div id="empty-state" class="empty-state">
+                    <p>タスクがありません</p>
+                    <p class="empty-state-sub">上のフォームから新しいタスクを追加してください</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>タスク編集</h2>
+                <button class="modal-close" id="modal-close-btn" aria-label="閉じる">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit-task-title">タスク名</label>
+                    <input type="text" id="edit-task-title" class="task-input" maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-deadline">期限</label>
+                    <input type="datetime-local" id="edit-task-deadline" class="task-deadline-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-edit-btn" class="btn btn-primary">保存</button>
+                <button id="cancel-edit-btn" class="btn btn-secondary">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

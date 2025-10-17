@@ -5,17 +5,17 @@
 }
 
 :root {
-    --primary-color: #2C3E50;
-    --secondary-color: #3498DB;
-    --success-color: #27AE60;
-    --danger-color: #E74C3C;
-    --text-color: #2C3E50;
-    --text-light: #7F8C8D;
+    --primary-color: #000000;
+    --secondary-color: #DC143C;
+    --success-color: #C41E3A;
+    --danger-color: #8B0000;
+    --text-color: #000000;
+    --text-light: #666666;
     --bg-color: #FFFFFF;
-    --bg-light: #F8F9FA;
-    --border-color: #E0E0E0;
+    --bg-light: #F5F5F5;
+    --border-color: #DDDDDD;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 4px 12px rgba(220, 20, 60, 0.15);
 }
 
 body {
@@ -93,7 +93,7 @@ main {
 }
 
 .primary-btn:hover {
-    background-color: #2980B9;
+    background-color: #B8102F;
     transform: translateY(-1px);
     box-shadow: var(--shadow-hover);
 }
@@ -142,7 +142,7 @@ main {
 
 .task-item:hover {
     border-color: var(--secondary-color);
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 8px rgba(220, 20, 60, 0.1);
 }
 
 .task-item.completed {

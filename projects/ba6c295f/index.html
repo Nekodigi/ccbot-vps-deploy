@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="写真を撮影してAIが自動的に説明を生成するPWAアプリケーション">
+    <meta name="keywords" content="写真,AI,画像解析,説明生成,PWA">
+    <meta name="author" content="Nekokazu">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/ba6c295f/">
+    <meta property="og:title" content="AI Photo Description - 写真説明生成アプリ">
+    <meta property="og:description" content="写真を撮影してAIが自動的に説明を生成するPWAアプリケーション">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/ba6c295f/icon-512.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vps.nekodigi.com/ccbot/projects/ba6c295f/">
+    <meta property="twitter:title" content="AI Photo Description - 写真説明生成アプリ">
+    <meta property="twitter:description" content="写真を撮影してAIが自動的に説明を生成するPWAアプリケーション">
+    <meta property="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/ba6c295f/icon-512.png">
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AI Photo Description">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <title>AI Photo Description - 写真説明生成アプリ</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- ローディング画面 -->
+    <div class="loading" id="loading">
+        <div class="loading__spinner"></div>
+        <p class="loading__text">読み込み中...</p>
+    </div>
+
+    <!-- メインコンテナ -->
+    <div class="container" id="app">
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1 class="header__title">AI Photo Description</h1>
+            <p class="header__subtitle">写真を撮影してAIが説明を生成</p>
+        </header>
+
+        <!-- ホーム画面 -->
+        <section class="screen screen--active" id="homeScreen">
+            <div class="home">
+                <div class="home__actions">
+                    <button class="btn btn--primary btn--large" id="captureBtn">
+                        <span class="btn__icon">📷</span>
+                        <span class="btn__text">写真を撮影</span>
+                    </button>
+                    <button class="btn btn--secondary" id="historyBtn">
+                        <span class="btn__icon">📋</span>
+                        <span class="btn__text">履歴を表示</span>
+                    </button>
+                </div>
+                <div class="home__info">
+                    <h2 class="info__title">使い方</h2>
+                    <ol class="info__list">
+                        <li class="info__item">「写真を撮影」ボタンをタップ</li>
+                        <li class="info__item">カメラで被写体を撮影</li>
+                        <li class="info__item">AIが写真の内容を自動解析</li>
+                        <li class="info__item">生成された説明を確認</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- カメラ画面 -->
+        <section class="screen" id="cameraScreen">
+            <div class="camera">
+                <div class="camera__viewport">
+                    <video class="camera__video" id="video" autoplay playsinline></video>
+                    <canvas class="camera__canvas" id="canvas"></canvas>
+                    <img class="camera__preview" id="preview" alt="撮影した写真">
+                </div>
+                <div class="camera__controls">
+                    <button class="btn btn--secondary" id="cancelCaptureBtn">キャンセル</button>
+                    <button class="btn btn--primary btn--capture" id="snapBtn">撮影</button>
+                    <button class="btn btn--primary" id="analyzeBtn" style="display: none;">解析開始</button>
+                    <button class="btn btn--secondary" id="retakeBtn" style="display: none;">再撮影</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 結果画面 -->
+        <section class="screen" id="resultScreen">
+            <div class="result">
+                <div class="result__image-wrapper">
+                    <img class="result__image" id="resultImage" alt="解析した写真">
+                </div>
+                <div class="result__content">
+                    <h2 class="result__title">AIによる説明</h2>
+                    <div class="result__description" id="resultDescription">
+                        <p class="result__loading">解析中...</p>
+                    </div>
+                    <div class="result__meta" id="resultMeta" style="display: none;">
+                        <span class="result__timestamp" id="resultTimestamp"></span>
+                    </div>
+                </div>
+                <div class="result__actions">
+                    <button class="btn btn--primary" id="saveBtn">履歴に保存</button>
+                    <button class="btn btn--secondary" id="newCaptureBtn">新しく撮影</button>
+                    <button class="btn btn--secondary" id="backToHomeBtn">ホームへ戻る</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 履歴画面 -->
+        <section class="screen" id="historyScreen">
+            <div class="history">
+                <div class="history__header">
+                    <h2 class="history__title">撮影履歴</h2>
+                    <button class="btn btn--secondary btn--small" id="closeHistoryBtn">閉じる</button>
+                </div>
+                <div class="history__list" id="historyList">
+                    <p class="history__empty">履歴がありません</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- エラーメッセージ -->
+        <div class="notification notification--error" id="errorNotification" style="display: none;">
+            <p class="notification__message" id="errorMessage"></p>
+            <button class="notification__close" id="closeErrorBtn">×</button>
+        </div>
+
+        <!-- 成功メッセージ -->
+        <div class="notification notification--success" id="successNotification" style="display: none;">
+            <p class="notification__message" id="successMessage"></p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase設定をグローバル変数として定義
+        window.firebaseConfig = {
+            apiKey: "AIzaSyChB7eBjMaX_lRpfIgUxQDi39Qh82R4oyQ",
+            authDomain: "sandbox-35d1d.firebaseapp.com",
+            projectId: "sandbox-35d1d",
+            storageBucket: "sandbox-35d1d.appspot.com",
+            messagingSenderId: "906287459396",
+            appId: "1:906287459396:web:c931c95d943157cae36011",
+            measurementId: "G-LE2Q0XC7B6"
+        };
+    </script>
+
+    <!-- アプリケーションスクリプト -->
+    <script src="./app.js" type="module"></script>
+
+    <!-- Service Worker登録 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
