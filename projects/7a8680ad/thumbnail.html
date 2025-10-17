@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>AR機能を持つ洗練されたアプリ - Thumbnail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0e27;
+            font-family: 'Noto Sans JP', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background geometric pattern */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border: 2px solid #4a9eff;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-pattern::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            border: 2px solid #00d4ff;
+            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, 30px) rotate(10deg); }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px;
+            max-width: 1000px;
+        }
+
+        /* AR Icon - Stylized camera/scan frame */
+        .ar-icon {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .scan-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #00d4ff;
+        }
+
+        .corner.top-left {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner.top-right {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4a9eff, transparent);
+            animation: scan 2s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+            0%, 100% { transform: translateY(-60px); opacity: 0.5; }
+            50% { transform: translateY(60px); opacity: 1; }
+        }
+
+        .ar-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 3px solid #4a9eff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ar-center::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #00d4ff;
+        }
+
+        /* Text content */
+        h1 {
+            font-size: 68px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            display: inline-block;
+            background: #00d4ff;
+            color: #0a0e27;
+            padding: 4px 20px;
+            margin: 0 8px;
+            border-radius: 4px;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: #b8c5d6;
+            font-weight: 400;
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 24px;
+            color: #8a9db5;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Accent elements */
+        .accent-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #4a9eff 0%, #00d4ff 100%);
+        }
+
+        .tech-label {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(74, 158, 255, 0.15);
+            border: 2px solid #4a9eff;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #4a9eff;
+            letter-spacing: 2px;
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="AR機能を持つ洗練されたアプリ作成。">
+    <meta property="og:description" content="AR機能を持つ洗練されたアプリ作成。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/7a8680ad">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/7a8680ad/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AR機能を持つ洗練されたアプリ作成。">
+    <meta name="twitter:description" content="AR機能を持つ洗練されたアプリ作成。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/7a8680ad/thumbnail.png">
+  </head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <div class="container">
+        <!-- AR Icon -->
+        <div class="ar-icon">
+            <div class="scan-frame">
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+                <div class="scan-line"></div>
+            </div>
+            <div class="ar-center"></div>
+        </div>
+
+        <!-- Title -->
+        <h1>
+            <span class="highlight">AR</span>機能を持つ<br>洗練されたアプリ
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="subtitle">拡張現実で新しい体験を</p>
+
+        <!-- Description -->
+        <p class="description">
+            最先端のAR技術を活用した、シンプルで使いやすいWebアプリケーション
+        </p>
+    </div>
+
+    <!-- Tech label -->
+    <div class="tech-label">AR TECHNOLOGY</div>
+
+    <!-- Accent bar -->
+    <div class="accent-bar"></div>
+</body>
+</html>

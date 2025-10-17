@@ -1,0 +1,19 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="80" fill="url(#bgGradient)"/>
+
+  <!-- Chart bars -->
+  <rect x="120" y="280" width="50" height="120" fill="white" opacity="0.9" rx="5"/>
+  <rect x="190" y="200" width="50" height="200" fill="white" opacity="0.9" rx="5"/>
+  <rect x="260" y="240" width="50" height="160" fill="white" opacity="0.9" rx="5"/>
+  <rect x="330" y="160" width="50" height="240" fill="white" opacity="0.9" rx="5"/>
+
+  <!-- Text -->
+  <text x="256" y="120" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">東京</text>
+</svg>
