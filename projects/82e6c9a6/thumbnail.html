@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=630">
+    <title>東京都データ視覚化アプリ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Noto Sans JP', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Geometric background elements */
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape.circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 3px solid #e94560;
+            top: -100px;
+            right: 100px;
+        }
+
+        .shape.circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid #00d9ff;
+            bottom: 50px;
+            left: 150px;
+        }
+
+        .shape.rect-1 {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ffd700;
+            transform: rotate(45deg);
+            bottom: 100px;
+            right: 200px;
+        }
+
+        /* Data visualization icons */
+        .data-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bar {
+            position: absolute;
+            background: rgba(0, 217, 255, 0.3);
+            width: 40px;
+        }
+
+        .bar:nth-child(1) { left: 100px; bottom: 0; height: 120px; }
+        .bar:nth-child(2) { left: 160px; bottom: 0; height: 200px; background: rgba(0, 217, 255, 0.4); }
+        .bar:nth-child(3) { left: 220px; bottom: 0; height: 150px; }
+        .bar:nth-child(4) { left: 280px; bottom: 0; height: 180px; background: rgba(0, 217, 255, 0.35); }
+
+        .bar-right {
+            position: absolute;
+            background: rgba(233, 69, 96, 0.3);
+            width: 35px;
+        }
+
+        .bar-right:nth-child(5) { right: 100px; bottom: 0; height: 140px; }
+        .bar-right:nth-child(6) { right: 155px; bottom: 0; height: 190px; background: rgba(233, 69, 96, 0.4); }
+        .bar-right:nth-child(7) { right: 210px; bottom: 0; height: 110px; }
+        .bar-right:nth-child(8) { right: 265px; bottom: 0; height: 165px; background: rgba(233, 69, 96, 0.35); }
+
+        /* Main content */
+        .container {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            position: relative;
+            max-width: 900px;
+            padding: 60px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.2);
+            border: 2px solid #00d9ff;
+            color: #00d9ff;
+            padding: 8px 24px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 80px;
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 0%, #00d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 500;
+            color: #e94560;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 22px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        /* Accent line */
+        .accent-line {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #00d9ff 0%, #e94560 100%);
+            margin: 25px auto;
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+    </style>
+
+    <!-- Open Graph / OGP - Auto-generated by Bot -->
+    <meta property="og:title" content="東京都のデータを視覚化するアプリ。">
+    <meta property="og:description" content="東京都のデータを視覚化するアプリ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card - Auto-generated by Bot -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="東京都のデータを視覚化するアプリ。">
+    <meta name="twitter:description" content="東京都のデータを視覚化するアプリ。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6/thumbnail.png">
+  </head>
+<body>
+    <div class="grid-overlay"></div>
+
+    <div class="bg-shapes">
+        <div class="shape circle-1"></div>
+        <div class="shape circle-2"></div>
+        <div class="shape rect-1"></div>
+    </div>
+
+    <div class="data-elements">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar-right"></div>
+        <div class="bar-right"></div>
+        <div class="bar-right"></div>
+        <div class="bar-right"></div>
+    </div>
+
+    <div class="container">
+        <div class="tag">Data Visualization</div>
+        <h1>東京都データ</h1>
+        <p class="subtitle">視覚化アプリケーション</p>
+        <div class="accent-line"></div>
+        <p class="description">東京都のリアルタイムデータを美しく視覚化</p>
+    </div>
+</body>
+</html>

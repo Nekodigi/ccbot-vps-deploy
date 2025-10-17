@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tokyo-data-viz-v1';
+const CACHE_NAME = 'tokyo-data-viz-v3';
 const urlsToCache = [
     './',
     './index.html',
