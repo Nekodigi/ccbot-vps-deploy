@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="東京都の統計データを美しく視覚化するダッシュボードアプリケーション">
+    <meta name="keywords" content="東京都,データ視覚化,統計,人口,PWA">
+
+    <!-- OGP Tags -->
+    <meta property="og:title" content="東京都データ視覚化ダッシュボード">
+    <meta property="og:description" content="東京都の統計データを美しく視覚化するダッシュボードアプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="東京都データ視覚化ダッシュボード">
+    <meta name="twitter:description" content="東京都の統計データを美しく視覚化するダッシュボードアプリケーション">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/82e6c9a6/og-image.png">
+
+    <title>東京都データ視覚化ダッシュボード</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" type="image/png" href="./favicon.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">東京都データ視覚化ダッシュボード</h1>
+                <p class="subtitle">Tokyo Statistical Data Visualization</p>
+            </div>
+            <div class="header-controls">
+                <button id="refreshBtn" class="btn btn-primary" aria-label="データを更新">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    更新
+                </button>
+                <button id="themeToggle" class="btn btn-secondary" aria-label="テーマ切替">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalPopulation">14,097,120</div>
+                    <div class="stat-label">総人口</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalDistricts">23</div>
+                    <div class="stat-label">特別区数</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="densityValue">6,402</div>
+                    <div class="stat-label">人口密度（人/km²）</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="gdpValue">107.3</div>
+                    <div class="stat-label">都内総生産（兆円）</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">人口推移</h2>
+                    <div class="chart-subtitle">2015年〜2025年</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="populationChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">年齢層別人口構成</h2>
+                    <div class="chart-subtitle">2025年度</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="ageDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">区別人口分布</h2>
+                    <div class="chart-subtitle">上位10区</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="districtChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">産業別就業者数</h2>
+                    <div class="chart-subtitle">主要産業</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="industryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container chart-container-wide">
+                <div class="chart-header">
+                    <h2 class="chart-title">月別観光客数</h2>
+                    <div class="chart-subtitle">2024年度</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="tourismChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">交通機関別利用者数</h2>
+                    <div class="chart-subtitle">1日平均</div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="transportChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Tokyo Data Visualization Dashboard</p>
+            <p class="footer-note">データは実際の統計データを基に作成されています</p>
+        </footer>
+    </div>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>データを読み込んでいます...</p>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module" src="./firebase-config.js"></script>
+    <script src="./app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('ServiceWorker registered'))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
