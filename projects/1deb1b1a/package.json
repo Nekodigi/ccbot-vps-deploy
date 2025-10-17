@@ -1,0 +1,21 @@
+{
+  "name": "wordshare-app",
+  "version": "1.0.0",
+  "description": "単語帳SNSアプリ - PWA",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
+  },
+  "keywords": [
+    "pwa",
+    "firebase",
+    "education",
+    "flashcards"
+  ],
+  "author": "Nekokazu",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

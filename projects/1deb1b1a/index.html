@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="description" content="単語帳を作成・共有できるSNS型学習アプリ">
+
+    <!-- OGP Meta Tags -->
+    <!-- Twitter Card -->
+    <title>WordShare - 単語帳SNS</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/svg+xml" href="./icon.svg">
+    <link rel="apple-touch-icon" href="./icon.svg">
+    <link rel="stylesheet" href="./styles.css">
+
+    <meta property="og:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:description" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+  </head>
+<body>
+    <!-- Offline Notice -->
+    <div id="offline-notice" class="offline-notice hidden">
+        オフラインモードで動作中
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="spinner"></div>
+        <p>読み込み中...</p>
+    </div>
+
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="screen hidden">
+        <div class="auth-container">
+            <h1 class="app-title">WordShare</h1>
+            <p class="app-subtitle">単語帳を共有して学習しよう</p>
+
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">ログイン</button>
+                <button class="tab-btn" data-tab="signup">新規登録</button>
+            </div>
+
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">メールアドレス</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">パスワード</label>
+                    <input type="password" id="login-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary">ログイン</button>
+            </form>
+
+            <form id="signup-form" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="signup-username">ユーザー名</label>
+                    <input type="text" id="signup-username" required minlength="3" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">メールアドレス</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">パスワード</label>
+                    <input type="password" id="signup-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary">登録</button>
+            </form>
+
+            <div id="auth-error" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="app-screen" class="screen hidden">
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <button class="nav-item active" data-view="feed">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>フィード</span>
+            </button>
+            <button class="nav-item" data-view="my-decks">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>単語帳</span>
+            </button>
+            <button class="nav-item" data-view="profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>プロフィール</span>
+            </button>
+        </nav>
+
+        <!-- Feed View -->
+        <div id="feed-view" class="view active">
+            <div class="view-header">
+                <h2>フィード</h2>
+            </div>
+            <div id="feed-container" class="feed-container"></div>
+        </div>
+
+        <!-- My Decks View -->
+        <div id="my-decks-view" class="view hidden">
+            <div class="view-header">
+                <h2>マイ単語帳</h2>
+                <button id="create-deck-btn" class="btn btn-primary btn-sm">新規作成</button>
+            </div>
+            <div id="my-decks-container" class="decks-container"></div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profile-view" class="view hidden">
+            <div class="view-header">
+                <h2>プロフィール</h2>
+            </div>
+            <div class="profile-container">
+                <div class="profile-info">
+                    <h3 id="profile-username"></h3>
+                    <p id="profile-email"></p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="decks-count">0</span>
+                        <span class="stat-label">単語帳</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="followers-count">0</span>
+                        <span class="stat-label">フォロワー</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="following-count">0</span>
+                        <span class="stat-label">フォロー中</span>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-secondary">ログアウト</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Deck Modal -->
+    <div id="deck-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="deck-modal-title">単語帳を作成</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="deck-form">
+                <div class="form-group">
+                    <label for="deck-title">タイトル</label>
+                    <input type="text" id="deck-title" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="deck-description">説明</label>
+                    <textarea id="deck-description" rows="3" maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="deck-public">
+                        公開する
+                    </label>
+                </div>
+
+                <div class="words-section">
+                    <div class="words-header">
+                        <h4>単語リスト</h4>
+                        <button type="button" id="add-word-btn" class="btn btn-sm">単語を追加</button>
+                        <button type="button" id="ai-suggest-btn" class="btn btn-sm btn-secondary">AI推奨</button>
+                    </div>
+                    <div id="words-list"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary modal-cancel">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Deck Detail Modal -->
+    <div id="deck-detail-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="detail-deck-title"></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="deck-detail-content">
+                <div class="deck-meta">
+                    <p class="deck-author">作成者: <span id="detail-author"></span></p>
+                    <p class="deck-description" id="detail-description"></p>
+                    <div class="deck-actions">
+                        <button id="like-btn" class="btn btn-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            <span id="like-count">0</span>
+                        </button>
+                        <button id="follow-author-btn" class="btn btn-sm btn-secondary hidden">フォロー</button>
+                    </div>
+                </div>
+
+                <div class="words-display" id="detail-words"></div>
+
+                <div class="comments-section">
+                    <h4>コメント</h4>
+                    <form id="comment-form">
+                        <textarea id="comment-input" placeholder="コメントを入力..." rows="2" maxlength="500"></textarea>
+                        <button type="submit" class="btn btn-sm btn-primary">投稿</button>
+                    </form>
+                    <div id="comments-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

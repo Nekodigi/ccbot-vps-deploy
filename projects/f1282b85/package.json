@@ -1,0 +1,16 @@
+{
+  "name": "ticket-app",
+  "version": "1.0.0",
+  "description": "イベントチケット購入・管理アプリ",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "keywords": ["pwa", "tickets", "firebase"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

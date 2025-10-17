@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#2c3e50" rx="64"/>
+
+  <!-- Camera Body -->
+  <rect x="128" y="200" width="256" height="192" fill="#ecf0f1" rx="16"/>
+
+  <!-- Lens -->
+  <circle cx="256" cy="296" r="64" fill="#34495e"/>
+  <circle cx="256" cy="296" r="48" fill="#3498db"/>
+  <circle cx="256" cy="296" r="32" fill="#2980b9"/>
+
+  <!-- Flash -->
+  <rect x="320" y="224" width="32" height="24" fill="#f39c12" rx="4"/>
+
+  <!-- Viewfinder -->
+  <rect x="168" y="224" width="48" height="24" fill="#34495e" rx="4"/>
+
+  <!-- AI Sparkle Top Left -->
+  <path d="M 160 160 L 168 168 L 160 176 L 152 168 Z" fill="#3498db"/>
+
+  <!-- AI Sparkle Top Right -->
+  <path d="M 352 160 L 360 168 L 352 176 L 344 168 Z" fill="#3498db"/>
+
+  <!-- AI Sparkle Bottom -->
+  <path d="M 256 416 L 264 424 L 256 432 L 248 424 Z" fill="#3498db"/>
+</svg>

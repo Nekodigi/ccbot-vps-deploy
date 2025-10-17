@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <meta property="og:title" content="チケットアプリ - ログイン">
+  <meta property="og:description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1282b85/login.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="チケットアプリ - ログイン">
+  <meta name="twitter:description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <title>ログイン - チケットアプリ</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <div class="container" style="max-width: 500px; margin-top: 64px;">
+    <div class="card">
+      <h1 class="card-title" style="text-align: center;">チケットアプリ</h1>
+
+      <div id="alert-container"></div>
+
+      <div id="login-form">
+        <h2 style="font-size: 18px; margin-bottom: 24px;">ログイン</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="login-email">メールアドレス</label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">パスワード</label>
+            <input type="password" id="login-password" required minlength="6">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">ログイン</button>
+        </form>
+        <p style="text-align: center; margin-top: 16px; color: var(--text-secondary);">
+          アカウントをお持ちでない方は
+          <a href="#" id="show-signup" style="color: var(--primary-color);">新規登録</a>
+        </p>
+      </div>
+
+      <div id="signup-form" style="display: none;">
+        <h2 style="font-size: 18px; margin-bottom: 24px;">新規登録</h2>
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="signup-email">メールアドレス</label>
+            <input type="email" id="signup-email" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-password">パスワード (6文字以上)</label>
+            <input type="password" id="signup-password" required minlength="6">
+          </div>
+          <div class="form-group">
+            <label for="signup-password-confirm">パスワード (確認)</label>
+            <input type="password" id="signup-password-confirm" required minlength="6">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">新規登録</button>
+        </form>
+        <p style="text-align: center; margin-top: 16px; color: var(--text-secondary);">
+          既にアカウントをお持ちの方は
+          <a href="#" id="show-login" style="color: var(--primary-color);">ログイン</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/auth.js"></script>
+
+  <script>
+    // Firebase初期化
+    initializeFirebase().then(() => {
+      // 既にログイン済みの場合はリダイレクト
+      checkAuth(false);
+    });
+
+    // アラート表示
+    function showAlert(message, type = 'error') {
+      const alertContainer = document.getElementById('alert-container');
+      const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
+      alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+      setTimeout(() => {
+        alertContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // フォーム切り替え
+    document.getElementById('show-signup').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'block';
+      document.getElementById('alert-container').innerHTML = '';
+    });
+
+    document.getElementById('show-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('alert-container').innerHTML = '';
+    });
+
+    // ログインフォーム送信
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const result = await signIn(email, password);
+
+      if (result.success) {
+        window.location.href = './index.html';
+      } else {
+        showAlert(result.error, 'error');
+      }
+    });
+
+    // 新規登録フォーム送信
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const passwordConfirm = document.getElementById('signup-password-confirm').value;
+
+      if (password !== passwordConfirm) {
+        showAlert('パスワードが一致しません', 'error');
+        return;
+      }
+
+      const result = await signUp(email, password);
+
+      if (result.success) {
+        showAlert('アカウントを作成しました', 'success');
+        setTimeout(() => {
+          window.location.href = './index.html';
+        }, 1000);
+      } else {
+        showAlert(result.error, 'error');
+      }
+    });
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>

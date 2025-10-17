@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Icons</title>
+
+    <meta property="og:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:description" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+  </head>
+<body>
+    <h2>アイコン生成中...</h2>
+    <canvas id="canvas" width="512" height="512" style="display:none;"></canvas>
+    <div id="status"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const status = document.getElementById('status');
+
+        function drawIcon(size) {
+            canvas.width = size;
+            canvas.height = size;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#3498db');
+            gradient.addColorStop(1, '#2c3e50');
+
+            // Rounded rectangle background
+            const radius = size * 0.15625; // 80/512
+            ctx.fillStyle = gradient;
+            roundRect(ctx, 0, 0, size, size, radius);
+            ctx.fill();
+
+            // Book icon
+            const bookWidth = size * 0.46875; // 240/512
+            const bookHeight = size * 0.546875; // 280/512
+            const bookX = (size - bookWidth) / 2;
+            const bookY = (size - bookHeight) / 2;
+            const bookRadius = size * 0.0234375; // 12/512
+
+            // White book background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            roundRect(ctx, bookX, bookY, bookWidth, bookHeight, bookRadius);
+            ctx.fill();
+
+            // Book header
+            ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+            roundRect(ctx, bookX, bookY, bookWidth, size * 0.078125, bookRadius); // 40/512
+            ctx.fill();
+
+            // Center line (book spine)
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = size * 0.0078125; // 4/512
+            ctx.beginPath();
+            ctx.moveTo(size / 2, bookY);
+            ctx.lineTo(size / 2, bookY + bookHeight);
+            ctx.stroke();
+
+            // Text lines
+            ctx.strokeStyle = '#2c3e50';
+            ctx.globalAlpha = 0.7;
+            ctx.lineWidth = size * 0.01171875; // 6/512
+            ctx.lineCap = 'round';
+
+            const lineY = [
+                bookY + size * 0.15625, // -60/512 from center
+                bookY + size * 0.234375, // -20/512
+                bookY + size * 0.3125 + size * 0.078125, // 20/512
+                bookY + size * 0.390625 + size * 0.078125, // 60/512
+                bookY + size * 0.46875 + size * 0.078125  // 100/512
+            ];
+
+            const lineStartX = bookX + size * 0.05859375; // 30/512 margin
+            const lineEndX = bookX + bookWidth - size * 0.05859375;
+            const lastLineEndX = bookX + bookWidth / 2 + size * 0.09765625; // 50/512
+
+            lineY.forEach((y, index) => {
+                ctx.beginPath();
+                ctx.moveTo(lineStartX, y);
+                ctx.lineTo(index === 4 ? lastLineEndX : lineEndX, y);
+                ctx.stroke();
+            });
+
+            ctx.globalAlpha = 1;
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadCanvas(filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Generate 512x512 icon
+        drawIcon(512);
+        downloadCanvas('icon-512.png');
+        status.innerHTML += '<p>icon-512.png を生成しました</p>';
+
+        // Generate 192x192 icon
+        setTimeout(() => {
+            drawIcon(192);
+            downloadCanvas('icon-192.png');
+            status.innerHTML += '<p>icon-192.png を生成しました</p>';
+            status.innerHTML += '<p><strong>完了！ダウンロードしたアイコンをプロジェクトフォルダに配置してください。</strong></p>';
+        }, 100);
+    </script>
+</body>
+</html>

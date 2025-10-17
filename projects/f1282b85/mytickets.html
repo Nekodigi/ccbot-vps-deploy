@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="購入したチケットを管理する">
+  <meta property="og:title" content="チケットアプリ - マイチケット">
+  <meta property="og:description" content="購入したチケットを管理する">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1282b85/mytickets.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="チケットアプリ - マイチケット">
+  <meta name="twitter:description" content="購入したチケットを管理する">
+  <title>マイチケット - チケットアプリ</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="./" class="logo">チケットアプリ</a>
+      <nav>
+        <ul>
+          <li><a href="./">ホーム</a></li>
+          <li><a href="./search.html">検索</a></li>
+          <li><a href="./mytickets.html">マイチケット</a></li>
+          <li><a href="#" id="logout-btn">ログアウト</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="page-title">マイチケット</h1>
+
+      <div id="alert-container"></div>
+
+      <div style="margin-bottom: 24px;">
+        <label for="filter-status" style="margin-right: 12px;">フィルター:</label>
+        <select id="filter-status" style="padding: 8px; border-radius: 4px; border: 1px solid var(--border-color);">
+          <option value="all">すべて</option>
+          <option value="active" selected>有効</option>
+          <option value="used">使用済み</option>
+          <option value="cancelled">キャンセル済み</option>
+        </select>
+      </div>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>チケットを読み込み中...</p>
+      </div>
+
+      <div id="tickets-container" style="display: none;"></div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <div class="empty-state-icon">🎫</div>
+        <div class="empty-state-title">チケットがありません</div>
+        <p>イベントを検索してチケットを購入しましょう</p>
+        <a href="./search.html" class="btn btn-primary" style="margin-top: 24px;">イベントを検索</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- チケット詳細モーダル -->
+  <div id="ticket-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; overflow-y: auto;">
+    <div style="max-width: 600px; margin: 48px auto; background-color: var(--background); border-radius: 8px; padding: 32px; position: relative;">
+      <button id="close-modal" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary);">✕</button>
+
+      <h2 id="modal-title" style="font-size: 24px; font-weight: 700; margin-bottom: 24px;"></h2>
+
+      <div class="qr-code-container" style="margin-bottom: 24px;">
+        <canvas id="qr-canvas" style="max-width: 100%;"></canvas>
+        <p id="qr-code-text" style="margin-top: 12px; font-family: monospace; font-size: 12px; color: var(--text-secondary);"></p>
+      </div>
+
+      <div id="modal-details" style="margin-bottom: 24px;"></div>
+
+      <div id="modal-actions" style="display: flex; gap: 12px;"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 チケットアプリ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- QRCode Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/search.js"></script>
+  <script src="./js/tickets.js"></script>
+
+  <script>
+    let currentUser = null;
+    let allTickets = [];
+    let filteredTickets = [];
+
+    // Firebase初期化
+    initializeFirebase().then(async () => {
+      currentUser = await checkAuth(true);
+      if (currentUser) {
+        await loadTickets();
+      }
+    });
+
+    // ログアウト
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut();
+    });
+
+    // チケット読み込み
+    async function loadTickets() {
+      const result = await getUserTickets(currentUser.uid);
+
+      if (result.success) {
+        allTickets = result.tickets;
+        filterAndDisplayTickets();
+      } else {
+        document.getElementById('loading').style.display = 'none';
+        showEmptyState();
+      }
+    }
+
+    // フィルターとチケット表示
+    function filterAndDisplayTickets() {
+      const filterStatus = document.getElementById('filter-status').value;
+
+      if (filterStatus === 'all') {
+        filteredTickets = allTickets;
+      } else if (filterStatus === 'active') {
+        filteredTickets = filterActiveTickets(allTickets);
+      } else if (filterStatus === 'used') {
+        filteredTickets = filterUsedTickets(allTickets);
+      } else if (filterStatus === 'cancelled') {
+        filteredTickets = filterCancelledTickets(allTickets);
+      }
+
+      displayTickets(filteredTickets);
+    }
+
+    // フィルター変更イベント
+    document.getElementById('filter-status').addEventListener('change', () => {
+      filterAndDisplayTickets();
+    });
+
+    // チケット表示
+    function displayTickets(tickets) {
+      document.getElementById('loading').style.display = 'none';
+
+      const container = document.getElementById('tickets-container');
+      const emptyState = document.getElementById('empty-state');
+
+      if (tickets.length === 0) {
+        container.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      container.style.display = 'block';
+
+      // イベント日時でソート
+      const sortedTickets = sortTicketsByEventDate(tickets);
+
+      container.innerHTML = sortedTickets.map(ticket => createTicketCard(ticket)).join('');
+    }
+
+    // チケットカードの作成
+    function createTicketCard(ticket) {
+      const statusBadge = `<span class="badge ${getTicketStatusBadgeClass(ticket.status)}">${getTicketStatusLabel(ticket.status)}</span>`;
+
+      return `
+        <div class="card" style="cursor: pointer;" onclick="showTicketDetail('${ticket.id}')">
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+            <h3 class="card-title">${ticket.eventTitle}</h3>
+            ${statusBadge}
+          </div>
+          <p class="event-date">${formatDate(ticket.eventDate)}</p>
+          <p class="card-subtitle">${ticket.eventLocation}</p>
+          <p style="margin-top: 16px; color: var(--text-secondary);">
+            数量: ${ticket.quantity}枚 / 合計: ${formatPrice(ticket.totalPrice)}
+          </p>
+        </div>
+      `;
+    }
+
+    // チケット詳細を表示
+    async function showTicketDetail(ticketId) {
+      const ticket = allTickets.find(t => t.id === ticketId);
+      if (!ticket) return;
+
+      document.getElementById('modal-title').textContent = ticket.eventTitle;
+
+      // QRコード生成
+      const canvas = document.getElementById('qr-canvas');
+      try {
+        await QRCode.toCanvas(canvas, ticket.qrCode, {
+          width: 256,
+          margin: 2,
+          color: {
+            dark: '#000000',
+            light: '#ffffff'
+          }
+        });
+        document.getElementById('qr-code-text').textContent = ticket.qrCode;
+      } catch (error) {
+        console.error('QR code generation error:', error);
+        document.getElementById('qr-code-text').textContent = 'QRコードの生成に失敗しました';
+      }
+
+      // 詳細情報
+      const detailsHtml = `
+        <p style="margin-bottom: 12px;"><strong>日時:</strong> ${formatDate(ticket.eventDate)}</p>
+        <p style="margin-bottom: 12px;"><strong>会場:</strong> ${ticket.eventLocation}</p>
+        <p style="margin-bottom: 12px;"><strong>カテゴリー:</strong> ${getCategoryLabel(ticket.category)}</p>
+        <p style="margin-bottom: 12px;"><strong>数量:</strong> ${ticket.quantity}枚</p>
+        <p style="margin-bottom: 12px;"><strong>合計金額:</strong> ${formatPrice(ticket.totalPrice)}</p>
+        <p style="margin-bottom: 12px;"><strong>購入日:</strong> ${formatDate(ticket.purchasedAt?.toDate?.() || ticket.purchasedAt)}</p>
+        <p style="margin-bottom: 12px;"><strong>ステータス:</strong> <span class="badge ${getTicketStatusBadgeClass(ticket.status)}">${getTicketStatusLabel(ticket.status)}</span></p>
+      `;
+      document.getElementById('modal-details').innerHTML = detailsHtml;
+
+      // アクションボタン
+      const actionsContainer = document.getElementById('modal-actions');
+      if (ticket.status === 'active') {
+        actionsContainer.innerHTML = `
+          <button class="btn btn-secondary" onclick="handleCancelTicket('${ticket.id}')">キャンセル</button>
+          <button class="btn btn-primary" onclick="handleMarkAsUsed('${ticket.id}')">使用済みにする</button>
+        `;
+      } else {
+        actionsContainer.innerHTML = '';
+      }
+
+      document.getElementById('ticket-modal').style.display = 'block';
+    }
+
+    // モーダルを閉じる
+    document.getElementById('close-modal').addEventListener('click', () => {
+      document.getElementById('ticket-modal').style.display = 'none';
+    });
+
+    // モーダル外クリックで閉じる
+    document.getElementById('ticket-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'ticket-modal') {
+        document.getElementById('ticket-modal').style.display = 'none';
+      }
+    });
+
+    // チケットキャンセル
+    async function handleCancelTicket(ticketId) {
+      if (!confirm('本当にこのチケットをキャンセルしますか?')) {
+        return;
+      }
+
+      const result = await cancelTicket(currentUser.uid, ticketId);
+
+      if (result.success) {
+        showAlert(result.message, 'success');
+        document.getElementById('ticket-modal').style.display = 'none';
+        await loadTickets();
+      } else {
+        showAlert(result.error, 'error');
+      }
+    }
+
+    // チケットを使用済みにする
+    async function handleMarkAsUsed(ticketId) {
+      if (!confirm('このチケットを使用済みにしますか?')) {
+        return;
+      }
+
+      const result = await markTicketAsUsed(currentUser.uid, ticketId);
+
+      if (result.success) {
+        showAlert(result.message, 'success');
+        document.getElementById('ticket-modal').style.display = 'none';
+        await loadTickets();
+      } else {
+        showAlert(result.error, 'error');
+      }
+    }
+
+    // 空の状態を表示
+    function showEmptyState() {
+      document.getElementById('tickets-container').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'block';
+    }
+
+    // アラート表示
+    function showAlert(message, type = 'info') {
+      const alertContainer = document.getElementById('alert-container');
+      const alertClass = type === 'error' ? 'alert-error' : (type === 'success' ? 'alert-success' : 'alert-info');
+      alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+      setTimeout(() => {
+        alertContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>

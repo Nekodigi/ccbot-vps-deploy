@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="イベントチケットを検索する">
+  <meta property="og:title" content="チケットアプリ - イベント検索">
+  <meta property="og:description" content="カテゴリーや日付でイベントを検索">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1282b85/search.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="チケットアプリ - イベント検索">
+  <meta name="twitter:description" content="カテゴリーや日付でイベントを検索">
+  <title>イベント検索 - チケットアプリ</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="./" class="logo">チケットアプリ</a>
+      <nav>
+        <ul>
+          <li><a href="./">ホーム</a></li>
+          <li><a href="./search.html">検索</a></li>
+          <li><a href="./mytickets.html">マイチケット</a></li>
+          <li><a href="#" id="logout-btn">ログアウト</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="page-title">イベント検索</h1>
+
+      <div class="search-form">
+        <form id="searchForm">
+          <div class="search-filters">
+            <div class="form-group">
+              <label for="keyword">キーワード</label>
+              <input type="text" id="keyword" placeholder="イベント名で検索">
+            </div>
+            <div class="form-group">
+              <label for="category">カテゴリー</label>
+              <select id="category">
+                <option value="">すべて</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dateFrom">開始日</label>
+              <input type="date" id="dateFrom">
+            </div>
+            <div class="form-group">
+              <label for="dateTo">終了日</label>
+              <input type="date" id="dateTo">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">検索</button>
+        </form>
+      </div>
+
+      <div id="results-summary" style="margin-bottom: 24px; color: var(--text-secondary);"></div>
+
+      <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>検索中...</p>
+      </div>
+
+      <div id="results-container" class="grid"></div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <div class="empty-state-icon">🔍</div>
+        <div class="empty-state-title">イベントが見つかりませんでした</div>
+        <p>検索条件を変更してお試しください</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 チケットアプリ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/search.js"></script>
+
+  <script>
+    let currentUser = null;
+    let allEvents = [];
+
+    // Firebase初期化
+    initializeFirebase().then(async () => {
+      currentUser = await checkAuth(true);
+      if (currentUser) {
+        await initializePage();
+      }
+    });
+
+    // ログアウト
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut();
+    });
+
+    // ページ初期化
+    async function initializePage() {
+      // カテゴリー選択肢を設定
+      const categorySelect = document.getElementById('category');
+      const categories = getCategories();
+      categorySelect.innerHTML = categories.map(cat =>
+        `<option value="${cat.value}">${cat.label}</option>`
+      ).join('');
+
+      // 全イベントを読み込み
+      await loadAllEvents();
+    }
+
+    // 全イベントの読み込み
+    async function loadAllEvents() {
+      showLoading();
+      const result = await getAllEvents();
+
+      if (result.success) {
+        allEvents = result.events;
+        displayResults(allEvents);
+      } else {
+        hideLoading();
+        showEmptyState();
+      }
+    }
+
+    // 検索フォーム送信
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const filters = {
+        keyword: document.getElementById('keyword').value.trim(),
+        category: document.getElementById('category').value,
+        dateFrom: document.getElementById('dateFrom').value,
+        dateTo: document.getElementById('dateTo').value
+      };
+
+      showLoading();
+
+      const result = await searchEvents(filters);
+
+      if (result.success) {
+        displayResults(result.events);
+      } else {
+        hideLoading();
+        showEmptyState();
+      }
+    });
+
+    // 検索結果の表示
+    function displayResults(events) {
+      hideLoading();
+
+      const container = document.getElementById('results-container');
+      const summary = document.getElementById('results-summary');
+      const emptyState = document.getElementById('empty-state');
+
+      if (events.length === 0) {
+        container.innerHTML = '';
+        summary.textContent = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      summary.textContent = `${events.length}件のイベントが見つかりました`;
+
+      container.innerHTML = events.map(event => createEventCard(event)).join('');
+    }
+
+    // イベントカードの作成
+    function createEventCard(event) {
+      return `
+        <div class="card event-card" onclick="window.location.href='./detail.html?id=${event.id}'">
+          <div class="event-image">${event.title.charAt(0)}</div>
+          <span class="event-category">${getCategoryLabel(event.category)}</span>
+          <h3 class="card-title">${event.title}</h3>
+          <p class="event-date">${formatDate(event.date)}</p>
+          <p class="card-subtitle">${event.location}</p>
+          <p class="card-subtitle">${event.description}</p>
+          <p class="event-price">${formatPrice(event.price)}</p>
+          <p style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">
+            残り ${event.availableTickets} 枚
+          </p>
+        </div>
+      `;
+    }
+
+    // ローディング表示
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('results-container').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'none';
+    }
+
+    // ローディング非表示
+    function hideLoading() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('results-container').style.display = 'grid';
+    }
+
+    // 空の状態を表示
+    function showEmptyState() {
+      document.getElementById('results-container').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'block';
+    }
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>

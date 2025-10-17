@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="80" fill="url(#grad)"/>
+  <g transform="translate(256, 256)">
+    <!-- Book icon -->
+    <rect x="-120" y="-140" width="240" height="280" rx="12" fill="white" opacity="0.95"/>
+    <rect x="-120" y="-140" width="240" height="40" rx="12" fill="white" opacity="1"/>
+    <line x1="0" y1="-140" x2="0" y2="140" stroke="#3498db" stroke-width="4"/>
+
+    <!-- Lines representing text -->
+    <line x1="-90" y1="-60" x2="90" y2="-60" stroke="#2c3e50" stroke-width="6" opacity="0.7"/>
+    <line x1="-90" y1="-20" x2="90" y2="-20" stroke="#2c3e50" stroke-width="6" opacity="0.7"/>
+    <line x1="-90" y1="20" x2="90" y2="20" stroke="#2c3e50" stroke-width="6" opacity="0.7"/>
+    <line x1="-90" y1="60" x2="90" y2="60" stroke="#2c3e50" stroke-width="6" opacity="0.7"/>
+    <line x1="-90" y1="100" x2="50" y2="100" stroke="#2c3e50" stroke-width="6" opacity="0.7"/>
+  </g>
+</svg>

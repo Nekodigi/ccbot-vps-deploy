@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PWA Icon Generator</h1>
+    <div id="result"></div>
+
+    <script>
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            const scale = size / 512;
+
+            // Background
+            ctx.fillStyle = '#2c3e50';
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, 64 * scale);
+            ctx.fill();
+
+            // Camera Body
+            ctx.fillStyle = '#ecf0f1';
+            ctx.beginPath();
+            ctx.roundRect(128 * scale, 200 * scale, 256 * scale, 192 * scale, 16 * scale);
+            ctx.fill();
+
+            // Lens outer
+            ctx.fillStyle = '#34495e';
+            ctx.beginPath();
+            ctx.arc(256 * scale, 296 * scale, 64 * scale, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Lens middle
+            ctx.fillStyle = '#3498db';
+            ctx.beginPath();
+            ctx.arc(256 * scale, 296 * scale, 48 * scale, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Lens inner
+            ctx.fillStyle = '#2980b9';
+            ctx.beginPath();
+            ctx.arc(256 * scale, 296 * scale, 32 * scale, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Flash
+            ctx.fillStyle = '#f39c12';
+            ctx.beginPath();
+            ctx.roundRect(320 * scale, 224 * scale, 32 * scale, 24 * scale, 4 * scale);
+            ctx.fill();
+
+            // Viewfinder
+            ctx.fillStyle = '#34495e';
+            ctx.beginPath();
+            ctx.roundRect(168 * scale, 224 * scale, 48 * scale, 24 * scale, 4 * scale);
+            ctx.fill();
+
+            // AI Sparkles
+            ctx.fillStyle = '#3498db';
+
+            // Top Left
+            drawSparkle(ctx, 160 * scale, 168 * scale, 8 * scale);
+            // Top Right
+            drawSparkle(ctx, 352 * scale, 168 * scale, 8 * scale);
+            // Bottom
+            drawSparkle(ctx, 256 * scale, 424 * scale, 8 * scale);
+
+            return canvas;
+        }
+
+        function drawSparkle(ctx, cx, cy, size) {
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - size);
+            ctx.lineTo(cx + size, cy);
+            ctx.lineTo(cx, cy + size);
+            ctx.lineTo(cx - size, cy);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Generate 192x192 icon
+        const icon192 = createIcon(192);
+        icon192.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'icon-192.png';
+            link.textContent = 'Download icon-192.png';
+            link.style.display = 'block';
+            link.style.margin = '10px';
+            document.getElementById('result').appendChild(link);
+
+            const img = document.createElement('img');
+            img.src = url;
+            img.width = 192;
+            img.height = 192;
+            document.getElementById('result').appendChild(img);
+        });
+
+        // Generate 512x512 icon
+        const icon512 = createIcon(512);
+        icon512.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'icon-512.png';
+            link.textContent = 'Download icon-512.png';
+            link.style.display = 'block';
+            link.style.margin = '10px';
+            document.getElementById('result').appendChild(link);
+
+            const img = document.createElement('img');
+            img.src = url;
+            img.width = 256;
+            img.height = 256;
+            document.getElementById('result').appendChild(img);
+        });
+
+        console.log('Icons generated. Please download and save them.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <meta property="og:title" content="チケットアプリ - ホーム">
+  <meta property="og:description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1282b85/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="チケットアプリ - ホーム">
+  <meta name="twitter:description" content="イベントチケットを簡単に購入・管理できるチケットアプリ">
+  <title>チケットアプリ</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="./" class="logo">チケットアプリ</a>
+      <nav>
+        <ul>
+          <li><a href="./">ホーム</a></li>
+          <li><a href="./search.html">検索</a></li>
+          <li><a href="./mytickets.html">マイチケット</a></li>
+          <li><a href="#" id="logout-btn">ログアウト</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div id="alert-container"></div>
+
+      <section style="margin-bottom: 48px;">
+        <h1 class="page-title">ようこそ、<span id="user-email" class="highlight"></span></h1>
+        <p style="color: var(--text-secondary); margin-bottom: 24px;">
+          お気に入りのイベントを探して、チケットを購入しましょう
+        </p>
+      </section>
+
+      <section style="margin-bottom: 48px;">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px;">
+          <span class="highlight">あなたへのおすすめ</span>
+        </h2>
+        <div id="recommendations-loading" class="loading">
+          <div class="spinner"></div>
+          <p>おすすめを読み込み中...</p>
+        </div>
+        <div id="recommendations-container" class="grid" style="display: none;"></div>
+        <p id="recommendations-reason" style="color: var(--text-secondary); margin-top: 16px; text-align: center;"></p>
+      </section>
+
+      <section style="margin-bottom: 48px;">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px;">人気のイベント</h2>
+        <div id="popular-loading" class="loading">
+          <div class="spinner"></div>
+          <p>イベントを読み込み中...</p>
+        </div>
+        <div id="popular-container" class="grid" style="display: none;"></div>
+      </section>
+
+      <section>
+        <div style="text-align: center; padding: 48px 24px; background-color: var(--background); border-radius: 8px;">
+          <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;">もっとイベントを探す</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 24px;">
+            カテゴリーや日付で絞り込んで、お好みのイベントを見つけましょう
+          </p>
+          <a href="./search.html" class="btn btn-primary">イベントを検索</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 チケットアプリ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/search.js"></script>
+  <script src="./js/recommendations.js"></script>
+
+  <script>
+    let currentUser = null;
+    let allEvents = [];
+
+    // Firebase初期化
+    initializeFirebase().then(async () => {
+      currentUser = await checkAuth(true);
+      if (currentUser) {
+        document.getElementById('user-email').textContent = currentUser.email;
+        await loadEvents();
+      }
+    });
+
+    // ログアウト
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut();
+    });
+
+    // イベント読み込み
+    async function loadEvents() {
+      const result = await getAllEvents();
+
+      if (result.success && result.events.length > 0) {
+        allEvents = result.events;
+        displayPopularEvents();
+        displayRecommendations();
+      } else {
+        // イベントがない場合はサンプルイベントを作成
+        showAlert('イベントデータがありません。サンプルデータを作成しますか?', 'info');
+        const createResult = await createSampleEvents();
+        if (createResult.success) {
+          showAlert(createResult.message, 'success');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+      }
+    }
+
+    // 人気イベントの表示
+    function displayPopularEvents() {
+      const container = document.getElementById('popular-container');
+      const loading = document.getElementById('popular-loading');
+
+      const popular = getPopularEvents(allEvents);
+
+      if (popular.events.length > 0) {
+        container.innerHTML = popular.events.map(event => createEventCard(event)).join('');
+        container.style.display = 'grid';
+      } else {
+        container.innerHTML = '<div class="empty-state"><p>現在表示できるイベントがありません</p></div>';
+        container.style.display = 'block';
+      }
+
+      loading.style.display = 'none';
+    }
+
+    // おすすめイベントの表示
+    async function displayRecommendations() {
+      const container = document.getElementById('recommendations-container');
+      const loading = document.getElementById('recommendations-loading');
+      const reasonText = document.getElementById('recommendations-reason');
+
+      const recommended = await getRecommendedEvents(currentUser.uid, allEvents);
+
+      if (recommended.events.length > 0) {
+        container.innerHTML = recommended.events.map(event => createEventCard(event)).join('');
+        container.style.display = 'grid';
+        reasonText.textContent = recommended.reason;
+      } else {
+        container.innerHTML = '<div class="empty-state"><p>おすすめのイベントがありません</p></div>';
+        container.style.display = 'block';
+        reasonText.textContent = '';
+      }
+
+      loading.style.display = 'none';
+    }
+
+    // イベントカードの作成
+    function createEventCard(event) {
+      return `
+        <div class="card event-card" onclick="window.location.href='./detail.html?id=${event.id}'">
+          <div class="event-image">${event.title.charAt(0)}</div>
+          <span class="event-category">${getCategoryLabel(event.category)}</span>
+          <h3 class="card-title">${event.title}</h3>
+          <p class="event-date">${formatDate(event.date)}</p>
+          <p class="card-subtitle">${event.location}</p>
+          <p class="event-price">${formatPrice(event.price)}</p>
+        </div>
+      `;
+    }
+
+    // アラート表示
+    function showAlert(message, type = 'info') {
+      const alertContainer = document.getElementById('alert-container');
+      const alertClass = type === 'error' ? 'alert-error' : (type === 'success' ? 'alert-success' : 'alert-info');
+      alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+      setTimeout(() => {
+        alertContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>

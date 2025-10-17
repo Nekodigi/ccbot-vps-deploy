@@ -1,0 +1,34 @@
+{
+  "name": "WordShare - 単語帳SNS",
+  "short_name": "WordShare",
+  "description": "単語帳を作成・共有できるSNS型学習アプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c3e50",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "social"],
+  "shortcuts": [
+    {
+      "name": "新規単語帳作成",
+      "short_name": "新規作成",
+      "description": "新しい単語帳を作成",
+      "url": "./index.html?action=create",
+      "icons": [{ "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}

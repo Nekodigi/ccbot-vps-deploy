@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>単語帳アプリ サムネイル</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decorative elements */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .shape1 {
+            width: 400px;
+            height: 400px;
+            background: white;
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape2 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .shape3 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            top: 50%;
+            left: 10%;
+            opacity: 0.1;
+        }
+
+        /* Content container */
+        .content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        /* Card illustration */
+        .card-stack {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            width: 320px;
+            height: 200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .card1 {
+            transform: rotate(-5deg) translateX(-20px);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            z-index: 1;
+        }
+
+        .card2 {
+            transform: rotate(3deg) translateX(20px) translateY(10px);
+            background: linear-gradient(135deg, #ffffff 0%, #fff5fb 100%);
+            z-index: 2;
+        }
+
+        .card-text {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* SNS icons decoration */
+        .sns-icons {
+            position: absolute;
+            top: 20px;
+            right: 80px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .sns-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            font-size: 22px;
+        }
+
+        /* Main title */
+        .title {
+            font-size: 72px;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            margin-top: 280px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Feature tags */
+        .features {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 12px 28px;
+            border-radius: 25px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Sparkle effects */
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .sparkle1 { top: 15%; left: 20%; animation-delay: 0s; }
+        .sparkle2 { top: 25%; right: 15%; animation-delay: 0.5s; }
+        .sparkle3 { bottom: 20%; left: 15%; animation-delay: 1s; }
+        .sparkle4 { top: 60%; right: 25%; animation-delay: 1.5s; }
+    </style>
+
+    <meta property="og:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:description" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="単語帳作成とSNS機能を持つアプリ。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/1deb1b1a/thumbnail.png">
+  </head>
+<body>
+    <div class="thumbnail">
+        <!-- Background shapes -->
+        <div class="bg-shape shape1"></div>
+        <div class="bg-shape shape2"></div>
+        <div class="bg-shape shape3"></div>
+
+        <!-- Sparkles -->
+        <div class="sparkle sparkle1"></div>
+        <div class="sparkle sparkle2"></div>
+        <div class="sparkle sparkle3"></div>
+        <div class="sparkle sparkle4"></div>
+
+        <!-- SNS Icons -->
+        <div class="sns-icons">
+            <div class="sns-icon">👥</div>
+            <div class="sns-icon">💬</div>
+            <div class="sns-icon">❤️</div>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <!-- Flashcard illustration -->
+            <div class="card-stack">
+                <div class="card card1">
+                    <div class="card-text">Word</div>
+                </div>
+                <div class="card card2">
+                    <div class="card-text">単語</div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <div class="title">
+                単語帳 × SNS
+            </div>
+
+            <!-- Subtitle -->
+            <div class="subtitle">
+                学習を共有して、みんなで成長
+            </div>
+
+            <!-- Feature tags -->
+            <div class="features">
+                <div class="feature-tag">📚 単語帳作成</div>
+                <div class="feature-tag">🌐 SNS機能</div>
+                <div class="feature-tag">📊 学習記録</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

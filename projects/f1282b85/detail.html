@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="イベント詳細とチケット購入">
+  <meta property="og:title" content="チケットアプリ - イベント詳細">
+  <meta property="og:description" content="イベント詳細とチケット購入">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1282b85/detail.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="チケットアプリ - イベント詳細">
+  <meta name="twitter:description" content="イベント詳細とチケット購入">
+  <title>イベント詳細 - チケットアプリ</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="./" class="logo">チケットアプリ</a>
+      <nav>
+        <ul>
+          <li><a href="./">ホーム</a></li>
+          <li><a href="./search.html">検索</a></li>
+          <li><a href="./mytickets.html">マイチケット</a></li>
+          <li><a href="#" id="logout-btn">ログアウト</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div id="alert-container"></div>
+
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>イベント情報を読み込み中...</p>
+      </div>
+
+      <div id="event-detail" style="display: none;">
+        <div style="margin-bottom: 24px;">
+          <a href="./search.html" style="color: var(--primary-color); text-decoration: none;">
+            ← 検索結果に戻る
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="event-image" id="event-image"></div>
+          <span class="event-category" id="event-category"></span>
+          <h1 class="card-title" id="event-title" style="font-size: 28px;"></h1>
+
+          <div style="margin: 24px 0;">
+            <p style="margin-bottom: 12px;">
+              <strong>日時:</strong>
+              <span id="event-date" class="highlight"></span>
+            </p>
+            <p style="margin-bottom: 12px;">
+              <strong>会場:</strong>
+              <span id="event-location"></span>
+            </p>
+            <p style="margin-bottom: 12px;">
+              <strong>価格:</strong>
+              <span id="event-price" class="highlight" style="font-size: 24px; font-weight: 700;"></span>
+            </p>
+            <p style="margin-bottom: 12px;">
+              <strong>残りチケット:</strong>
+              <span id="event-tickets"></span>
+            </p>
+          </div>
+
+          <div style="margin: 24px 0;">
+            <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">イベント詳細</h2>
+            <p id="event-description" style="color: var(--text-secondary); line-height: 1.8;"></p>
+          </div>
+
+          <div style="margin-top: 32px;">
+            <div class="form-group">
+              <label for="quantity">購入枚数</label>
+              <input type="number" id="quantity" min="1" max="10" value="1" style="max-width: 200px;">
+            </div>
+            <button id="purchase-btn" class="btn btn-success btn-full">チケットを購入</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-state" class="empty-state" style="display: none;">
+        <div class="empty-state-icon">⚠️</div>
+        <div class="empty-state-title">イベントが見つかりませんでした</div>
+        <p>
+          <a href="./search.html" class="btn btn-primary">イベント検索に戻る</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 チケットアプリ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/search.js"></script>
+  <script src="./js/purchase.js"></script>
+
+  <script>
+    let currentUser = null;
+    let currentEvent = null;
+
+    // Firebase初期化
+    initializeFirebase().then(async () => {
+      currentUser = await checkAuth(true);
+      if (currentUser) {
+        await loadEventDetail();
+      }
+    });
+
+    // ログアウト
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      signOut();
+    });
+
+    // イベント詳細の読み込み
+    async function loadEventDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get('id');
+
+      if (!eventId) {
+        showErrorState();
+        return;
+      }
+
+      const result = await getEventById(eventId);
+
+      if (result.success) {
+        currentEvent = result.event;
+        displayEventDetail(currentEvent);
+      } else {
+        showErrorState();
+      }
+    }
+
+    // イベント詳細の表示
+    function displayEventDetail(event) {
+      document.getElementById('event-image').textContent = event.title.charAt(0);
+      document.getElementById('event-category').textContent = getCategoryLabel(event.category);
+      document.getElementById('event-title').textContent = event.title;
+      document.getElementById('event-date').textContent = formatDate(event.date);
+      document.getElementById('event-location').textContent = event.location;
+      document.getElementById('event-price').textContent = formatPrice(event.price);
+      document.getElementById('event-tickets').textContent = `${event.availableTickets}枚`;
+      document.getElementById('event-description').textContent = event.description;
+
+      // 数量の最大値を在庫数に設定
+      const quantityInput = document.getElementById('quantity');
+      quantityInput.max = Math.min(10, event.availableTickets);
+
+      // 在庫がない場合は購入ボタンを無効化
+      const purchaseBtn = document.getElementById('purchase-btn');
+      if (event.availableTickets === 0) {
+        purchaseBtn.disabled = true;
+        purchaseBtn.textContent = '売り切れ';
+        purchaseBtn.classList.remove('btn-success');
+        purchaseBtn.classList.add('btn-secondary');
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('event-detail').style.display = 'block';
+    }
+
+    // 購入ボタンのクリック
+    document.getElementById('purchase-btn').addEventListener('click', async () => {
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      if (!currentEvent || quantity < 1) {
+        showAlert('購入枚数を確認してください', 'error');
+        return;
+      }
+
+      if (quantity > currentEvent.availableTickets) {
+        showAlert('在庫が不足しています', 'error');
+        return;
+      }
+
+      // 購入確認
+      if (!confirm(`${currentEvent.title}のチケットを${quantity}枚購入しますか?\n合計金額: ${formatPrice(currentEvent.price * quantity)}`)) {
+        return;
+      }
+
+      // 購入ボタンを無効化
+      const purchaseBtn = document.getElementById('purchase-btn');
+      purchaseBtn.disabled = true;
+      purchaseBtn.textContent = '購入処理中...';
+
+      const result = await purchaseTicket(currentUser.uid, currentEvent.id, quantity);
+
+      if (result.success) {
+        showAlert('チケットを購入しました!', 'success');
+        setTimeout(() => {
+          window.location.href = './mytickets.html';
+        }, 1500);
+      } else {
+        showAlert(result.error, 'error');
+        purchaseBtn.disabled = false;
+        purchaseBtn.textContent = 'チケットを購入';
+      }
+    });
+
+    // エラー状態の表示
+    function showErrorState() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error-state').style.display = 'block';
+    }
+
+    // アラート表示
+    function showAlert(message, type = 'info') {
+      const alertContainer = document.getElementById('alert-container');
+      const alertClass = type === 'error' ? 'alert-error' : (type === 'success' ? 'alert-success' : 'alert-info');
+      alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+      setTimeout(() => {
+        alertContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+</body>
+</html>
