@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="カメラで撮影した画像に関する質問をAIに尋ねることができるアプリケーション">
+    <meta name="keywords" content="AI,画像認識,質問,カメラ,Firebase,Gemini">
+    <meta name="author" content="Nekokazu">
+
+    <!-- OGP -->
+    <meta property="og:title" content="AI画像質問アプリ">
+    <meta property="og:description" content="カメラで撮影した画像に関する質問をAIに尋ねることができるアプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1aae677">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/f1aae677/icon-512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI画像質問アプリ">
+    <meta name="twitter:description" content="カメラで撮影した画像に関する質問をAIに尋ねることができるアプリケーション">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/f1aae677/icon-512.png">
+
+    <title>AI画像質問アプリ</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI画像質問アプリ</h1>
+            <p class="subtitle">撮影した画像について、AIに質問できます</p>
+        </header>
+
+        <main>
+            <!-- カメラセクション -->
+            <section class="camera-section">
+                <div class="camera-container">
+                    <video id="camera-preview" autoplay playsinline></video>
+                    <canvas id="camera-canvas"></canvas>
+                    <img id="captured-image" alt="撮影した画像">
+                </div>
+
+                <div class="camera-controls">
+                    <button id="start-camera-btn" class="btn btn-primary">
+                        <span class="btn-icon">📷</span>
+                        カメラを起動
+                    </button>
+                    <button id="capture-btn" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">📸</span>
+                        撮影
+                    </button>
+                    <button id="retake-btn" class="btn btn-secondary" style="display: none;">
+                        <span class="btn-icon">🔄</span>
+                        撮り直す
+                    </button>
+                </div>
+            </section>
+
+            <!-- 質問セクション -->
+            <section class="question-section">
+                <div class="input-group">
+                    <label for="question-input" class="input-label">質問を入力してください</label>
+                    <textarea
+                        id="question-input"
+                        class="question-input"
+                        placeholder="この画像について質問を入力してください（例：これは何ですか？）"
+                        rows="3"
+                        disabled
+                    ></textarea>
+                </div>
+
+                <button id="ask-btn" class="btn btn-primary btn-large" disabled>
+                    <span class="btn-icon">🤖</span>
+                    AIに質問する
+                </button>
+            </section>
+
+            <!-- 回答セクション -->
+            <section class="answer-section" style="display: none;">
+                <h2 class="section-title">AIの回答</h2>
+                <div id="answer-content" class="answer-content"></div>
+            </section>
+
+            <!-- ローディング -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>AIが回答を生成しています...</p>
+            </div>
+
+            <!-- エラーメッセージ -->
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Nekokazu. Powered by Firebase AI Logic SDK (Gemini)</p>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

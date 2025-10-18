@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#2c3e50"/>
+  <rect x="96" y="96" width="320" height="320" rx="16" fill="#ffffff"/>
+
+  <!-- Checkmark icon -->
+  <path d="M 180 240 L 220 280 L 300 180" stroke="#3498db" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Lines representing tasks -->
+  <rect x="140" y="160" width="100" height="12" rx="6" fill="#ecf0f1"/>
+  <rect x="140" y="200" width="140" height="12" rx="6" fill="#ecf0f1"/>
+  <rect x="140" y="320" width="120" height="12" rx="6" fill="#ecf0f1"/>
+  <rect x="140" y="360" width="160" height="12" rx="6" fill="#ecf0f1"/>
+</svg>

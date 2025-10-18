@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="シンプルで使いやすいPWAアプリケーション">
+    <meta name="theme-color" content="#2c3e50">
+
+    <!-- OGP Meta Tags -->
+    <!-- Twitter Card Meta Tags -->
+    <title>Simple PWA App</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="./icon-192x192.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./styles.css">
+
+    <meta property="og:title" content="シンプルなウェブアプリのファイル一式。">
+    <meta property="og:description" content="シンプルなウェブアプリのファイル一式。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="シンプルなウェブアプリのファイル一式。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d/thumbnail.png">
+  </head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Simple PWA App</h1>
+            <p class="subtitle">シンプルで使いやすいアプリケーション</p>
+        </header>
+
+        <main class="main-content">
+            <section class="card">
+                <h2 class="section-title">ようこそ</h2>
+                <p class="section-text">
+                    このアプリケーションは、オフラインでも動作可能なPWA対応アプリです。
+                    ホーム画面に追加して、いつでもアクセスできます。
+                </p>
+            </section>
+
+            <section class="card">
+                <h2 class="section-title">データ管理</h2>
+                <div class="data-form">
+                    <input
+                        type="text"
+                        id="dataInput"
+                        class="input-field"
+                        placeholder="データを入力してください"
+                        aria-label="データ入力フィールド"
+                    >
+                    <button id="saveButton" class="button button-primary">保存</button>
+                </div>
+                <div id="dataList" class="data-list"></div>
+            </section>
+
+            <section class="card">
+                <h2 class="section-title">アプリの状態</h2>
+                <div class="status-info">
+                    <div class="status-item">
+                        <span class="status-label">接続状態:</span>
+                        <span id="connectionStatus" class="status-value">確認中...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Service Worker:</span>
+                        <span id="swStatus" class="status-value">確認中...</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Simple PWA App. Created by Nekokazu</p>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

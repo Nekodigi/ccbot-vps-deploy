@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA App - テスト</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .test-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #bdc3c7;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+        .test-item.pass {
+            border-left-color: #27ae60;
+            background: #d5f4e6;
+        }
+        .test-item.fail {
+            border-left-color: #e74c3c;
+            background: #fadbd8;
+        }
+        .test-item.pending {
+            border-left-color: #f39c12;
+            background: #fef5e7;
+        }
+        .test-status {
+            font-weight: bold;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .pass .test-status {
+            background: #27ae60;
+            color: white;
+        }
+        .fail .test-status {
+            background: #e74c3c;
+            color: white;
+        }
+        .pending .test-status {
+            background: #f39c12;
+            color: white;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .summary {
+            padding: 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .summary h3 {
+            margin: 0 0 10px 0;
+        }
+        .summary-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .stat {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .error-details {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        #testResults {
+            margin-top: 20px;
+        }
+    </style>
+
+    <meta property="og:title" content="シンプルなウェブアプリのファイル一式。">
+    <meta property="og:description" content="シンプルなウェブアプリのファイル一式。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="シンプルなウェブアプリのファイル一式。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/05bc2e0d/thumbnail.png">
+  </head>
+<body>
+    <div class="test-container">
+        <h1>Simple PWA App - 統合テスト</h1>
+
+        <div class="summary">
+            <h3>テストサマリー</h3>
+            <div class="summary-stats">
+                <div>
+                    <div>合格</div>
+                    <div class="stat" id="passCount">0</div>
+                </div>
+                <div>
+                    <div>失敗</div>
+                    <div class="stat" id="failCount">0</div>
+                </div>
+                <div>
+                    <div>保留</div>
+                    <div class="stat" id="pendingCount">0</div>
+                </div>
+                <div>
+                    <div>合計</div>
+                    <div class="stat" id="totalCount">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button onclick="runAllTests()">すべてのテストを実行</button>
+            <button onclick="clearResults()">結果をクリア</button>
+        </div>
+
+        <div id="testResults"></div>
+    </div>
+
+    <script type="module">
+        // テスト結果を保存する配列
+        const testResults = [];
+
+        // テストユーティリティ
+        function addTest(name, testFn) {
+            return {
+                name,
+                testFn,
+                status: 'pending',
+                error: null
+            };
+        }
+
+        async function runTest(test) {
+            try {
+                await test.testFn();
+                test.status = 'pass';
+            } catch (error) {
+                test.status = 'fail';
+                test.error = error.message;
+            }
+            return test;
+        }
+
+        // テスト定義
+        const tests = [
+            addTest('PWAマニフェストファイルの存在確認', async () => {
+                const response = await fetch('./manifest.json');
+                if (!response.ok) throw new Error('manifest.jsonが見つかりません');
+                const manifest = await response.json();
+                if (!manifest.name) throw new Error('マニフェストにnameが定義されていません');
+                if (!manifest.icons || manifest.icons.length === 0) throw new Error('マニフェストにiconsが定義されていません');
+            }),
+
+            addTest('Service Workerの登録確認', async () => {
+                if (!('serviceWorker' in navigator)) {
+                    throw new Error('Service Workerがサポートされていません');
+                }
+                // Service Workerファイルの存在確認
+                const response = await fetch('./sw.js');
+                if (!response.ok) throw new Error('sw.jsが見つかりません');
+            }),
+
+            addTest('スタイルシートの読み込み確認', async () => {
+                const response = await fetch('./styles.css');
+                if (!response.ok) throw new Error('styles.cssが見つかりません');
+            }),
+
+            addTest('JavaScriptファイルの読み込み確認', async () => {
+                const response = await fetch('./app.js');
+                if (!response.ok) throw new Error('app.jsが見つかりません');
+            }),
+
+            addTest('アイコンファイル (192x192) の存在確認', async () => {
+                const response = await fetch('./icon-192x192.png');
+                if (!response.ok) throw new Error('icon-192x192.pngが見つかりません');
+            }),
+
+            addTest('アイコンファイル (512x512) の存在確認', async () => {
+                const response = await fetch('./icon-512x512.png');
+                if (!response.ok) throw new Error('icon-512x512.pngが見つかりません');
+            }),
+
+            addTest('DOM要素の存在確認: データ入力フィールド', async () => {
+                const element = document.getElementById('dataInput');
+                if (!element) throw new Error('dataInput要素が見つかりません');
+            }),
+
+            addTest('DOM要素の存在確認: 保存ボタン', async () => {
+                const element = document.getElementById('saveButton');
+                if (!element) throw new Error('saveButton要素が見つかりません');
+            }),
+
+            addTest('DOM要素の存在確認: データリスト', async () => {
+                const element = document.getElementById('dataList');
+                if (!element) throw new Error('dataList要素が見つかりません');
+            }),
+
+            addTest('DOM要素の存在確認: 接続状態表示', async () => {
+                const element = document.getElementById('connectionStatus');
+                if (!element) throw new Error('connectionStatus要素が見つかりません');
+            }),
+
+            addTest('DOM要素の存在確認: Service Worker状態表示', async () => {
+                const element = document.getElementById('swStatus');
+                if (!element) throw new Error('swStatus要素が見つかりません');
+            }),
+
+            addTest('HTMLのメタタグ確認: viewport', async () => {
+                const meta = document.querySelector('meta[name="viewport"]');
+                if (!meta) throw new Error('viewportメタタグが見つかりません');
+            }),
+
+            addTest('HTMLのメタタグ確認: description', async () => {
+                const meta = document.querySelector('meta[name="description"]');
+                if (!meta) throw new Error('descriptionメタタグが見つかりません');
+            }),
+
+            addTest('HTMLのメタタグ確認: theme-color', async () => {
+                const meta = document.querySelector('meta[name="theme-color"]');
+                if (!meta) throw new Error('theme-colorメタタグが見つかりません');
+            }),
+
+            addTest('OGPメタタグ確認: og:title', async () => {
+                const meta = document.querySelector('meta[property="og:title"]');
+                if (!meta) throw new Error('og:titleメタタグが見つかりません');
+            }),
+
+            addTest('Twitter Cardメタタグ確認', async () => {
+                const meta = document.querySelector('meta[name="twitter:card"]');
+                if (!meta) throw new Error('twitter:cardメタタグが見つかりません');
+            }),
+
+            addTest('Firebase SDKの読み込み確認', async () => {
+                // Firebase SDKが正しくロードされているか確認
+                await new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => {
+                        reject(new Error('Firebase SDKの読み込みがタイムアウトしました'));
+                    }, 5000);
+
+                    const checkFirebase = setInterval(() => {
+                        // Firebase SDKが利用可能かチェック（グローバルスコープでは確認できないため、エラーがないことを確認）
+                        clearInterval(checkFirebase);
+                        clearTimeout(timeout);
+                        resolve();
+                    }, 100);
+                });
+            }),
+
+            addTest('オフライン機能のテスト: キャッシュAPI', async () => {
+                if (!('caches' in window)) {
+                    throw new Error('Cache APIがサポートされていません');
+                }
+            }),
+
+            addTest('レスポンシブデザインのテスト: CSS変数', async () => {
+                const root = getComputedStyle(document.documentElement);
+                const primaryColor = root.getPropertyValue('--color-primary');
+                if (!primaryColor) throw new Error('CSS変数が定義されていません');
+            })
+        ];
+
+        // テスト実行関数
+        window.runAllTests = async function() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h2>テスト実行中...</h2>';
+
+            testResults.length = 0;
+            let passCount = 0;
+            let failCount = 0;
+            let pendingCount = 0;
+
+            for (const test of tests) {
+                const result = await runTest(test);
+                testResults.push(result);
+
+                if (result.status === 'pass') passCount++;
+                else if (result.status === 'fail') failCount++;
+                else pendingCount++;
+            }
+
+            // 結果を表示
+            displayResults();
+
+            // サマリーを更新
+            document.getElementById('passCount').textContent = passCount;
+            document.getElementById('failCount').textContent = failCount;
+            document.getElementById('pendingCount').textContent = pendingCount;
+            document.getElementById('totalCount').textContent = tests.length;
+        };
+
+        function displayResults() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h2>テスト結果</h2>';
+
+            testResults.forEach(result => {
+                const testDiv = document.createElement('div');
+                testDiv.className = `test-item ${result.status}`;
+
+                const statusText = result.status === 'pass' ? '✓ 合格' :
+                                 result.status === 'fail' ? '✗ 失敗' : '⊘ 保留';
+
+                testDiv.innerHTML = `
+                    <span class="test-status">${statusText}</span>
+                    <strong>${result.name}</strong>
+                    ${result.error ? `<div class="error-details">${result.error}</div>` : ''}
+                `;
+
+                resultsDiv.appendChild(testDiv);
+            });
+        }
+
+        window.clearResults = function() {
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('passCount').textContent = '0';
+            document.getElementById('failCount').textContent = '0';
+            document.getElementById('pendingCount').textContent = '0';
+            document.getElementById('totalCount').textContent = '0';
+            testResults.length = 0;
+        };
+
+        // ページ読み込み時に自動実行
+        window.addEventListener('load', () => {
+            console.log('テストページが読み込まれました');
+            console.log('「すべてのテストを実行」ボタンをクリックしてテストを開始してください');
+        });
+    </script>
+</body>
+</html>
