@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="シンプルで洗練されたデザインのビジネスWebアプリケーション">
+    <meta name="keywords" content="ビジネス,Webアプリ,PWA">
+    <meta name="author" content="Nekokazu">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/977fb8bc/">
+    <meta property="og:title" content="ビジネスWebアプリケーション">
+    <meta property="og:description" content="シンプルで洗練されたデザインのビジネスWebアプリケーション">
+    <meta property="og:image" content="./icon-512.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vps.nekodigi.com/ccbot/projects/977fb8bc/">
+    <meta property="twitter:title" content="ビジネスWebアプリケーション">
+    <meta property="twitter:description" content="シンプルで洗練されたデザインのビジネスWebアプリケーション">
+    <meta property="twitter:image" content="./icon-512.png">
+
+    <title>ビジネスWebアプリケーション</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">ビジネスアプリ</h1>
+            <nav class="header-nav">
+                <button id="addBtn" class="btn-primary">コンテンツを追加</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main">
+        <div class="container">
+            <!-- 検索機能 -->
+            <section class="search-section">
+                <div class="search-box">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        class="search-input"
+                        placeholder="検索..."
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn" class="search-btn" aria-label="検索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- コンテンツ表示エリア -->
+            <section class="content-section">
+                <div id="contentList" class="content-list">
+                    <!-- コンテンツがここに動的に追加されます -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <p>コンテンツがまだありません。<br>「コンテンツを追加」ボタンから追加してください。</p>
+                </div>
+                <div id="loadingState" class="loading-state" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>読み込み中...</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- モーダル: コンテンツ追加 -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>コンテンツを追加</h2>
+                <button id="closeAddModal" class="modal-close" aria-label="閉じる">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addContentForm">
+                    <div class="form-group">
+                        <label for="contentTitle" class="form-label">タイトル</label>
+                        <input
+                            type="text"
+                            id="contentTitle"
+                            class="form-input"
+                            required
+                            placeholder="タイトルを入力"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="contentDescription" class="form-label">説明</label>
+                        <textarea
+                            id="contentDescription"
+                            class="form-textarea"
+                            rows="4"
+                            required
+                            placeholder="説明を入力"
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentPriority" class="form-label">重要度</label>
+                        <select id="contentPriority" class="form-select">
+                            <option value="normal">通常</option>
+                            <option value="high">高</option>
+                            <option value="urgent">緊急</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancelAddBtn" class="btn-secondary">キャンセル</button>
+                        <button type="submit" class="btn-primary">追加</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: コンテンツ詳細 -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="detailTitle"></h2>
+                <button id="closeDetailModal" class="modal-close" aria-label="閉じる">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="detailPriority" class="priority-badge"></div>
+                <p id="detailDescription" class="detail-description"></p>
+                <p id="detailTimestamp" class="detail-timestamp"></p>
+                <div class="form-actions">
+                    <button id="deleteBtn" class="btn-danger">削除</button>
+                    <button id="closeDetailBtn" class="btn-secondary">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="./app.js"></script>
+
+    <noscript>
+        <p>このアプリケーションはJavaScriptが必要です。ブラウザの設定でJavaScriptを有効にしてください。</p>
+    </noscript>
+</body>
+</html>

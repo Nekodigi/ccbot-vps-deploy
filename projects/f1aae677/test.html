@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI画像質問アプリ - テスト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f7fa;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            color: #34495e;
+            margin: 2rem 0 1rem;
+            font-size: 1.25rem;
+        }
+
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+
+        .test-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .test-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .test-status.pass {
+            background-color: #27ae60;
+        }
+
+        .test-status.fail {
+            background-color: #e74c3c;
+        }
+
+        .test-status.pending {
+            background-color: #95a5a6;
+        }
+
+        .test-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .test-result {
+            font-size: 0.875rem;
+            color: #7f8c8d;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 1rem;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .summary {
+            background-color: #e8f5e9;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+            border-left: 4px solid #27ae60;
+        }
+
+        .summary.fail {
+            background-color: #ffebee;
+            border-left-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background-color: #ffebee;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        #test-output {
+            margin-top: 2rem;
+        }
+
+        .code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            margin: 1rem 0;
+        }
+
+        .controls {
+            margin: 2rem 0;
+        }
+    </style>
+
+    <meta property="og:title" content="カメラで写った物について質問できるアプリ。">
+    <meta property="og:description" content="カメラで写った物について質問できるアプリ。">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/f1aae677">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/f1aae677/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="カメラで写った物について質問できるアプリ。">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/f1aae677/thumbnail.png">
+  </head>
+<body>
+    <div class="container">
+        <h1>AI画像質問アプリ - 統合テスト</h1>
+
+        <div class="controls">
+            <button id="run-tests-btn">全テストを実行</button>
+            <button id="run-unit-btn">ユニットテストのみ</button>
+            <button id="run-integration-btn">統合テストのみ</button>
+        </div>
+
+        <div id="test-output">
+            <div class="test-section">
+                <h2>1. 環境チェック</h2>
+                <div id="env-tests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>2. ファイル存在チェック</h2>
+                <div id="file-tests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>3. HTML構造チェック</h2>
+                <div id="html-tests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>4. CSS機能チェック</h2>
+                <div id="css-tests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>5. JavaScript機能チェック</h2>
+                <div id="js-tests"></div>
+            </div>
+
+            <div class="test-section">
+                <h2>6. PWA機能チェック</h2>
+                <div id="pwa-tests"></div>
+            </div>
+
+            <div id="summary"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // ========================================
+        // テストユーティリティ
+        // ========================================
+        class TestRunner {
+            constructor() {
+                this.tests = [];
+                this.results = {
+                    passed: 0,
+                    failed: 0,
+                    total: 0
+                };
+            }
+
+            addTest(name, testFn, category) {
+                this.tests.push({ name, testFn, category });
+            }
+
+            async runTests(filter = null) {
+                this.results = { passed: 0, failed: 0, total: 0 };
+
+                const testsToRun = filter
+                    ? this.tests.filter(t => t.category === filter)
+                    : this.tests;
+
+                for (const test of testsToRun) {
+                    await this.runTest(test);
+                }
+
+                this.displaySummary();
+            }
+
+            async runTest(test) {
+                const container = document.getElementById(`${test.category}-tests`);
+                const testItem = document.createElement('div');
+                testItem.className = 'test-item';
+
+                const status = document.createElement('div');
+                status.className = 'test-status pending';
+
+                const name = document.createElement('div');
+                name.className = 'test-name';
+                name.textContent = test.name;
+
+                const result = document.createElement('div');
+                result.className = 'test-result';
+
+                testItem.appendChild(status);
+                testItem.appendChild(name);
+                testItem.appendChild(result);
+                container.appendChild(testItem);
+
+                try {
+                    await test.testFn();
+                    status.className = 'test-status pass';
+                    result.textContent = 'PASS';
+                    this.results.passed++;
+                } catch (error) {
+                    status.className = 'test-status fail';
+                    result.innerHTML = `FAIL<div class="error-message">${error.message}</div>`;
+                    this.results.failed++;
+                }
+
+                this.results.total++;
+            }
+
+            displaySummary() {
+                const summary = document.getElementById('summary');
+                const allPassed = this.results.failed === 0;
+
+                summary.className = allPassed ? 'summary' : 'summary fail';
+                summary.innerHTML = `
+                    <h2>テスト結果サマリー</h2>
+                    <p><strong>合計:</strong> ${this.results.total} テスト</p>
+                    <p><strong>成功:</strong> ${this.results.passed}</p>
+                    <p><strong>失敗:</strong> ${this.results.failed}</p>
+                    <p><strong>成功率:</strong> ${((this.results.passed / this.results.total) * 100).toFixed(1)}%</p>
+                `;
+            }
+
+            clearResults() {
+                ['env', 'file', 'html', 'css', 'js', 'pwa'].forEach(category => {
+                    const container = document.getElementById(`${category}-tests`);
+                    container.innerHTML = '';
+                });
+                document.getElementById('summary').innerHTML = '';
+            }
+        }
+
+        const runner = new TestRunner();
+
+        // ========================================
+        // 1. 環境チェック
+        // ========================================
+        runner.addTest('HTTPS接続チェック', async () => {
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                throw new Error('HTTPSまたはlocalhostで実行してください');
+            }
+        }, 'env');
+
+        runner.addTest('getUserMedia APIサポート', async () => {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error('getUserMedia APIがサポートされていません');
+            }
+        }, 'env');
+
+        runner.addTest('Service Workerサポート', async () => {
+            if (!('serviceWorker' in navigator)) {
+                throw new Error('Service Workerがサポートされていません');
+            }
+        }, 'env');
+
+        // ========================================
+        // 2. ファイル存在チェック
+        // ========================================
+        runner.addTest('index.htmlの存在', async () => {
+            const response = await fetch('./index.html');
+            if (!response.ok) throw new Error('index.htmlが見つかりません');
+        }, 'file');
+
+        runner.addTest('styles.cssの存在', async () => {
+            const response = await fetch('./styles.css');
+            if (!response.ok) throw new Error('styles.cssが見つかりません');
+        }, 'file');
+
+        runner.addTest('app.jsの存在', async () => {
+            const response = await fetch('./app.js');
+            if (!response.ok) throw new Error('app.jsが見つかりません');
+        }, 'file');
+
+        runner.addTest('manifest.jsonの存在', async () => {
+            const response = await fetch('./manifest.json');
+            if (!response.ok) throw new Error('manifest.jsonが見つかりません');
+        }, 'file');
+
+        runner.addTest('service-worker.jsの存在', async () => {
+            const response = await fetch('./service-worker.js');
+            if (!response.ok) throw new Error('service-worker.jsが見つかりません');
+        }, 'file');
+
+        runner.addTest('icon-192.pngの存在', async () => {
+            const response = await fetch('./icon-192.png');
+            if (!response.ok) throw new Error('icon-192.pngが見つかりません');
+        }, 'file');
+
+        runner.addTest('icon-512.pngの存在', async () => {
+            const response = await fetch('./icon-512.png');
+            if (!response.ok) throw new Error('icon-512.pngが見つかりません');
+        }, 'file');
+
+        // ========================================
+        // 3. HTML構造チェック
+        // ========================================
+        runner.addTest('必須メタタグの存在', async () => {
+            const response = await fetch('./index.html');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            const requiredMeta = ['og:title', 'og:description', 'twitter:card'];
+            for (const name of requiredMeta) {
+                const meta = doc.querySelector(`meta[property="${name}"], meta[name="${name}"]`);
+                if (!meta) throw new Error(`${name} メタタグが見つかりません`);
+            }
+        }, 'html');
+
+        runner.addTest('manifest.jsonのリンク', async () => {
+            const response = await fetch('./index.html');
+            const html = await response.text();
+            if (!html.includes('rel="manifest"')) {
+                throw new Error('manifest.jsonへのリンクが見つかりません');
+            }
+        }, 'html');
+
+        // ========================================
+        // 4. CSS機能チェック
+        // ========================================
+        runner.addTest('CSSファイルの有効性', async () => {
+            const response = await fetch('./styles.css');
+            const css = await response.text();
+            if (css.length < 100) throw new Error('CSSファイルが空または小さすぎます');
+        }, 'css');
+
+        runner.addTest('レスポンシブデザイン設定', async () => {
+            const response = await fetch('./styles.css');
+            const css = await response.text();
+            if (!css.includes('@media')) {
+                throw new Error('レスポンシブデザインの設定が見つかりません');
+            }
+        }, 'css');
+
+        // ========================================
+        // 5. JavaScript機能チェック
+        // ========================================
+        runner.addTest('Firebase設定の存在', async () => {
+            const response = await fetch('./app.js');
+            const js = await response.text();
+            if (!js.includes('firebaseConfig')) {
+                throw new Error('Firebase設定が見つかりません');
+            }
+        }, 'js');
+
+        runner.addTest('Firebase AI Logic SDKのインポート', async () => {
+            const response = await fetch('./app.js');
+            const js = await response.text();
+            if (!js.includes('firebase-ai.js') && !js.includes('firebase/ai')) {
+                throw new Error('Firebase AI Logic SDKのインポートが見つかりません');
+            }
+        }, 'js');
+
+        runner.addTest('getUserMediaの使用', async () => {
+            const response = await fetch('./app.js');
+            const js = await response.text();
+            if (!js.includes('getUserMedia')) {
+                throw new Error('getUserMediaの使用が見つかりません');
+            }
+        }, 'js');
+
+        // ========================================
+        // 6. PWA機能チェック
+        // ========================================
+        runner.addTest('manifest.jsonの有効性', async () => {
+            const response = await fetch('./manifest.json');
+            const manifest = await response.json();
+
+            const required = ['name', 'short_name', 'start_url', 'display', 'icons'];
+            for (const field of required) {
+                if (!manifest[field]) {
+                    throw new Error(`manifest.jsonに${field}が見つかりません`);
+                }
+            }
+        }, 'pwa');
+
+        runner.addTest('Service Workerの構文', async () => {
+            const response = await fetch('./service-worker.js');
+            const sw = await response.text();
+
+            const required = ['install', 'activate', 'fetch'];
+            for (const event of required) {
+                if (!sw.includes(`'${event}'`) && !sw.includes(`"${event}"`)) {
+                    throw new Error(`Service Workerに${event}イベントが見つかりません`);
+                }
+            }
+        }, 'pwa');
+
+        // ========================================
+        // イベントリスナー
+        // ========================================
+        document.getElementById('run-tests-btn').addEventListener('click', async () => {
+            runner.clearResults();
+            await runner.runTests();
+        });
+
+        document.getElementById('run-unit-btn').addEventListener('click', async () => {
+            runner.clearResults();
+            await runner.runTests('env');
+            await runner.runTests('file');
+        });
+
+        document.getElementById('run-integration-btn').addEventListener('click', async () => {
+            runner.clearResults();
+            await runner.runTests('html');
+            await runner.runTests('css');
+            await runner.runTests('js');
+            await runner.runTests('pwa');
+        });
+
+        // 自動実行
+        window.addEventListener('load', async () => {
+            console.log('テストページが読み込まれました');
+        });
+    </script>
+</body>
+</html>

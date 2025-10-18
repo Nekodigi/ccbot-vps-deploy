@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="シンプルで洗練されたビジネス向けPWAアプリケーション">
+    <meta name="keywords" content="PWA,ビジネスアプリ,シンプル,ミニマル">
+    <meta name="author" content="Nekokazu">
+
+    <!-- OGP Tags -->
+    <meta property="og:title" content="ビジネスPWAアプリ">
+    <meta property="og:description" content="シンプルで洗練されたビジネス向けPWAアプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vps.nekodigi.com/ccbot/projects/523bcbff">
+    <meta property="og:image" content="https://vps.nekodigi.com/ccbot/projects/523bcbff/icons/icon-512.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ビジネスPWAアプリ">
+    <meta name="twitter:description" content="シンプルで洗練されたビジネス向けPWAアプリケーション">
+    <meta name="twitter:image" content="https://vps.nekodigi.com/ccbot/projects/523bcbff/icons/icon-512.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+    <title>ビジネスPWAアプリ</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">ビジネスダッシュボード</h1>
+            <nav class="header-nav">
+                <button id="menuBtn" class="menu-btn" aria-label="メニューを開く">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- ステータスインジケーター -->
+            <section class="status-section">
+                <div class="status-indicator" id="onlineStatus">
+                    <span class="status-dot online"></span>
+                    <span class="status-text">オンライン</span>
+                </div>
+            </section>
+
+            <!-- メイングリッド - Bentoレイアウト -->
+            <section class="bento-grid">
+                <!-- 重要情報カード -->
+                <article class="card card-highlight">
+                    <div class="card-header">
+                        <h2 class="card-title">重要な通知</h2>
+                        <span class="badge badge-important">重要</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">本日の重要なタスクが3件あります</p>
+                        <div class="metric">
+                            <span class="metric-value">3</span>
+                            <span class="metric-label">件の未完了タスク</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" id="viewTasksBtn">詳細を確認</button>
+                    </div>
+                </article>
+
+                <!-- データカード1 -->
+                <article class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">今月の実績</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric">
+                            <span class="metric-value">87%</span>
+                            <span class="metric-label">達成率</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- データカード2 -->
+                <article class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">進行中のプロジェクト</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric">
+                            <span class="metric-value">5</span>
+                            <span class="metric-label">プロジェクト</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- データカード3 -->
+                <article class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">チームメンバー</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric">
+                            <span class="metric-value">12</span>
+                            <span class="metric-label">アクティブメンバー</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- データリストセクション -->
+            <section class="data-section">
+                <div class="section-header">
+                    <h2 class="section-title">保存されたデータ</h2>
+                    <button class="btn btn-secondary" id="addDataBtn">データを追加</button>
+                </div>
+                <div id="dataList" class="data-list">
+                    <!-- Firestoreから動的に読み込まれます -->
+                    <div class="empty-state">
+                        <p>データを読み込み中...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">&copy; 2025 ビジネスPWAアプリ</p>
+        </div>
+    </footer>
+
+    <!-- モーダル -->
+    <div id="dataModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">データを追加</h3>
+                <button class="modal-close" id="closeModalBtn" aria-label="閉じる">&times;</button>
+            </div>
+            <form id="dataForm" class="modal-body">
+                <div class="form-group">
+                    <label for="dataTitle" class="form-label">タイトル</label>
+                    <input type="text" id="dataTitle" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="dataContent" class="form-label">内容</label>
+                    <textarea id="dataContent" class="form-textarea" rows="4" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Modular) -->
+    <script type="module" src="./js/firebase-init.js"></script>
+    <script type="module" src="./js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
