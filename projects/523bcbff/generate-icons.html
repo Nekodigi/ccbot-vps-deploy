@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アイコン生成</title>
+</head>
+<body>
+    <h1>PWAアイコン生成中...</h1>
+    <canvas id="canvas192" width="192" height="192" style="display:none;"></canvas>
+    <canvas id="canvas512" width="512" height="512" style="display:none;"></canvas>
+    <div id="status"></div>
+
+    <script>
+        // 192x192アイコン生成
+        function generateIcon192() {
+            const canvas = document.getElementById('canvas192');
+            const ctx = canvas.getContext('2d');
+            const size = 192;
+
+            // 背景
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(0, 0, size, size);
+
+            // 白い背景
+            ctx.fillStyle = '#ffffff';
+            roundRect(ctx, size * 0.15625, size * 0.15625, size * 0.6875, size * 0.6875, size * 0.0391);
+
+            // グリッドアイテム
+            ctx.fillStyle = '#2c3e50';
+            roundRect(ctx, size * 0.234375, size * 0.2734375, size * 0.234375, size * 0.15625, size * 0.015625);
+            roundRect(ctx, size * 0.53125, size * 0.2734375, size * 0.234375, size * 0.15625, size * 0.015625);
+            roundRect(ctx, size * 0.234375, size * 0.4921875, size * 0.234375, size * 0.15625, size * 0.015625);
+
+            // 強調アイテム
+            ctx.fillStyle = '#e74c3c';
+            roundRect(ctx, size * 0.53125, size * 0.4921875, size * 0.234375, size * 0.15625, size * 0.015625);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        // 512x512アイコン生成
+        function generateIcon512() {
+            const canvas = document.getElementById('canvas512');
+            const ctx = canvas.getContext('2d');
+            const size = 512;
+
+            // 背景
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(0, 0, size, size);
+
+            // 白い背景
+            ctx.fillStyle = '#ffffff';
+            roundRect(ctx, size * 0.15625, size * 0.15625, size * 0.6875, size * 0.6875, size * 0.0391);
+
+            // グリッドアイテム
+            ctx.fillStyle = '#2c3e50';
+            roundRect(ctx, size * 0.234375, size * 0.2734375, size * 0.234375, size * 0.15625, size * 0.015625);
+            roundRect(ctx, size * 0.53125, size * 0.2734375, size * 0.234375, size * 0.15625, size * 0.015625);
+            roundRect(ctx, size * 0.234375, size * 0.4921875, size * 0.234375, size * 0.15625, size * 0.015625);
+
+            // 強調アイテム
+            ctx.fillStyle = '#e74c3c';
+            roundRect(ctx, size * 0.53125, size * 0.4921875, size * 0.234375, size * 0.15625, size * 0.015625);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        // 角丸矩形を描画
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // ダウンロード処理
+        function downloadIcon(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            link.click();
+        }
+
+        // 自動生成と保存
+        window.addEventListener('load', () => {
+            const status = document.getElementById('status');
+
+            try {
+                // アイコン生成
+                const icon192 = generateIcon192();
+                const icon512 = generateIcon512();
+
+                // ダウンロード
+                downloadIcon(icon192, 'icon-192.png');
+                setTimeout(() => {
+                    downloadIcon(icon512, 'icon-512.png');
+                    status.innerHTML = '<p style="color: green;">アイコンが生成されました。ダウンロードフォルダからiconsフォルダに移動してください。</p>';
+                }, 100);
+
+            } catch (error) {
+                status.innerHTML = '<p style="color: red;">エラー: ' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>
