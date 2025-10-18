@@ -2,9 +2,9 @@
 // Firebase AI Logic SDK (Gemini) 画像質問アプリ
 // ========================================
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
-import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
-import { getAI, getGenerativeModel, GoogleAIBackend } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-ai.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+import { getAI, getGenerativeModel, GoogleAIBackend } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-ai.js';
 
 // ========================================
 // Firebase設定
@@ -66,45 +66,9 @@ function showLoading(show) {
 }
 
 // ========================================
-// カメラサポートチェック
-// ========================================
-function checkCameraSupport() {
-    const httpsWarning = document.getElementById('https-warning');
-
-    // HTTPS環境チェック（localhostは例外）
-    const isSecureContext = window.isSecureContext;
-    if (!isSecureContext) {
-        if (httpsWarning) {
-            httpsWarning.style.display = 'block';
-        }
-        showError('カメラを使用するにはHTTPS接続が必要です。HTTPSでアクセスしてください。');
-        startCameraBtn.disabled = true;
-        return false;
-    } else {
-        if (httpsWarning) {
-            httpsWarning.style.display = 'none';
-        }
-    }
-
-    // メディアデバイスAPIのサポートチェック
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        showError('お使いのブラウザはカメラ機能に対応していません。最新版のブラウザをご利用ください。');
-        startCameraBtn.disabled = true;
-        return false;
-    }
-
-    return true;
-}
-
-// ========================================
 // カメラ起動
 // ========================================
 async function startCamera() {
-    // カメラサポートチェック
-    if (!checkCameraSupport()) {
-        return;
-    }
-
     try {
         // 既存のストリームを停止
         if (stream) {
@@ -112,7 +76,7 @@ async function startCamera() {
         }
 
         // カメラへのアクセスを要求（背面カメラを優先）
-        let constraints = {
+        const constraints = {
             video: {
                 facingMode: { ideal: 'environment' },
                 width: { ideal: 1280 },
@@ -120,21 +84,7 @@ async function startCamera() {
             }
         };
 
-        try {
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
-        } catch (firstError) {
-            // 背面カメラでエラーが出た場合、フロントカメラを試す
-            console.warn('背面カメラへのアクセスに失敗しました。フロントカメラを試します。', firstError);
-            constraints = {
-                video: {
-                    facingMode: 'user',
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            };
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
-        }
-
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
         cameraPreview.srcObject = stream;
         cameraPreview.classList.add('active');
         capturedImage.classList.remove('active');
@@ -149,15 +99,13 @@ async function startCamera() {
 
         let errorMsg = 'カメラの起動に失敗しました。';
         if (error.name === 'NotFoundError') {
-            errorMsg = 'カメラデバイスが見つかりません。デバイスにカメラが接続されているか確認してください。';
+            errorMsg = 'カメラデバイスが見つかりません。';
         } else if (error.name === 'NotAllowedError') {
-            errorMsg = 'カメラへのアクセスが拒否されました。ブラウザの設定でカメラの使用を許可してください。';
+            errorMsg = 'カメラへのアクセスが拒否されました。ブラウザの設定を確認してください。';
         } else if (error.name === 'NotReadableError') {
-            errorMsg = 'カメラは既に他のアプリケーションで使用中です。他のアプリを閉じてから再度お試しください。';
+            errorMsg = 'カメラは既に使用中です。';
         } else if (error.name === 'OverconstrainedError') {
-            errorMsg = '指定されたカメラ設定がサポートされていません。デバイスのカメラ仕様を確認してください。';
-        } else if (error.name === 'TypeError') {
-            errorMsg = 'カメラへのアクセスに失敗しました。HTTPS接続でアクセスしているか確認してください。';
+            errorMsg = '指定されたカメラ設定がサポートされていません。';
         }
 
         showError(errorMsg);
@@ -333,15 +281,3 @@ if ('serviceWorker' in navigator) {
 // 初期化完了メッセージ
 // ========================================
 console.log('AI画像質問アプリが正常に起動しました。');
-
-// ========================================
-// ページ読み込み時の初期チェック
-// ========================================
-window.addEventListener('DOMContentLoaded', () => {
-    // カメラサポートの初期チェック
-    if (!checkCameraSupport()) {
-        console.warn('カメラ機能が利用できません。');
-    } else {
-        console.log('カメラ機能が利用可能です。');
-    }
-});

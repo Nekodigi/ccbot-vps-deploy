@@ -305,20 +305,6 @@ section {
 }
 
 /* ========================================
-   警告メッセージ
-   ======================================== */
-.warning-message {
-    background-color: #fffbeb;
-    border-left: 4px solid var(--warning-color);
-    color: #92400e;
-    padding: var(--spacing-md);
-    border-radius: var(--radius-md);
-    font-size: var(--font-sm);
-    margin-top: var(--spacing-md);
-    text-align: left;
-}
-
-/* ========================================
    フッター
    ======================================== */
 footer {
